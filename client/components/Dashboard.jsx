@@ -8,15 +8,15 @@ import { UserContext } from '../App.jsx';
 const appStatusLabel = {
   1: 'Not Applied',
   2: 'Applied',
-  3: 'Phone Screening', 
+  3: 'Phone Screening',
   4: 'Technical Interview',
   5: 'Interviewing',
   6: 'Offer Received',
   7: 'Offer Accepted',
   8: 'Offer Rejected',
   9: 'Application Rejected',
-  10: 'Not Interested'
-}
+  10: 'Not Interested',
+};
 
 const Dashboard = () => {
   let history = useHistory();
@@ -98,74 +98,69 @@ const Dashboard = () => {
     history.push(path);
   };
 
+  console.log(tracker);
   const renderBody = () => {
-    return (
-      tracker &&
-      tracker.map(
-        (
-          {
-            id,
-            job_title,
-            company,
-            found_by,
-            how_applied,
-            date_applied,
-            location,
-            notes,
-            app_status,
-            operation,
-          },
-          index
-        ) => {
-          return (
-            <tr key={id}>
-              <td id="hide-ID-col">{id}</td>
-              <td>{company}</td>
-              <td>{job_title}</td>
-              <td>{location}</td>
-              <td className="low-priority-col">{found_by}</td>
-              <td className="low-priority-col">{how_applied}</td>
-              <td className="low-priority-col" id="date-column">
-                {new Date(date_applied).toLocaleDateString('en-US')}
-              </td>
+    return tracker.map(
+      (
+        {
+          id,
+          company,
+          job_title,
+          how_applied,
+          url,
+          date_applied,
+          location,
+          found_by,
+          notes,
+          app_status,
+        },
+        index
+      ) => {
+        return (
+          <tr key={id}>
+            <td id="hide-ID-col">{id}</td>
+            <td>{company}</td>
+            <td>{job_title}</td>
+            <td>{location}</td>
+            <td className="low-priority-col">{found_by}</td>
+            <td className="low-priority-col">{how_applied}</td>
+            <td className="low-priority-col" id="date-column">
+              {new Date(date_applied).toLocaleDateString('en-US')}
+            </td>
 
-              <td className="low-priority-col" id="notes-column">
-                {notes}
-              </td>
-              <td>{appStatusLabel[app_status]}</td>
-              <td className="operation">
-                <button
-                  className="deleteButton"
-                  onClick={() => setShowModal({ action: 'edit', id: index })}
-                >
-                  Edit
-                </button>
-                <button
-                  className="button"
-                  onClick={() => removeApplications(id)}
-                >
-                  Delete
-                </button>
+            <td className="low-priority-col" id="notes-column">
+              {notes}
+            </td>
+            <td>{appStatusLabel[app_status]}</td>
+            <td className="operation">
+              <button
+                className="deleteButton"
+                onClick={() => setShowModal({ action: 'edit', id: index })}
+              >
+                Edit
+              </button>
+              <button className="button" onClick={() => removeApplications(id)}>
+                Delete
+              </button>
 
-                <Link
-                  to={{
-                    pathname: `/application/${id}/step`,
-                    state: { application : tracker[index] },
-                  }}
+              <Link
+                to={{
+                  pathname: `/application/${id}/step`,
+                  state: { application: tracker[index] },
+                }}
+              >
+                <button
+                  src="step"
+                  className="editStep"
+                  // onClick={changeRoute} id={id}
                 >
-                  <button
-                    src="step"
-                    className="editStep"
-                    // onClick={changeRoute} id={id}
-                  >
-                    View progress
-                  </button>
-                </Link>
-              </td>
-            </tr>
-          );
-        }
-      )
+                  View progress
+                </button>
+              </Link>
+            </td>
+          </tr>
+        );
+      }
     );
   };
 
@@ -181,9 +176,14 @@ const Dashboard = () => {
               </thead>
               <tbody>{renderBody()}</tbody>
             </table>
-            <button onClick={() => {
-              context.saveUser(null)
-              history.goBack()}}>Sign out</button>
+            <button
+              onClick={() => {
+                context.saveUser(null);
+                history.goBack();
+              }}
+            >
+              Sign out
+            </button>
 
             <button onClick={() => setShowModal({ action: 'add', id: null })}>
               Add new application

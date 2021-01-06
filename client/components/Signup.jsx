@@ -1,16 +1,16 @@
-import React, { useState, useContext } from "react";
-import { Link, Redirect, useHistory } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { UserContext } from '../App.jsx';
 
 const Signup = () => {
   let history = useHistory();
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [dob, setDOB] = useState(new Date());
-  const [cur_salary, setSalary] = useState(0);
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  // const [dob, setDOB] = useState(new Date());
+  // const [cur_salary, setSalary] = useState(0);
 
   const context = useContext(UserContext);
 
@@ -20,34 +20,35 @@ const Signup = () => {
     let responseStatus = 0;
     // check if passwords match before submit
     if (password !== password2) {
-      alert("password does not match");
+      alert('password does not match');
     } else {
-      fetch("/user/signup", {
-        method: "POST",
+      fetch('/user/signup', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           first_name,
           last_name,
           email,
           password,
-          cur_salary,
-          dob,
+          // cur_salary,
+          // dob,
         }),
-      }).then((resp) => {
-        console.log(resp.status === 200 ? "logged in" : "NOT logged in");
-        if (resp.status === 200) responseStatus = 200;
-        return resp.json();
-      }).then((data) => {
-        
-        if (responseStatus === 200) {
-          console.log('data', data);
-          context.saveUser(data.id);
-          history.push("/dashboard");
-        }
       })
-      .catch(err => console.log('err', err));
+        .then((resp) => {
+          console.log(resp.status === 200 ? 'logged in' : 'NOT logged in');
+          if (resp.status === 200) responseStatus = 200;
+          return resp.json();
+        })
+        .then((data) => {
+          if (responseStatus === 200) {
+            console.log('data', data);
+            context.saveUser(data.id);
+            history.push('/dashboard');
+          }
+        })
+        .catch((err) => console.log('err', err));
     }
   };
 
@@ -91,7 +92,7 @@ const Signup = () => {
               className="inputSignUp"
             />
           </li>
-           Password
+          Password
           <li>
             <input
               type="password"
@@ -113,7 +114,7 @@ const Signup = () => {
               className="inputSignUp"
             />
           </li>
-          Date of Birth
+          {/* Date of Birth
           <li>
             <input
               type="date"
@@ -131,12 +132,12 @@ const Signup = () => {
               onChange={(e) => setSalary(e.target.value)}
               className="inputSignUp"
             />
-          </li>
+          </li> */}
           {/* <li> */}
-            <input type="submit" value="Create Account" />
+          <input type="submit" value="Create Account" />
           {/* </li> */}
           {/* <li> */}
-            <button onClick={() => history.goBack()}>Back</button>
+          <button onClick={() => history.goBack()}>Back</button>
           {/* </li> */}
         </form>
       </div>
