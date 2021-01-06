@@ -1,5 +1,5 @@
-const db = require("../models/model.js");
-const bcrypt = require("bcrypt");
+const db = require('../models/model.js');
+const bcrypt = require('bcrypt');
 
 const userController = {};
 
@@ -7,7 +7,7 @@ userController.getUserData = (req, res, next) => {
   const UID = req.params.user_id;
 
   // get user's personal data
-  const getUserData = "SELECT * FROM job_seekers WHERE id = $1";
+  const getUserData = 'SELECT * FROM job_seekers WHERE id = $1';
 
   db.query(getUserData, [UID]) // array of variables to use in query
     .then((data) => {
@@ -17,9 +17,9 @@ userController.getUserData = (req, res, next) => {
     })
     .catch((err) => {
       return next({
-        log: "usersController.getUserData: ERROR: Error getting database",
+        log: 'usersController.getUserData: ERROR: Error getting database',
         message: {
-          err: "usersController.getUserData: ERROR: Check database for details",
+          err: 'usersController.getUserData: ERROR: Check database for details',
         },
       });
     });
@@ -28,12 +28,12 @@ userController.getUserData = (req, res, next) => {
 userController.createUser = async (req, res, next) => {
   try {
     const {
-      first_name, 
+      first_name,
       last_name,
       email,
       password,
-      cur_salary,
-      DOB,
+      // cur_salary,
+      // DOB,
     } = req.body;
 
     if (!first_name || !last_name || !email || !password)
@@ -43,24 +43,17 @@ userController.createUser = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const createUserText =
-      "INSERT INTO job_seekers (first_name, last_name, email, password, cur_salary, DOB) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *";
-    const createUserVals = [
-      first_name,
-      last_name,
-      email,
-      hashedPassword,
-      cur_salary,
-      DOB,
-    ];
+      'INSERT INTO applicants (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *';
+    const createUserVals = [first_name, last_name, email, hashedPassword];
     const data = await db.query(createUserText, createUserVals);
     res.locals.id = data.rows[0].id;
 
     return next();
   } catch {
     return next({
-      log: "usersController.addUser: ERROR: Error writing to database",
+      log: 'usersController.addUser: ERROR: Error writing to database',
       message: {
-        err: "usersController.addUser: ERROR: Check database for details",
+        err: 'usersController.addUser: ERROR: Check database for details',
       },
     });
   }
@@ -72,7 +65,7 @@ userController.verifyUser = async (req, res, next) => {
   if (!username || !password) return res.sendStatus(401);
 
   try {
-    const verifyUserText = ` SELECT * FROM job_seekers WHERE email = $1`;
+    const verifyUserText = ` SELECT * FROM applicants WHERE email = $1`;
     const verifyUserData = [username];
 
     const data = await db.query(verifyUserText, verifyUserData);
@@ -87,7 +80,7 @@ userController.verifyUser = async (req, res, next) => {
     return next();
   } catch (err) {
     return next({
-      log: "usersController.verifyUser: ERROR: Unable to verify user data.",
+      log: 'usersController.verifyUser: ERROR: Unable to verify user data.',
       message: {
         err: `usersController.verifyUser: ERROR: ${err}`,
       },
