@@ -100,9 +100,9 @@ const Steps = () => {
               <td>{contact_role}</td>
               <td>{contact}</td>
               <td>{notes}</td>
-              <td className="operation">
+              <td className='operation'>
                 <button
-                  className="deleteButton"
+                  className='deleteButton'
                   onClick={() =>
                     setShowModalStep({ action: 'edit', id: index })
                   }
@@ -110,7 +110,7 @@ const Steps = () => {
                   Edit
                 </button>
                 <button
-                  className="button"
+                  className='button'
                   onClick={() => removeStep(id, app_id)}
                 >
                   Delete
@@ -125,15 +125,18 @@ const Steps = () => {
 
   return (
     <>
-      <h1 id="title">Application Progress</h1>
-  <p>{state.application.job_title} at {state.application.company} in {state.application.location}</p>
-      <div className="tableContainer">
-      <table id="stepTracker">
-        <thead>
-          <tr>{renderHeader()}</tr>
-        </thead>
-        <tbody>{renderBody()}</tbody>
-      </table>
+      <h1 id='title'>Application Progress</h1>
+      <p>
+        {state.application.job_title} at {state.application.company} in{' '}
+        {state.application.location}
+      </p>
+      <div className='tableContainer'>
+        <table id='stepTracker'>
+          <thead>
+            <tr>{renderHeader()}</tr>
+          </thead>
+          <tbody>{renderBody()}</tbody>
+        </table>
       </div>
 
       {showModalStep.action ? (
@@ -149,7 +152,9 @@ const Steps = () => {
         />
       ) : (
         <button
-          onClick={() => setShowModalStep({ action: 'add', id: state.application.id })}
+          onClick={() =>
+            setShowModalStep({ action: 'add', id: state.application.id })
+          }
         >
           Add new step
         </button>
