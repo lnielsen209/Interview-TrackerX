@@ -4,6 +4,7 @@ const sessionController = {};
 
 sessionController.startSession = (req, res, next) => {
   const { id } = res.locals;
+  console.log('id-->', id);
   try {
     const token = jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: 30 });
     res.cookie('token', token, { httpOnly: true });

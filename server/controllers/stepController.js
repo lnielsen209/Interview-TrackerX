@@ -94,7 +94,7 @@ stepController.editStep = (req, res, next) => {
     step_type,
     contact_name,
     contact_role,
-    contact_info,
+    contact,
     notes,
   } = req.body;
 
@@ -107,16 +107,18 @@ stepController.editStep = (req, res, next) => {
   notes = $6
   WHERE id = $7
   `;
-  console.log(req.body);
+  console.log('editstep req.body===>', req.body);
   const queryVals = [
     date,
     step_type,
     contact_name,
     contact_role,
-    contact_info,
+    contact,
     notes,
     Number(req.params.step_id),
   ];
+  console.log('stepID===>', req.params.step_id);
+
   db.query(queryText, queryVals)
     .then(({ rows }) => {
       res.locals.step = rows;

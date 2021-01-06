@@ -16,7 +16,7 @@ userController.getUserData = (req, res, next) => {
       return next();
     })
     .catch((err) => {
-      //console.log('getuserdataErr--->', err);
+      console.log('getuserdataErr--->', err);
       return next({
         log: 'usersController.getUserData: ERROR: Error getting database',
         message: {
