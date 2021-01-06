@@ -36,7 +36,7 @@ applicationRouter.delete(
   }
 );
 
-//the param app_id here is the application id, not applicant id
+//the param app_id here is the application id
 applicationRouter.use('/:app_id/step', stepRouter);
 
 module.exports = applicationRouter;
