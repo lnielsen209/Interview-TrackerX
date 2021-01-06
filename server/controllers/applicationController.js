@@ -40,7 +40,7 @@ applicationController.addApp = (req, res, next) => {
   } = req.body;
 
   const addApp =
-    'INSERT INTO applications (job_seeker_id, company, job_title, how_applied, date_applied, location, found_by, notes, app_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
+    'INSERT INTO applications (applicant_id, company, job_title, how_applied, date_applied, location, found_by, notes, app_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
 
   db.query(addApp, [
     UID,
@@ -58,6 +58,7 @@ applicationController.addApp = (req, res, next) => {
       return next();
     })
     .catch((err) => {
+      console.log('addAPP err ==>', err);
       return next({
         log: 'applicationsController.addApp: ERROR: Error writing to database',
         message: {

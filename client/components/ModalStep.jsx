@@ -87,15 +87,15 @@ const ModalStep = ({
   };
 
   return (
-    <div id="div3" className="modalWrapper">
-      <div className="modalBackground">
+    <div id='div3' className='modalWrapper'>
+      <div className='modalBackground'>
         <h2>{modalTitle[action]}</h2>
-        <form id="list" className="modalForm">
+        <form id='list' className='modalForm'>
           <label>
             Date
             <input
-              type="date"
-              id="date"
+              type='date'
+              id='date'
               value={date.slice(0, 10)}
               onChange={(e) => setDate(e.target.value)}
               required
@@ -104,9 +104,9 @@ const ModalStep = ({
           <label>
             Progess
             <input
-              type="text"
-              placeholder="e.g. interview, screening, offer"
-              id="step_type"
+              type='text'
+              placeholder='e.g. interview, screening, offer'
+              id='step_type'
               value={step_type}
               onChange={(e) => setStepType(e.target.value)}
               required
@@ -115,9 +115,9 @@ const ModalStep = ({
           <label>
             Contact Name
             <input
-              type="text"
+              type='text'
               // placeholder="contact information"
-              id="contact_name"
+              id='contact_name'
               value={contact_name}
               onChange={(e) => setContactName(e.target.value)}
               required
@@ -126,9 +126,9 @@ const ModalStep = ({
           <label>
             Contact Role
             <input
-              type="text"
-              placeholder="e.g. HR representative, manager"
-              id="contact_role"
+              type='text'
+              placeholder='e.g. HR representative, manager'
+              id='contact_role'
               value={contact_role}
               onChange={(e) => setContractRole(e.target.value)}
               required
@@ -137,9 +137,9 @@ const ModalStep = ({
           <label>
             Contact
             <input
-              type="text"
-              placeholder="e.g. phone number or email"
-              id="contact"
+              type='text'
+              placeholder='e.g. phone number or email'
+              id='contact'
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               required
@@ -148,25 +148,25 @@ const ModalStep = ({
           <label>
             Notes
             <input
-              type="text"
+              type='text'
               // placeholder="notes"
-              id="notes"
+              id='notes'
               value={notes}
               onChange={(e) => setNote(e.target.value)}
               required
             />
           </label>
-          <div className="modalButtonWrapper">
+          <div className='modalButtonWrapper'>
             <button
-              className="modalButton"
+              className='modalButton'
               onClick={() => setShowModalStep({ action: null, id: null })}
             >
               Cancel
             </button>
 
             <button
-              type="submit"
-              className="modalButton"
+              type='submit'
+              className='modalButton'
               onClick={handleSubmit}
             >
               Save

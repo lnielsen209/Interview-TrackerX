@@ -16,6 +16,7 @@ userController.getUserData = (req, res, next) => {
       return next();
     })
     .catch((err) => {
+      //console.log('getuserdataErr--->', err);
       return next({
         log: 'usersController.getUserData: ERROR: Error getting database',
         message: {
@@ -76,7 +77,10 @@ userController.verifyUser = async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, hashedPassword);
 
     if (!isMatch) return res.sendStatus(401);
+
+    console.log('res.locals.id', data.rows[0].id);
     res.locals.id = data.rows[0].id;
+
     return next();
   } catch (err) {
     return next({
