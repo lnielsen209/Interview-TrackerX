@@ -29,6 +29,7 @@ userRouter.post(
 //log out by replacing the token to " " and set the expiration to 1 millisecond
 userRouter.get('/logout', (req, res) => {
   res.clearCookie('token');
+  console.log('logout==>', res.locals); //contains user(userEmail)
   res.sendStatus(200);
 });
 

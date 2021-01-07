@@ -10,7 +10,7 @@ applicationController.getAllApps = (req, res, next) => {
     'SELECT * FROM applications WHERE applicant_id = $1 ORDER BY id ASC';
   db.query(getAppData, [UID]) // array of variables to use in query
     .then((data) => {
-      console.log('data.rows==>', data.rows);
+      //console.log('data.rows==>', data.rows);
       res.locals.userData = data.rows;
       return next();
     })

@@ -13,7 +13,7 @@ applicationRouter.get(
   //sessionController.isLoggedIn,
   applicationController.getAllApps,
   (req, res) => {
-    console.log('res.locals===>', res.locals);
+    console.log('res.locals===>', res.locals); //contains userDAta and user(userEmail)
     return res.send(res.locals);
   }
 );

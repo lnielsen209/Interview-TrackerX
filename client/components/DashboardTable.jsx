@@ -21,7 +21,8 @@ const DashboardTable = () => {
     try {
       const res = await axios.get(`/user/${context.user.id}/application`);
       if (res.status === 200) {
-        setTracker(res.data);
+        console.log('userEmail===>', res.data.user);
+        setTracker(res.data.userData);
         setUpdateState(false);
       }
     } catch (error) {
@@ -51,7 +52,7 @@ const DashboardTable = () => {
 
   return (
     <div>
-      <table id="tracker">
+      <table id='tracker'>
         <DashboardTableHeader />
         <DashboardTableRows
           tracker={tracker}
