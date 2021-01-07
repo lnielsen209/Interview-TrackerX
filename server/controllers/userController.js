@@ -12,7 +12,7 @@ userController.getUserData = (req, res, next) => {
   db.query(getUserData, [UID]) // array of variables to use in query
     .then((data) => {
       res.locals.userData = data.rows[0];
-
+      console.log('userDAta===>', res.locals.userData);
       return next();
     })
     .catch((err) => {

@@ -5,6 +5,7 @@ import Modal from './Modal.jsx';
 import Step from './Step.jsx';
 import { UserContext } from '../App.jsx';
 import Signout from './signout';
+const axios = require('axios');
 
 const appStatusLabel = {
   1: 'Not Applied',
@@ -29,13 +30,20 @@ const Dashboard = () => {
   console.log('context user', context.user.id);
 
   const fetchApplications = async () => {
-    const resp = await fetch(`/user/${context.user.id}/application`, {
-      method: 'GET',
-      headers: { 'content-type': 'application/JSON' },
-    });
-    const data = await resp.json();
-    setTracker(data);
-    setUpdateState(false);
+    try {
+      const resp = await axios.get(`/user/${context.user.id}/application`);
+
+      console.log('resp===>', resp);
+
+      const userData = resp.data.userData;
+
+      console.log('userData===>', userData);
+      console.log('useremail===>', resp.data.user);
+      setTracker(userData);
+      setUpdateState(false);
+    } catch (err) {
+      console.log('fetchApp err===>', err);
+    }
   };
 
   // get the users data from the DB
