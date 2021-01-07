@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv').config();
+const db = require('../models/model.js');
 
 const sessionController = {};
 
@@ -55,6 +56,36 @@ sessionController.isLoggedIn = async (req, res, next) => {
       },
     });
   }
+};
+
+sessionController.checkUser = (req, res, next) => {
+  const token = req.cookies.token;
+  console.log('checkuser token==>', token);
+
+  if (!token) {
+    res.locals.user = null;
+    next();
+  }
+
+  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+    if (err) {
+      res.locals.user = null;
+      next();
+    } else {
+      const userID = decodedToken.id;
+      const queryText = `SELECT * from applicants WHERE id = $1`;
+
+      db.query(queryText, [userID], (err, data) => {
+        if (err) {
+          console.log('dbERR===>', err);
+          return next(err);
+        }
+        console.log('checkuser email data===>', data.rows[0].email);
+        res.locals.user = data.rows[0].email;
+        return next();
+      });
+    }
+  });
 };
 
 module.exports = sessionController;

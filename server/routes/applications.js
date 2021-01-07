@@ -9,18 +9,25 @@ const stepRouter = require('../routes/steps');
 // get all applications for this user_id
 applicationRouter.get(
   '/',
-  sessionController.isLoggedIn,
+
+  //sessionController.isLoggedIn,
   applicationController.getAllApps,
   (req, res) => {
-    res.status(200).json(res.locals.userData);
+    console.log('res.locals===>', res.locals);
+    return res.send(res.locals);
   }
 );
 
 // add new app
 
-applicationRouter.post('/', applicationController.addApp, (req, res) => {
-  res.status(200).json({});
-});
+applicationRouter.post(
+  '/',
+  sessionController.isLoggedIn,
+  applicationController.addApp,
+  (req, res) => {
+    res.status(200).json({});
+  }
+);
 
 // edit app
 applicationRouter.put('/:app_id', applicationController.editApp, (req, res) => {
