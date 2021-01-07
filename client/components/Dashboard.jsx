@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import Modal from './Modal.jsx';
+import ModalApplication from './ModalApplication.jsx';
 import { UserContext } from '../App.jsx';
 import SignoutButton from './SignoutButton';
 
@@ -196,7 +196,7 @@ const Dashboard = () => {
       </div>
 
       {showModal.action ? (
-        <Modal
+        <ModalApplication
           setShowModal={setShowModal}
           setUpdateState={setUpdateState}
           action={showModal.action}

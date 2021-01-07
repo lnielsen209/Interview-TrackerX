@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { UserContext } from '../App.jsx';
 import StepsHeader from './StepsTableHeader.jsx';
 import StepsRow from './StepsTableRows.jsx';
-import ModalStep from './ModalStep.jsx';
+import StepsFooter from './StepsTableFooter.jsx';
 import axios from 'axios';
 
 const StepsTable = ({ state }) => {
@@ -54,25 +54,6 @@ const StepsTable = ({ state }) => {
     }
   };
 
-  //this is the header
-  //Operation is for Edit and Delete functionality
-  const renderHeader = () => {
-    let headerElement = [
-      'Date',
-      'Progress',
-      'Contact Name',
-      'Contact Role',
-      'Contact Method',
-      'Notes',
-      'Modify',
-    ];
-
-    //now we will map over these values and output as th
-    return headerElement.map((key, index) => {
-      return <th key={index}>{key}</th>;
-    });
-  };
-
  
   return (
     <div className="tableContainer">
@@ -83,29 +64,14 @@ const StepsTable = ({ state }) => {
           setShowModalStep={setShowModalStep}
           removeStep={removeStep}
         />
-      </table>
-      {showModalStep.action ? (
-        <ModalStep
-          //setShowModalStep={setShowModalStep}
-          setShowModalStep={setShowModalStep}
-          action={showModalStep.action}
-          currentStep={
-            showModalStep.action === 'edit'
-              ? stepsTracker[showModalStep.id]
-              : {}
-          }
-          appId={state.application.id}
+        <StepsFooter
+          state={state}
+          stepsTracker={stepsTracker}
           setUpdateState={setUpdateState}
+          showModalStep={showModalStep}
+          setShowModalStep={setShowModalStep}
         />
-      ) : (
-        <button
-          onClick={() =>
-            setShowModalStep({ action: 'add', id: state.application.id })
-          }
-        >
-          Add new step
-        </button>
-      )}
+      </table>
     </div>
   );
 };

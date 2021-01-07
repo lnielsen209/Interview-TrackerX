@@ -7,7 +7,12 @@ const modalTitle = {
   edit: 'Edit application',
 };
 
-const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
+const ModalApplication = ({
+  setShowModal,
+  action,
+  currentApp,
+  setUpdateState,
+}) => {
   const [tracker, setTracker] = useState([]);
 
   const [job_title, setJobTitle] = useState(currentApp.job_title || '');
@@ -222,4 +227,4 @@ const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
   );
 };
 
-export default Modal;
+export default ModalApplication;

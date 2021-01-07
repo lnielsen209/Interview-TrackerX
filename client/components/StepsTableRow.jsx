@@ -18,7 +18,7 @@ const StepsTableRow = ({
   } = stepsTableRow;
 
   return (
-    <tr className="stepsTableRow">
+    <tr className="stepsTa">
       <td>{new Date(date).toLocaleDateString('en-US')}</td>
       <td>{step_type}</td>
       <td>{contact_name}</td>
