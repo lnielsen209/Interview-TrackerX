@@ -6,7 +6,7 @@ const DashboardTableFooter = ({ tracker, showModal, setShowModal, setUpdateState
   return (
     <tfoot>
       <tr>
-        <td colSpan="6">
+        <td colSpan="10">
           {showModal.action ? (
             <ModalApplication
               setShowModal={setShowModal}
