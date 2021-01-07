@@ -7,7 +7,7 @@ userController.getUserData = (req, res, next) => {
   const UID = req.params.user_id;
 
   // get user's personal data
-  const getUserData = 'SELECT * FROM job_seekers WHERE id = $1';
+  const getUserData = 'SELECT * FROM applicants WHERE id = $1';
 
   db.query(getUserData, [UID]) // array of variables to use in query
     .then((data) => {
@@ -50,7 +50,8 @@ userController.createUser = async (req, res, next) => {
     res.locals.id = data.rows[0].id;
 
     return next();
-  } catch {
+  } catch (err) {
+    console.log('createUser err==>', err);
     return next({
       log: 'usersController.addUser: ERROR: Error writing to database',
       message: {
@@ -78,7 +79,7 @@ userController.verifyUser = async (req, res, next) => {
 
     if (!isMatch) return res.sendStatus(401);
 
-    console.log('res.locals.id', data.rows[0].id);
+    console.log('res.locals.id', data.rows[0].id); //=>userid
     res.locals.id = data.rows[0].id;
 
     return next();
