@@ -3,7 +3,7 @@ import StepsModal from './StepsModal.jsx';
 
 const StepsTableFooter = ({
   state,
-  stepsTracker,
+  stepData,
   setUpdateState,
   showModalStep,
   setShowModalStep,
@@ -18,7 +18,7 @@ const StepsTableFooter = ({
               action={showModalStep.action}
               currentStep={
                 showModalStep.action === 'edit'
-                  ? stepsTracker[showModalStep.id]
+                  ? stepData[showModalStep.id]
                   : {}
               }
               appId={state.application.id}

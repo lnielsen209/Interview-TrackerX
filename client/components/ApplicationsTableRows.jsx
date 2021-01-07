@@ -2,16 +2,16 @@ import React from 'react';
 import ApplicationsTableRow from './ApplicationsTableRow.jsx';
 
 const ApplicationsTableRows = ({
-  tracker,
+  appData,
   setShowModal,
   removeApplications,
 }) => {
-  const tableBody = tracker.map((dashboardTableRow, idx) => (
+  const tableBody = appData.map((dashboardTableRow, idx) => (
     <ApplicationsTableRow
       key={`dashboardTableRow-${idx}`}
       idx={idx}
       dashboardTableRow={dashboardTableRow}
-      tracker={tracker}
+      appData={appData}
       setShowModal={setShowModal}
       removeApplications={removeApplications}
     />

@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UserContext } from '../App.jsx';
-import StepsHeader from './StepsTableHeader.jsx';
-import StepsRow from './StepsTableRows.jsx';
-import StepsFooter from './StepsTableFooter.jsx';
+import StepsTableHeader from './StepsTableHeader.jsx';
+import StepsTableRow from './StepsTableRows.jsx';
+import StepsTableFooter from './StepsTableFooter.jsx';
 import axios from 'axios';
 
 const StepsTable = ({ state }) => {
   // react hooks
-  const [stepsTracker, setStepsTracker] = useState([]);
+  const [stepData, setStepData] = useState([]);
   const [updateState, setUpdateState] = useState(true);
   const [showModalStep, setShowModalStep] = useState({
     action: null,
@@ -18,8 +18,7 @@ const StepsTable = ({ state }) => {
   const context = useContext(UserContext);
   console.log('state in Steps Component ===> ', useLocation().state);
 
-
-  console.log('stepsTracker ===> ', stepsTracker)
+  console.log('stepsTracker ===> ', stepData);
 
   // get the applications steps data from the DB
   useEffect(() => {
@@ -32,7 +31,7 @@ const StepsTable = ({ state }) => {
         `/user/${context.user.id}/application/${state.application.id}/step`
       );
       if (res.status === 200) {
-        setStepsTracker(res.data);
+        setStepData(res.data);
         setUpdateState(false);
       }
     } catch (error) {
@@ -54,19 +53,18 @@ const StepsTable = ({ state }) => {
     }
   };
 
- 
   return (
     <div className="tableContainer">
       <table id="stepsTracker">
-        <StepsHeader />
-        <StepsRow
-          stepsTracker={stepsTracker}
+        <StepsTableHeader />
+        <StepsTableRow
+          stepData={stepData}
           setShowModalStep={setShowModalStep}
           removeStep={removeStep}
         />
-        <StepsFooter
+        <StepsTableFooter
           state={state}
-          stepsTracker={stepsTracker}
+          stepData={stepData}
           setUpdateState={setUpdateState}
           showModalStep={showModalStep}
           setShowModalStep={setShowModalStep}

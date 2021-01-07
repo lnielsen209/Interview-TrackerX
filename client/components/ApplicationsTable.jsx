@@ -6,7 +6,7 @@ import ApplicationsTableFooter from './ApplicationsTableFooter.jsx';
 import axios from 'axios';
 
 const ApplicationsTable = () => {
-  const [tracker, setTracker] = useState([]);
+  const [appData, setAppData] = useState([]);
   const [showModal, setShowModal] = useState({ action: null, id: null }); // none / edit /add
   const [updateState, setUpdateState] = useState(true);
 
@@ -21,7 +21,7 @@ const ApplicationsTable = () => {
     try {
       const res = await axios.get(`/user/${context.user.id}/application`);
       if (res.status === 200) {
-        setTracker(res.data);
+        setAppData(res.data);
         setUpdateState(false);
       }
     } catch (error) {
@@ -54,12 +54,12 @@ const ApplicationsTable = () => {
       <table id="tracker">
         <ApplicationsTableHeader />
         <ApplicationsTableRows
-          tracker={tracker}
+          appData={appData}
           setShowModal={setShowModal}
           removeApplications={removeApplications}
         />
         <ApplicationsTableFooter
-          tracker={tracker}
+          appData={appData}
           showModal={showModal}
           setShowModal={setShowModal}
           setUpdateState={setUpdateState}

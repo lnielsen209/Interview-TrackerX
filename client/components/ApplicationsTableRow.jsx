@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const ApplicationsTableRow = ({
   idx,
   dashboardTableRow,
-  tracker,
+  appData,
   setShowModal,
   removeApplications,
 }) => {
@@ -64,7 +64,7 @@ const ApplicationsTableRow = ({
         <Link
           to={{
             pathname: `/application/${id}/step`,
-            state: { application: tracker[idx] },
+            state: { application: appData[idx] },
           }}
         >
           <button src="step" className="editStep">

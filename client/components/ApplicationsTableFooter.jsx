@@ -2,7 +2,7 @@ import React from 'react';
 import ApplicationsModal from './ApplicationsModal.jsx';
 
 const ApplicationsTableFooter = ({
-  tracker,
+  appData,
   showModal,
   setShowModal,
   setUpdateState,
@@ -17,7 +17,7 @@ const ApplicationsTableFooter = ({
               setUpdateState={setUpdateState}
               action={showModal.action}
               currentApp={
-                showModal.action === 'edit' ? tracker[showModal.id] : {}
+                showModal.action === 'edit' ? appData[showModal.id] : {}
               }
             />
           ) : (
