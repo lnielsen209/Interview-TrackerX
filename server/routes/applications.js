@@ -37,6 +37,7 @@ applicationRouter.put('/:app_id', applicationController.editApp, (req, res) => {
 // delete app
 applicationRouter.delete(
   '/:app_id',
+  sessionController.isLoggedIn,
   applicationController.deleteApp,
   (req, res) => {
     res.status(200).json({});
