@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { UserContext } from '../App.jsx';
 import ModalStep from './ModalStep.jsx';
 import axios from 'axios';
 
-const StepsTable = ({state}) => {
+const StepsTable = ({ state }) => {
   // react hooks
   const [stepsTracker, setStepsTracker] = useState([]);
   const [updateState, setUpdateState] = useState(true);
@@ -16,23 +16,26 @@ const StepsTable = ({state}) => {
   const context = useContext(UserContext);
   console.log('state in Steps Component ===> ', useLocation().state);
 
+
+  console.log('stepsTracker ===> ', stepsTracker)
+
   // get the applications steps data from the DB
   useEffect(() => {
     if (updateState) fetchSteps();
   }, [updateState]);
 
   const fetchSteps = async () => {
-    const resp = await fetch(
-      `/user/${context.user.id}/application/${state.application.id}/step`,
-      {
-        method: 'GET',
-        headers: { 'content-type': 'application/JSON' },
+    try {
+      const res = await axios.get(
+        `/user/${context.user.id}/application/${state.application.id}/step`
+      );
+      if (res.status === 200) {
+        setStepsTracker(res.data);
+        setUpdateState(false);
       }
-    );
-    const data = await resp.json();
-    console.log(data);
-    setStepsTracker(data);
-    setUpdateState(false);
+    } catch (error) {
+      console.log('Error in fetchSteps of StepsTable component:', error);
+    }
   };
 
   //Delete step from the DB
@@ -78,7 +81,7 @@ const StepsTable = ({state}) => {
           step_type,
           contact_name,
           contact_role,
-          contact,
+          contact_info,
           notes,
         },
         index
@@ -89,7 +92,7 @@ const StepsTable = ({state}) => {
             <td>{step_type}</td>
             <td>{contact_name}</td>
             <td>{contact_role}</td>
-            <td>{contact}</td>
+            <td>{contact_info}</td>
             <td>{notes}</td>
             <td className="operation">
               <button
