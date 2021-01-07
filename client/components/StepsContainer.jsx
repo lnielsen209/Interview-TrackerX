@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import StepsTable from './StepsTable.jsx';
 
-const Steps = () => {
+const StepsContainer = () => {
   const history = useHistory();
   const { state } = useLocation();
   console.log('state in Steps Component ===> ', useLocation().state);
@@ -19,4 +19,4 @@ const Steps = () => {
     </>
   );
 };
-export default Steps;
+export default StepsContainer;

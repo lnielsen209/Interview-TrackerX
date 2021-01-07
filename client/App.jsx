@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Dashboard from '../client/components/Dashboard';
 import Signup from '../client/components/Signup';
 import Login from '../client/components/Login';
-import Step from './components/Steps';
+import Step from './components/StepsContainer';
 import { Route, Switch, Link, BrowserRouter } from 'react-router-dom';
 
 export const UserContext = React.createContext();

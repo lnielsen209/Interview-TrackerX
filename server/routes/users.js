@@ -30,8 +30,9 @@ userRouter.post(
 
 //log out by replacing the token to " " and set the expiration to 1 millisecond
 userRouter.get('/logout', (req, res) => {
-  res.cookie('token', '', { maxAge: 1 });
-  res.status(200).json('logging out');
+  res.clearCookie('token');
+  // res.cookie('token', '', { maxAge: 1 });
+  res.status(200)
 });
 
 // get user data at login
