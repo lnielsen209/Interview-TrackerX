@@ -66,6 +66,7 @@ const Dashboard = () => {
       'Found by',
       'Applied via',
       'Date applied',
+      'URL',
       'Notes',
       'Status',
       'Modify',
@@ -124,7 +125,7 @@ const Dashboard = () => {
             <td className="low-priority-col" id="date-column">
               {new Date(date_applied).toLocaleDateString('en-US')}
             </td>
-
+            <td>{url}</td>
             <td className="low-priority-col" id="notes-column">
               {notes}
             </td>

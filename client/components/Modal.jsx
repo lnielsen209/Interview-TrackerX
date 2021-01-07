@@ -17,6 +17,7 @@ const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
     currentApp.date_applied || ''
   );
   const [location, setLocation] = useState(currentApp.location || '');
+  const [url, setUrl] = useState(currentApp.url || '');
   const [found_by, setFoundBy] = useState(currentApp.found_by || '');
   const [notes, setNotes] = useState(currentApp.notes || '');
   const [app_status, setAppStatus] = useState(currentApp.app_status || '');
@@ -66,6 +67,7 @@ const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
       company,
       how_applied,
       date_applied,
+      url,
       location,
       found_by,
       notes,
@@ -141,6 +143,17 @@ const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
               id="location"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+            URL
+            <input
+              type="text"
+              // placeholder="URL"
+              id="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
               required
             />
           </label>

@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { UserContext } from '../App.jsx';
+import StepsHeader from './StepsTableHeader.jsx';
+import StepsRow from './StepsTableRows.jsx';
 import ModalStep from './ModalStep.jsx';
 import axios from 'axios';
 
@@ -71,52 +73,16 @@ const StepsTable = ({ state }) => {
     });
   };
 
-  const renderBody = () => {
-    return stepsTracker.map(
-      (
-        {
-          id,
-          app_id,
-          date,
-          step_type,
-          contact_name,
-          contact_role,
-          contact_info,
-          notes,
-        },
-        index
-      ) => {
-        return (
-          <tr key={id}>
-            <td>{new Date(date).toLocaleDateString('en-US')}</td>
-            <td>{step_type}</td>
-            <td>{contact_name}</td>
-            <td>{contact_role}</td>
-            <td>{contact_info}</td>
-            <td>{notes}</td>
-            <td className="operation">
-              <button
-                className="deleteButton"
-                onClick={() => setShowModalStep({ action: 'edit', id: index })}
-              >
-                Edit
-              </button>
-              <button className="button" onClick={() => removeStep(app_id, id)}>
-                Delete
-              </button>
-            </td>
-          </tr>
-        );
-      }
-    );
-  };
+ 
   return (
     <div className="tableContainer">
       <table id="stepsTracker">
-        <thead>
-          <tr>{renderHeader()}</tr>
-        </thead>
-        <tbody>{renderBody()}</tbody>
+        <StepsHeader />
+        <StepsRow
+          stepsTracker={stepsTracker}
+          setShowModalStep={setShowModalStep}
+          removeStep={removeStep}
+        />
       </table>
       {showModalStep.action ? (
         <ModalStep
