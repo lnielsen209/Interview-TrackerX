@@ -5,19 +5,21 @@ const sessionController = require('../controllers/sessionController');
 
 const applicationRouter = require('../routes/applications');
 
-const router = express.Router();
+const userRouter = express.Router();
 
 // Route to create a new user
-router.post(
+userRouter.post(
   '/signup',
   userController.createUser,
   sessionController.startSession,
   (req, res) => {
-    res.status(200).json({ id: res.locals.id });
+    //201 new resource created
+    // console.log('res===>', res);
+    res.status(201).json({ id: res.locals.id });
   }
 );
 
-router.post(
+userRouter.post(
   '/login',
   userController.verifyUser,
   sessionController.startSession,
@@ -26,10 +28,21 @@ router.post(
   }
 );
 
-// get user data at login
-router.get('/:user_id', userController.getUserData, (req, res) => {
-  res.status(200).json(res.locals.userData);
+//log out by replacing the token to " " and set the expiration to 1 millisecond
+userRouter.get('/logout', (req, res) => {
+  res.cookie('token', '', { maxAge: 1 });
+  res.status(200).json('logging out');
 });
+
+// get user data at login
+userRouter.get(
+  '/:user_id',
+
+  userController.getUserData,
+  (req, res) => {
+    res.status(200).json(res.locals.userData);
+  }
+);
 
 // add new user
 // router.post("/", usersController.addUser, (req, res) => {
@@ -46,6 +59,6 @@ router.get('/:user_id', userController.getUserData, (req, res) => {
 //   res.status(200).json({});
 // });
 
-router.use('/:user_id/application', applicationRouter);
+userRouter.use('/:user_id/application', applicationRouter);
 
-module.exports = router;
+module.exports = userRouter;

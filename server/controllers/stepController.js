@@ -11,6 +11,7 @@ stepController.getAllSteps = (req, res, next) => {
       return next();
     })
     .catch((err) => {
+      console.log('getallsteps err--->', err);
       return next({
         log:
           'stepController.getAllSteps: ERROR: Error getting steps from database',
@@ -22,8 +23,11 @@ stepController.getAllSteps = (req, res, next) => {
 };
 
 stepController.addStep = (req, res, next) => {
-  const { user_id, app_id } = req.params;
+  //console.log('req===>', req);
+  // const { app_id } = req.params;
+  // console.log('application_id', app_id);
   const {
+    appId,
     date,
     step_type,
     contact_name,
@@ -32,12 +36,14 @@ stepController.addStep = (req, res, next) => {
     notes,
   } = req.body;
 
+  console.log('req.body===>', req.body);
+
   const addStepText = `INSERT INTO steps 
-  (app_id, date, step_type, contact_name, contact_role, contact, notes) 
+  (app_id, date, step_type, contact_name, contact_role, contact_info, notes) 
   VALUES ($1, $2, $3, $4, $5, $6, $7);`;
 
   const addStepValues = [
-    app_id,
+    appId,
     date,
     step_type,
     contact_name,
@@ -48,10 +54,11 @@ stepController.addStep = (req, res, next) => {
 
   db.query(addStepText, addStepValues)
     .then((data) => {
-      console.log(data.rows);
+      console.log('data.row==>', data.rows);
       return next();
     })
     .catch((err) => {
+      console.log('addstep err-->', err);
       return next({
         log: 'stepController.addStep: ERROR: Error writing to database',
         message: {
@@ -70,6 +77,7 @@ stepController.deleteStep = (req, res, next) => {
       return next();
     })
     .catch((err) => {
+      console.log('delete err===>', err);
       return next({
         log:
           'stepsController.deleteStep: ERROR: Error deleting application from database',
@@ -89,16 +97,17 @@ stepController.editStep = (req, res, next) => {
     contact,
     notes,
   } = req.body;
+
   const queryText = `UPDATE steps SET 
   date = $1, 
   step_type = $2, 
   contact_name = $3, 
   contact_role = $4, 
-  contact = $5, 
+  contact_info = $5, 
   notes = $6
   WHERE id = $7
   `;
-  console.log(req.body);
+  console.log('editstep req.body===>', req.body);
   const queryVals = [
     date,
     step_type,
@@ -108,12 +117,15 @@ stepController.editStep = (req, res, next) => {
     notes,
     Number(req.params.step_id),
   ];
+  console.log('stepID===>', req.params.step_id);
+
   db.query(queryText, queryVals)
     .then(({ rows }) => {
       res.locals.step = rows;
       return next();
     })
     .catch((err) => {
+      console.log('editstep err--->', err);
       return next({
         log:
           'stepController.updateStep: ERROR: Error updating application in database',
