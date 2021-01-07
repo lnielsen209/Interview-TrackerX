@@ -2,9 +2,8 @@ import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Modal from './Modal.jsx';
-import Step from './Step.jsx';
 import { UserContext } from '../App.jsx';
-import Signout from './signout';
+import Signout from './Signout';
 
 const appStatusLabel = {
   1: 'Not Applied',
@@ -53,9 +52,6 @@ const Dashboard = () => {
       },
     }).then((res) => {
       setUpdateState(true);
-      // const del = tracker.filter((tracker) => id !== tracker.id);
-      // setTracker(del);
-      // console.log(id);
     });
   };
 
@@ -92,12 +88,12 @@ const Dashboard = () => {
     });
   };
 
-  const changeRoute = (e) => {
-    const id = e.target.id;
-    let path = `/application/${id}/step`;
+  // const changeRoute = (e) => {
+  //   const id = e.target.id;
+  //   let path = `/application/${id}/step`;
 
-    history.push(path);
-  };
+  //   history.push(path);
+  // };
 
   console.log('tracker===>', tracker);
   const renderBody = () => {

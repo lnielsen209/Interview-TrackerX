@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config();
 
 const sessionController = {};
 
-const maxAge = 30;
+const maxAge = 3600;
 const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: maxAge,
