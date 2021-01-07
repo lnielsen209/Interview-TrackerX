@@ -11,6 +11,7 @@ const SignoutButton = () => {
     try {
       const res = await axios.get('/user/logout');
       if (res.status === 200) {
+        console.log('res.status in SignoutButton Component ===> ', res.status);
         context.saveUser(null);
         history.push('/');
       }
