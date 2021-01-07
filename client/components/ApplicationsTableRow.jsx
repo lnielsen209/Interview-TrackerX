@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const DashboardTableRow = ({
+const ApplicationsTableRow = ({
   idx,
   dashboardTableRow,
   tracker,
@@ -75,4 +75,4 @@ const DashboardTableRow = ({
     </tr>
   );
 };
-export default DashboardTableRow;
+export default ApplicationsTableRow;

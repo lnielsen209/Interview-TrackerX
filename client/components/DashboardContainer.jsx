@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../App.jsx';
-import DashboardTable from './DashboardTable.jsx';
+import ApplicationsTable from './ApplicationsTable.jsx';
 import SignoutButton from './SignoutButton';
 
-const Dashboard = () => {
+const DashboardContainer = () => {
   const context = useContext(UserContext);
 
   return (
@@ -13,7 +13,7 @@ const Dashboard = () => {
       <div className="tableContainer">
         {context.user.id ? (
           <>
-            <DashboardTable />
+            <ApplicationsTable />
             <SignoutButton />
           </>
         ) : (
@@ -25,4 +25,4 @@ const Dashboard = () => {
     </>
   );
 };
-export default Dashboard;
+export default DashboardContainer;

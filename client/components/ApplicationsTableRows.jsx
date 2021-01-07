@@ -1,10 +1,13 @@
 import React from 'react';
-import DashboardTableRow from './DashboardTableRow.jsx';
+import ApplicationsTableRow from './ApplicationsTableRow.jsx';
 
-
-const DashboardTableRows = ({ tracker, setShowModal, removeApplications }) => {
+const ApplicationsTableRows = ({
+  tracker,
+  setShowModal,
+  removeApplications,
+}) => {
   const tableBody = tracker.map((dashboardTableRow, idx) => (
-    <DashboardTableRow
+    <ApplicationsTableRow
       key={`dashboardTableRow-${idx}`}
       idx={idx}
       dashboardTableRow={dashboardTableRow}
@@ -17,4 +20,4 @@ const DashboardTableRows = ({ tracker, setShowModal, removeApplications }) => {
   return <tbody>{tableBody}</tbody>;
 };
 
-export default DashboardTableRows;
+export default ApplicationsTableRows;

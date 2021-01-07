@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DashboardTableHeader = () => {
+const ApplicationsTableHeader = () => {
   const headerElement = [
     'Company',
     'Title',
@@ -36,4 +36,4 @@ const DashboardTableHeader = () => {
   );
 };
 
-export default DashboardTableHeader;
+export default ApplicationsTableHeader;

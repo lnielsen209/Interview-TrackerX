@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../App.jsx';
-import DashboardTableHeader from './DashboardTableHeader.jsx';
-import DashboardTableRows from './DashboardTableRows.jsx';
-import DashboardTableFooter from './DashboardTableFooter.jsx';
+import ApplicationsTableHeader from './ApplicationsTableHeader.jsx';
+import ApplicationsTableRows from './ApplicationsTableRows.jsx';
+import ApplicationsTableFooter from './ApplicationsTableFooter.jsx';
 import axios from 'axios';
 
-const DashboardTable = () => {
+const ApplicationsTable = () => {
   const [tracker, setTracker] = useState([]);
   const [showModal, setShowModal] = useState({ action: null, id: null }); // none / edit /add
   const [updateState, setUpdateState] = useState(true);
@@ -52,13 +52,13 @@ const DashboardTable = () => {
   return (
     <div>
       <table id="tracker">
-        <DashboardTableHeader />
-        <DashboardTableRows
+        <ApplicationsTableHeader />
+        <ApplicationsTableRows
           tracker={tracker}
           setShowModal={setShowModal}
           removeApplications={removeApplications}
         />
-        <DashboardTableFooter
+        <ApplicationsTableFooter
           tracker={tracker}
           showModal={showModal}
           setShowModal={setShowModal}
@@ -69,4 +69,4 @@ const DashboardTable = () => {
   );
 };
 
-export default DashboardTable;
+export default ApplicationsTable;
