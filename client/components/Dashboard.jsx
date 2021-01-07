@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Modal from './Modal.jsx';
 import Step from './Step.jsx';
 import { UserContext } from '../App.jsx';
+import Signout from './signout';
 
 const appStatusLabel = {
   1: 'Not Applied',
@@ -166,6 +167,7 @@ const Dashboard = () => {
 
   return (
     <>
+      <Signout />
       <h2 id='title'>Applications Dashboard</h2>
       <div className='tableContainer'>
         {context.user.id ? (

@@ -46,7 +46,7 @@ sessionController.isLoggedIn = async (req, res, next) => {
   } catch (err) {
     console.log('isLogged in ERR===>', err);
 
-    //redirect to log in in the frontend
+    //redirect to login page in the frontend
     res.status(418); //im a teapot
     return next({
       log: 'sessionController.isLoggedIn: ERROR: Unable to verify JWT token',

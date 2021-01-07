@@ -3,6 +3,7 @@ import './components/Style/Style.css';
 import Dashboard from '../client/components/Dashboard';
 import Signup from '../client/components/Signup';
 import Login from '../client/components/Login';
+import Signout from '../client/components/signout';
 import Step from '../client/components/Step';
 import useToken from './useToken';
 import { Route, Switch, Link, BrowserRouter } from 'react-router-dom';
@@ -29,12 +30,11 @@ const App = () => {
     <UserProvider>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/signup" component={Signup} />
+          <Route exact path='/' component={Login} />
+          <Route path='/dashboard' component={Dashboard} />
+          <Route path='/signup' component={Signup} />
 
-          <Route path="/application/:id/step" component={Step} />
-
+          <Route path='/application/:id/step' component={Step} />
         </Switch>
       </BrowserRouter>
     </UserProvider>
