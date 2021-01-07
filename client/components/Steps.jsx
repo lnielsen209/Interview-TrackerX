@@ -99,7 +99,7 @@ const Steps = () => {
               >
                 Edit
               </button>
-              <button className="button" onClick={() => removeStep(app_id, id)}>
+              <button className="button" onClick={() => removeStep(app_id,id)}>
                 Delete
               </button>
             </td>
