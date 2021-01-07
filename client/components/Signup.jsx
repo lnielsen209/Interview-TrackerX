@@ -4,14 +4,15 @@ import { UserContext } from '../App.jsx';
 import axios from 'axios';
 
 const Signup = () => {
+  // react hooks
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const history = useHistory();
   const context = useContext(UserContext);
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

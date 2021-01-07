@@ -214,7 +214,7 @@ orange: FBB829
   font-weight: 400;
 }
 
-#stepTracker,
+#stepsTracker,
 #tracker {
   border-collapse: collapse;
   /* border: 3px solid #ddd; */
@@ -227,18 +227,18 @@ tr {
 }
 
 #tracker td,
-#stepTracker td,
-#stepTracker th,
+#stepsTracker td,
+#stepsTracker th,
 #tracker th {
   /* border: 1px solid #ddd; */
   padding: 12px;
   overflow: hidden;
 }
-#stepTracker tr:hover,
+#stepsTracker tr:hover,
 #tracker tr:hover {
   background-color: #ddd;
 }
-#stepTracker th,
+#stepsTracker th,
 #tracker th {
   padding: 10px;
   text-align: center;
