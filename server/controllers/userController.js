@@ -20,7 +20,7 @@ userController.getUserData = (req, res, next) => {
       return next({
         log: 'usersController.getUserData: ERROR: Error getting database',
         message: {
-          err: 'usersController.getUserData: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -55,7 +55,7 @@ userController.createUser = async (req, res, next) => {
     return next({
       log: 'usersController.addUser: ERROR: Error writing to database',
       message: {
-        err: 'usersController.addUser: ERROR: Check database for details',
+        err: `${err.message}`,
       },
     });
   }
@@ -63,31 +63,33 @@ userController.createUser = async (req, res, next) => {
 
 userController.verifyUser = async (req, res, next) => {
   const { username, password } = req.body;
-
+​
   if (!username || !password) return res.sendStatus(401);
-
+​
   try {
     const verifyUserText = ` SELECT * FROM applicants WHERE email = $1`;
     const verifyUserData = [username];
-
+​
     const data = await db.query(verifyUserText, verifyUserData);
-
+​
+    if (data.rows.length === 0) {
+      throw new Error('email does not exist!'); //this will throw us to catch block and the error message will be sent via global error handler
+    }
+​
     const hashedPassword = data.rows[0].password;
-
-    if (!hashedPassword) return res.sendStatus(401);
     const isMatch = await bcrypt.compare(password, hashedPassword);
-
-    if (!isMatch) return res.sendStatus(401);
-
-    console.log('res.locals.id', data.rows[0].id); //=>userid
-    res.locals.id = data.rows[0].id;
-
+​
+    if (!isMatch) {
+      throw new Error('password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
+    }
+    res.locals.id = data.rows[0].id; //=>userid
     return next();
   } catch (err) {
     return next({
       log: 'usersController.verifyUser: ERROR: Unable to verify user data.',
+      status: 401,
       message: {
-        err: `usersController.verifyUser: ERROR: ${err}`,
+        err: `${err.message}`,
       },
     });
   }

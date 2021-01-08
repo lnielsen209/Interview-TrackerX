@@ -1,6 +1,4 @@
-import React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../App.jsx';
+import React, { useState } from 'react';
 
 const modalTitle = {
   add: 'Add new application',
@@ -27,12 +25,10 @@ const ApplicationsModal = ({
   const [notes, setNotes] = useState(currentApp.notes || '');
   const [app_status, setAppStatus] = useState(currentApp.app_status || '');
 
-  //   const fakeUID = 2;
-
-  const context = useContext(UserContext);
+  const auth = useAuth();
 
   const addApplication = (body) => {
-    fetch(`/user/${context.user.id}/application`, {
+    fetch(`/user/${auth.user.id}/application`, {
       method: 'POST',
       headers: {
         'Content-Type': 'Application/JSON',
@@ -50,7 +46,7 @@ const ApplicationsModal = ({
 
   const editApplication = (body) => {
     console.log('call edit app');
-    fetch(`/user/${context.user.id}/application/${currentApp.id}`, {
+    fetch(`/user/${auth.user.id}/application/${currentApp.id}`, {
       method: 'PUT',
       headers: {
         'content-type': 'application/JSON',

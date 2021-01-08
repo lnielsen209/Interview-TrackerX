@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { UserContext } from '../App.jsx';
+import { useAuth } from './routes/useAuth';
 import axios from 'axios';
 
 const Signup = () => {
@@ -11,7 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const context = useContext(UserContext);
+  const auth = useAuth();
   const history = useHistory();
 
   const handleSubmit = async (e) => {
@@ -30,7 +30,7 @@ const Signup = () => {
         });
         if (res.status === 200) {
           console.log('res.data ===> ', res.data);
-          context.saveUser(res.data.id);
+          auth.signup(res.data.id);
           history.push('/dashboard');
         }
       } catch (error) {
