@@ -22,7 +22,7 @@ const ApplicationsTable = () => {
       const res = await axios.get(`/user/${context.user.id}/application`);
       if (res.status === 200) {
         console.log('userEmail===>', res.data.user);
-        setTracker(res.data.userData);
+        setAppData(res.data.userData);
         setUpdateState(false);
       }
     } catch (error) {
