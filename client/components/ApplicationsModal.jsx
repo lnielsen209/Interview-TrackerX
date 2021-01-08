@@ -7,7 +7,12 @@ const modalTitle = {
   edit: 'Edit application',
 };
 
-const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
+const ApplicationsModal = ({
+  setShowModal,
+  action,
+  currentApp,
+  setUpdateState,
+}) => {
   const [tracker, setTracker] = useState([]);
 
   const [job_title, setJobTitle] = useState(currentApp.job_title || '');
@@ -17,6 +22,7 @@ const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
     currentApp.date_applied || ''
   );
   const [location, setLocation] = useState(currentApp.location || '');
+  const [url, setUrl] = useState(currentApp.url || '');
   const [found_by, setFoundBy] = useState(currentApp.found_by || '');
   const [notes, setNotes] = useState(currentApp.notes || '');
   const [app_status, setAppStatus] = useState(currentApp.app_status || '');
@@ -66,6 +72,7 @@ const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
       company,
       how_applied,
       date_applied,
+      url,
       location,
       found_by,
       notes,
@@ -145,6 +152,17 @@ const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
             />
           </label>
           <label>
+            URL
+            <input
+              type="text"
+              // placeholder="URL"
+              id="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              required
+            />
+          </label>
+          <label>
             Found by
             <input
               type="text"
@@ -209,4 +227,4 @@ const Modal = ({ setShowModal, action, currentApp, setUpdateState }) => {
   );
 };
 
-export default Modal;
+export default ApplicationsModal;

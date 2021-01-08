@@ -8,7 +8,7 @@ const modalTitle = {
   edit: 'Edit step',
 };
 
-const ModalStep = ({
+const StepsModal = ({
   setShowModalStep,
   action,
   currentStep,
@@ -178,4 +178,4 @@ const ModalStep = ({
   );
 };
 
-export default ModalStep;
+export default StepsModal;

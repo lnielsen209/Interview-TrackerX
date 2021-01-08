@@ -5,10 +5,10 @@ const sessionController = require('../controllers/sessionController');
 
 const applicationRouter = require('../routes/applications');
 
-const router = express.Router();
+const userRouter = express.Router();
 
 // Route to create a new user
-router.post(
+userRouter.post(
   '/signup',
   userController.createUser,
   sessionController.startSession,
@@ -17,7 +17,7 @@ router.post(
   }
 );
 
-router.post(
+userRouter.post(
   '/login',
   userController.verifyUser,
   sessionController.startSession,
@@ -26,10 +26,22 @@ router.post(
   }
 );
 
-// get user data at login
-router.get('/:user_id', userController.getUserData, (req, res) => {
-  res.status(200).json(res.locals.userData);
+//log out by replacing the token to " " and set the expiration to 1 millisecond
+userRouter.get('/logout', (req, res) => {
+  res.clearCookie('token');
+  console.log('logout==>', res.locals); //contains user(userEmail)
+  res.sendStatus(200);
 });
+
+// get user data at login
+userRouter.get(
+  '/:user_id',
+
+  userController.getUserData,
+  (req, res) => {
+    res.status(200).json(res.locals.userData);
+  }
+);
 
 // add new user
 // router.post("/", usersController.addUser, (req, res) => {
@@ -46,6 +58,6 @@ router.get('/:user_id', userController.getUserData, (req, res) => {
 //   res.status(200).json({});
 // });
 
-router.use('/:user_id/application', applicationRouter);
+userRouter.use('/:user_id/application', applicationRouter);
 
-module.exports = router;
+module.exports = userRouter;
