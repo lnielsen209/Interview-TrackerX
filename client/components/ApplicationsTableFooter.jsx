@@ -1,19 +1,23 @@
 import React from 'react';
-import ModalApplication from './ModalApplication.jsx';
+import ApplicationsModal from './ApplicationsModal.jsx';
 
-
-const DashboardTableFooter = ({ tracker, showModal, setShowModal, setUpdateState }) => {
+const ApplicationsTableFooter = ({
+  appData,
+  showModal,
+  setShowModal,
+  setUpdateState,
+}) => {
   return (
     <tfoot>
       <tr>
         <td colSpan="10">
           {showModal.action ? (
-            <ModalApplication
+            <ApplicationsModal
               setShowModal={setShowModal}
               setUpdateState={setUpdateState}
               action={showModal.action}
               currentApp={
-                showModal.action === 'edit' ? tracker[showModal.id] : {}
+                showModal.action === 'edit' ? appData[showModal.id] : {}
               }
             />
           ) : (
@@ -27,4 +31,4 @@ const DashboardTableFooter = ({ tracker, showModal, setShowModal, setUpdateState
   );
 };
 
-export default DashboardTableFooter;
+export default ApplicationsTableFooter;

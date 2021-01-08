@@ -1,9 +1,9 @@
 import React from 'react';
-import ModalStep from './ModalStep.jsx';
+import StepsModal from './StepsModal.jsx';
 
 const StepsTableFooter = ({
   state,
-  stepsTracker,
+  stepData,
   setUpdateState,
   showModalStep,
   setShowModalStep,
@@ -13,12 +13,12 @@ const StepsTableFooter = ({
       <tr>
         <td colSpan="7">
           {showModalStep.action ? (
-            <ModalStep
+            <StepsModal
               setShowModalStep={setShowModalStep}
               action={showModalStep.action}
               currentStep={
                 showModalStep.action === 'edit'
-                  ? stepsTracker[showModalStep.id]
+                  ? stepData[showModalStep.id]
                   : {}
               }
               appId={state.application.id}

@@ -7,7 +7,7 @@ const modalTitle = {
   edit: 'Edit application',
 };
 
-const ModalApplication = ({
+const ApplicationsModal = ({
   setShowModal,
   action,
   currentApp,
@@ -227,4 +227,4 @@ const ModalApplication = ({
   );
 };
 
-export default ModalApplication;
+export default ApplicationsModal;
