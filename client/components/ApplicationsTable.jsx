@@ -21,7 +21,7 @@ const ApplicationsTable = () => {
     try {
       const res = await axios.get(`/user/${context.user.id}/application`);
       if (res.status === 200) {
-        console.log('userEmail===>', res.data.user);
+        console.log('user and app data===>', res.data);
         setAppData(res.data.userData);
         setUpdateState(false);
       }
