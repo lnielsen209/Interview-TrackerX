@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { UserContext } from '../App.jsx';
+import { useAuth } from '../routes/useAuth';
 import StepsTableHeader from './StepsTableHeader.jsx';
 import StepsTableRow from './StepsTableRows.jsx';
 import StepsTableFooter from './StepsTableFooter.jsx';
@@ -15,7 +15,7 @@ const StepsTable = ({ state }) => {
     id: null,
   }); // none / edit /add
 
-  const context = useContext(UserContext);
+  const auth = useAuth();
   console.log('state in Steps Component ===> ', useLocation().state);
 
   console.log('stepsTracker ===> ', stepData);
@@ -28,7 +28,7 @@ const StepsTable = ({ state }) => {
   const fetchSteps = async () => {
     try {
       const res = await axios.get(
-        `/user/${context.user.id}/application/${state.application.id}/step`
+        `/user/${auth.user.id}/application/${state.application.id}/step`
       );
       if (res.status === 200) {
         setStepData(res.data);
@@ -43,7 +43,7 @@ const StepsTable = ({ state }) => {
   const removeStep = async (app_id, step_id) => {
     try {
       const res = await axios.delete(
-        `/user/${context.user.id}/application/${app_id}/step/${step_id}`
+        `/user/${auth.user.id}/application/${app_id}/step/${step_id}`
       );
       if (res.status === 200) {
         setUpdateState(true);

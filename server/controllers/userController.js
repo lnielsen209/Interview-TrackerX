@@ -48,6 +48,7 @@ userController.createUser = async (req, res, next) => {
     const createUserVals = [first_name, last_name, email, hashedPassword];
     const data = await db.query(createUserText, createUserVals);
     res.locals.id = data.rows[0].id;
+    res.locals.email = data.rows[0].email;
 
     return next();
   } catch (err) {
@@ -63,26 +64,27 @@ userController.createUser = async (req, res, next) => {
 
 userController.verifyUser = async (req, res, next) => {
   const { username, password } = req.body;
-​
+
   if (!username || !password) return res.sendStatus(401);
-​
+
   try {
     const verifyUserText = ` SELECT * FROM applicants WHERE email = $1`;
     const verifyUserData = [username];
-​
+
     const data = await db.query(verifyUserText, verifyUserData);
-​
+
     if (data.rows.length === 0) {
       throw new Error('email does not exist!'); //this will throw us to catch block and the error message will be sent via global error handler
     }
-​
+
     const hashedPassword = data.rows[0].password;
     const isMatch = await bcrypt.compare(password, hashedPassword);
-​
+
     if (!isMatch) {
       throw new Error('password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
     }
     res.locals.id = data.rows[0].id; //=>userid
+    res.locals.email = data.rows[0].email; //=>userid
     return next();
   } catch (err) {
     return next({
@@ -94,7 +96,6 @@ userController.verifyUser = async (req, res, next) => {
     });
   }
 };
-
 // userController.editUser = (req, res, next) => {
 
 // };

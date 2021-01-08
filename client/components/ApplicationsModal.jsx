@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useAuth } from '../routes/useAuth';
+
 
 const modalTitle = {
   add: 'Add new application',
@@ -41,7 +43,9 @@ const ApplicationsModal = ({
         setShowModal({ action: null, id: null });
         setUpdateState(true); // add from Lee
       })
-      .catch((err) => console.log('addApplication ERROR: ', err));
+      .catch((error) =>
+        console.log('addApplication ERROR: ', error)
+      );
   };
 
   const editApplication = (body) => {

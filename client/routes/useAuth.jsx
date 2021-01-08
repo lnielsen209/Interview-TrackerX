@@ -5,21 +5,24 @@ const authContext = createContext();
 const useProvideAuth = () => {
   const [user, setUser] = useState({
     id: null,
+    email: null,
     isAuthenticated: false,
   });
-  const login = (id, cb) => {
+  const login = (id, email, cb) => {
     setUser({
       ...user,
       id,
+      email,
       isAuthenticated: true,
     });
     cb();
   };
 
-  const signup = (id, cb) => {
+  const signup = (id, email, cb) => {
     setUser({
       ...user,
       id,
+      email,
       isAuthenticated: true,
     });
     cb();
@@ -27,13 +30,15 @@ const useProvideAuth = () => {
 
   const signout = (cb) => {
     setUser({
-      ...user,
-      userId: null,
+      id: null,
+      email: null,
       isAuthenticated: false,
     });
     cb();
   };
-  return { user, login, signup, signout};
+
+  console.log('user in useAuth ===> ', user)
+  return { user, login, signup, signout };
 };
 
 export function ProvideAuth({ children }) {

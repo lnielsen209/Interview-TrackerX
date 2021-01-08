@@ -4,7 +4,7 @@ import { useAuth } from './useAuth';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const auth = useAuth();
-
+  console.log('location in PrivateRoute ===> ', location);
   return (
     <Route
       {...rest}

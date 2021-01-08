@@ -13,7 +13,7 @@ userRouter.post(
   userController.createUser,
   sessionController.startSession,
   (req, res) => {
-    res.status(200).json({ id: res.locals.id });
+    res.status(200).json({ id: res.locals.id, email: res.locals.email });
   }
 );
 
@@ -22,7 +22,7 @@ userRouter.post(
   userController.verifyUser,
   sessionController.startSession,
   (req, res) => {
-    res.status(200).json({ id: res.locals.id });
+    res.status(200).json({ id: res.locals.id, email: res.locals.email });
   }
 );
 

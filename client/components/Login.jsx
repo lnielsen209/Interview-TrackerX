@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useAuth } from './routes/useAuth';
+import { useAuth } from '../routes/useAuth';
 import axios from 'axios';
 
 const Login = () => {
@@ -9,6 +9,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
 
   const auth = useAuth();
+  // console.log('auth in Loginin Component', auth)
   const history = useHistory();
 
   const handleSubmit = async (e) => {
@@ -18,11 +19,12 @@ const Login = () => {
       const res = await axios.post('/user/login', { username, password });
       if (res.status === 200) {
         console.log('res.data ===> ', res.data);
-        auth.login(res.data.id);
-        history.push('/dashboard');
+        auth.login(res.data.id, res.data.email, () =>
+          history.push('/dashboard')
+        );
       }
     } catch (error) {
-      console.log('Error in handleSubmit of Login component: ', error.response.data.error);
+      console.log('Error in handleSubmit of Login component: ', error);
     }
   };
 

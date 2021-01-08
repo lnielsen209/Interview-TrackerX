@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../App.jsx';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../routes/useAuth';
 import ApplicationsTableHeader from './ApplicationsTableHeader.jsx';
 import ApplicationsTableRows from './ApplicationsTableRows.jsx';
 import ApplicationsTableFooter from './ApplicationsTableFooter.jsx';
@@ -10,7 +10,7 @@ const ApplicationsTable = () => {
   const [showModal, setShowModal] = useState({ action: null, id: null }); // none / edit /add
   const [updateState, setUpdateState] = useState(true);
 
-  const context = useContext(UserContext);
+    const auth = useAuth();
 
   // get the users data from the DB
   useEffect(() => {
@@ -19,9 +19,8 @@ const ApplicationsTable = () => {
 
   const fetchApplications = async () => {
     try {
-      const res = await axios.get(`/user/${context.user.id}/application`);
+      const res = await axios.get(`/user/${auth.user.id}/application`);
       if (res.status === 200) {
-        console.log('userEmail===>', res.data.user);
         setAppData(res.data.userData);
         setUpdateState(false);
       }
@@ -37,7 +36,7 @@ const ApplicationsTable = () => {
   const removeApplications = async (id) => {
     try {
       const res = await axios.delete(
-        `/user/${context.user.id}/application/${id}`
+        `/user/${auth.user.id}/application/${id}`
       );
       if (res.status === 200) {
         setUpdateState(true);
