@@ -28,14 +28,7 @@ userController.getUserData = (req, res, next) => {
 
 userController.createUser = async (req, res, next) => {
   try {
-    const {
-      first_name,
-      last_name,
-      email,
-      password,
-      // cur_salary,
-      // DOB,
-    } = req.body;
+    const { first_name, last_name, email, password } = req.body;
 
     if (!first_name || !last_name || !email || !password)
       return res.sendStatus(401);
@@ -72,22 +65,24 @@ userController.verifyUser = async (req, res, next) => {
 
     const data = await db.query(verifyUserText, verifyUserData);
 
-    const hashedPassword = data.rows[0].password;
+    if (data.rows.length === 0) {
+      throw new Error('email does not exist!'); //this will throw us to catch block and the error message will be sent via global error handler
+    }
 
-    if (!hashedPassword) return res.sendStatus(401);
+    const hashedPassword = data.rows[0].password;
     const isMatch = await bcrypt.compare(password, hashedPassword);
 
-    if (!isMatch) return res.sendStatus(401);
-
-    console.log('res.locals.id', data.rows[0].id); //=>userid
-    res.locals.id = data.rows[0].id;
-
+    if (!isMatch) {
+      throw new Error('password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
+    }
+    res.locals.id = data.rows[0].id; //=>userid
     return next();
   } catch (err) {
     return next({
-      log: 'usersController.verifyUser: ERROR: Unable to verify user data.',
+      log: `usersController.verifyUser: Unable to verify user data. ERROR: ${err}`,
+      status: 401,
       message: {
-        err: `usersController.verifyUser: ERROR: ${err}`,
+        err: `${err.message}`,
       },
     });
   }

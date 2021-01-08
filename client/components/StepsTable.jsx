@@ -31,6 +31,7 @@ const StepsTable = ({ state }) => {
         `/user/${context.user.id}/application/${state.application.id}/step`
       );
       if (res.status === 200) {
+        console.log('res.data===>', res);
         setStepData(res.data);
         setUpdateState(false);
       }
@@ -54,8 +55,8 @@ const StepsTable = ({ state }) => {
   };
 
   return (
-    <div className="tableContainer">
-      <table id="stepsTracker">
+    <div className='tableContainer'>
+      <table id='stepsTracker'>
         <StepsTableHeader />
         <StepsTableRow
           stepData={stepData}

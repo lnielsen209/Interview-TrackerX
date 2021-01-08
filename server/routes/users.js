@@ -36,7 +36,7 @@ userRouter.get('/logout', (req, res) => {
 // get user data at login
 userRouter.get(
   '/:user_id',
-
+  sessionController.isLoggedIn,
   userController.getUserData,
   (req, res) => {
     res.status(200).json(res.locals.userData);
