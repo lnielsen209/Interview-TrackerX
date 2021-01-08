@@ -21,7 +21,8 @@ const ApplicationsTable = () => {
     try {
       const res = await axios.get(`/user/${context.user.id}/application`);
       if (res.status === 200) {
-        setAppData(res.data);
+        console.log('userEmail===>', res.data.user);
+        setAppData(res.data.userData);
         setUpdateState(false);
       }
     } catch (error) {
@@ -51,7 +52,7 @@ const ApplicationsTable = () => {
 
   return (
     <div>
-      <table id="tracker">
+      <table id='tracker'>
         <ApplicationsTableHeader />
         <ApplicationsTableRows
           appData={appData}

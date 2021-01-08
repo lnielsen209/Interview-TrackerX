@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Dashboard from './components/DashboardContainer';
+import DashboardContainer from './components/DashboardContainer';
 import Signup from '../client/components/Signup';
 import Login from '../client/components/Login';
 import Step from './components/StepsContainer';
@@ -27,19 +27,19 @@ const App = () => {
     <UserProvider>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact path='/'>
             <Login />
           </Route>
 
-          <Route exact path="/dashboard">
-            <Dashboard />
+          <Route exact path='/dashboard'>
+            <DashboardContainer />
           </Route>
 
-          <Route exact path="/signup">
+          <Route exact path='/signup'>
             <Signup />
           </Route>
 
-          <Route exact path="/application/:id/step">
+          <Route exact path='/application/:id/step'>
             <Step />
           </Route>
         </Switch>
