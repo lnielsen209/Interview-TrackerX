@@ -13,9 +13,7 @@ userRouter.post(
   userController.createUser,
   sessionController.startSession,
   (req, res) => {
-    //201 new resource created
-    // console.log('res===>', res);
-    res.status(201).json({ id: res.locals.id });
+    res.status(200).json({ id: res.locals.id });
   }
 );
 
@@ -30,8 +28,8 @@ userRouter.post(
 
 //log out by replacing the token to " " and set the expiration to 1 millisecond
 userRouter.get('/logout', (req, res) => {
-  res.cookie('token', '', { maxAge: 1 });
-  res.status(200).json('logging out');
+  res.clearCookie('token');
+  res.sendStatus(200);
 });
 
 // get user data at login

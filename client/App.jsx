@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import './components/Style/Style.css';
-import Dashboard from '../client/components/Dashboard';
+import Dashboard from './components/DashboardContainer';
 import Signup from '../client/components/Signup';
 import Login from '../client/components/Login';
-import Signout from '../client/components/signout';
-import Step from '../client/components/Step';
-import useToken from './useToken';
+import Step from './components/StepsContainer';
 import { Route, Switch, Link, BrowserRouter } from 'react-router-dom';
 
 export const UserContext = React.createContext();
@@ -14,7 +11,7 @@ const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({ id: null });
 
   const saveUser = (id) => {
-    console.log('save user', id);
+    console.log('saveUser in UserProvider ===> ', id);
     setCurrentUser({ id });
   };
 
@@ -30,11 +27,21 @@ const App = () => {
     <UserProvider>
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' component={Login} />
-          <Route path='/dashboard' component={Dashboard} />
-          <Route path='/signup' component={Signup} />
+          <Route exact path="/">
+            <Login />
+          </Route>
 
-          <Route path='/application/:id/step' component={Step} />
+          <Route exact path="/dashboard">
+            <Dashboard />
+          </Route>
+
+          <Route exact path="/signup">
+            <Signup />
+          </Route>
+
+          <Route exact path="/application/:id/step">
+            <Step />
+          </Route>
         </Switch>
       </BrowserRouter>
     </UserProvider>

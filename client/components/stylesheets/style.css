@@ -96,23 +96,6 @@ button {
   font-weight: bold;
 }
 
-/* .button {
-  border: none;
-  outline: none;
-  font-size: 11px;
-  font-family: 'Quicksand', sans-serif;
-  color: #f44336;
-  padding: 3px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: 1px solid #f44336;
-  background-color: transparent;
-} */
-
-/* .button:active {
-  border: 1px solid blue;
-} */
-
 .modalForm input {
   margin: 5px;
   padding: 3px;
@@ -186,14 +169,6 @@ button {
   text-align: left;
 }
 
-/* colors 
-primary yellow: ffe545
-pale yellow: FEFBAF
-light blue: #abcaf9
-dark blue: #195ec3
-goldenrod: C2A34F
-orange: FBB829
-*/
 
 @media (max-width: 900px) {
   .low-priority-col {
@@ -204,6 +179,8 @@ orange: FBB829
 /* application table */
 .tableContainer {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
@@ -214,7 +191,7 @@ orange: FBB829
   font-weight: 400;
 }
 
-#stepTracker,
+#stepsTracker,
 #tracker {
   border-collapse: collapse;
   /* border: 3px solid #ddd; */
@@ -227,18 +204,18 @@ tr {
 }
 
 #tracker td,
-#stepTracker td,
-#stepTracker th,
+#stepsTracker td,
+#stepsTracker th,
 #tracker th {
   /* border: 1px solid #ddd; */
   padding: 12px;
   overflow: hidden;
 }
-#stepTracker tr:hover,
+#stepsTracker tr:hover,
 #tracker tr:hover {
   background-color: #ddd;
 }
-#stepTracker th,
+#stepsTracker th,
 #tracker th {
   padding: 10px;
   text-align: center;

@@ -32,6 +32,7 @@ applicationController.addApp = (req, res, next) => {
     company,
     job_title,
     how_applied,
+    url,
     date_applied,
     location,
     found_by,
@@ -40,13 +41,14 @@ applicationController.addApp = (req, res, next) => {
   } = req.body;
 
   const addApp =
-    'INSERT INTO applications (applicant_id, company, job_title, how_applied, date_applied, location, found_by, notes, app_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *';
+    'INSERT INTO applications (applicant_id, company, job_title, how_applied, url, date_applied, location, found_by, notes, app_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
 
   db.query(addApp, [
     UID,
     company,
     job_title,
     how_applied,
+    url,
     date_applied,
     location,
     found_by,
@@ -95,6 +97,7 @@ applicationController.editApp = (req, res, next) => {
     company,
     job_title,
     how_applied,
+    url,
     date_applied,
     location,
     found_by,
@@ -105,16 +108,18 @@ applicationController.editApp = (req, res, next) => {
                      SET company = $1, 
                      job_title = $2, 
                      how_applied = $3, 
-                     date_applied = $4, 
-                     location = $5, 
-                     found_by = $6, 
-                     notes = $7, 
-                     app_status= $8
-                     WHERE id = $9`;
+                     url = $4,
+                     date_applied = $5, 
+                     location = $6, 
+                     found_by = $7, 
+                     notes = $8, 
+                     app_status= $9
+                     WHERE id = $10`;
   const queryVals = [
     company,
     job_title,
     how_applied,
+    url,
     date_applied,
     location,
     found_by,
