@@ -24,7 +24,7 @@ sessionController.startSession = (req, res, next) => {
     return next({
       log: 'sessionController.startSession: ERROR: Unable to add JWT token',
       message: {
-        err: `sessionController.startSession: ERROR: ERROR ${err}`,
+        err: `${err.message}`,
       },
     });
   }
@@ -62,7 +62,7 @@ sessionController.isLoggedIn = async (req, res, next) => {
       log: `sessionController.isLoggedIn: Unable to verify JWT token ERROR: ${err}`,
       status: 401,
       message: {
-        err: `${err}`,
+        err: err.message,
       },
     });
   }

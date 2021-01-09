@@ -20,7 +20,7 @@ userController.getUserData = (req, res, next) => {
       return next({
         log: 'usersController.getUserData: ERROR: Error getting database',
         message: {
-          err: 'usersController.getUserData: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -41,6 +41,7 @@ userController.createUser = async (req, res, next) => {
     const createUserVals = [first_name, last_name, email, hashedPassword];
     const data = await db.query(createUserText, createUserVals);
     res.locals.id = data.rows[0].id;
+    res.locals.email = data.rows[0].email;
 
     return next();
   } catch (err) {
@@ -48,7 +49,7 @@ userController.createUser = async (req, res, next) => {
     return next({
       log: 'usersController.addUser: ERROR: Error writing to database',
       message: {
-        err: 'usersController.addUser: ERROR: Check database for details',
+        err: `${err.message}`,
       },
     });
   }
@@ -73,6 +74,7 @@ userController.verifyUser = async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, hashedPassword);
 
     if (!isMatch) {
+<<<<<<< HEAD
       throw new Error('password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
     }
     res.locals.id = data.rows[0].id; //=>userid
@@ -80,6 +82,16 @@ userController.verifyUser = async (req, res, next) => {
   } catch (err) {
     return next({
       log: `usersController.verifyUser: Unable to verify user data. ERROR: ${err}`,
+=======
+      throw new Error('Password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
+    }
+    res.locals.id = data.rows[0].id; //=>userid
+    res.locals.email = data.rows[0].email; //=>userid
+    return next();
+  } catch (err) {
+    return next({
+      log: 'usersController.verifyUser: ERROR: Unable to verify user data.',
+>>>>>>> ca147d5c2472a4fd1826a09cf45efc4c797f68f8
       status: 401,
       message: {
         err: `${err.message}`,
@@ -87,7 +99,6 @@ userController.verifyUser = async (req, res, next) => {
     });
   }
 };
-
 // userController.editUser = (req, res, next) => {
 
 // };

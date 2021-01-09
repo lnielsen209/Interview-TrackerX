@@ -6,7 +6,7 @@ const dotenv = require('dotenv').config();
 const app = express();
 
 const userRouter = require('./routes/users');
-const sessionController = require('./controllers/sessionController');
+// const sessionController = require('./controllers/sessionController');
 
 const PORT = 3000;
 
@@ -16,7 +16,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Route Handlers
+<<<<<<< HEAD
 // app.get('*', sessionController.checkUser);
+=======
+// app.use(sessionController.isLoggedIn);
+>>>>>>> ca147d5c2472a4fd1826a09cf45efc4c797f68f8
 app.use('/user', userRouter);
 
 //Default Error Handler

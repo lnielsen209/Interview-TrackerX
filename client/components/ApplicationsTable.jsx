@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../App.jsx';
+import React, { useState, useEffect } from 'react';
+import { useAuth } from '../routes/useAuth';
 import ApplicationsTableHeader from './ApplicationsTableHeader.jsx';
 import ApplicationsTableRows from './ApplicationsTableRows.jsx';
 import ApplicationsTableFooter from './ApplicationsTableFooter.jsx';
@@ -10,7 +10,7 @@ const ApplicationsTable = () => {
   const [showModal, setShowModal] = useState({ action: null, id: null }); // none / edit /add
   const [updateState, setUpdateState] = useState(true);
 
-  const context = useContext(UserContext);
+    const auth = useAuth();
 
   // get the users data from the DB
   useEffect(() => {
@@ -19,16 +19,19 @@ const ApplicationsTable = () => {
 
   const fetchApplications = async () => {
     try {
-      const res = await axios.get(`/user/${context.user.id}/application`);
+      const res = await axios.get(`/user/${auth.user.id}/application`);
       if (res.status === 200) {
+<<<<<<< HEAD
         console.log('user and app data===>', res.data);
+=======
+>>>>>>> ca147d5c2472a4fd1826a09cf45efc4c797f68f8
         setAppData(res.data.userData);
         setUpdateState(false);
       }
     } catch (error) {
       console.log(
         'Error in fetchApplications of DashboardTable component:',
-        error
+        error.response.data.err
       );
     }
   };
@@ -37,7 +40,7 @@ const ApplicationsTable = () => {
   const removeApplications = async (id) => {
     try {
       const res = await axios.delete(
-        `/user/${context.user.id}/application/${id}`
+        `/user/${auth.user.id}/application/${id}`
       );
       if (res.status === 200) {
         setUpdateState(true);
@@ -45,7 +48,7 @@ const ApplicationsTable = () => {
     } catch (error) {
       console.log(
         'Error in removeApplications of DashboardTable component:',
-        error
+        error.response.data.err
       );
     }
   };
