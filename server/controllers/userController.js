@@ -20,7 +20,7 @@ userController.getUserData = (req, res, next) => {
       return next({
         log: 'usersController.getUserData: ERROR: Error getting database',
         message: {
-          err: 'usersController.getUserData: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -28,14 +28,7 @@ userController.getUserData = (req, res, next) => {
 
 userController.createUser = async (req, res, next) => {
   try {
-    const {
-      first_name,
-      last_name,
-      email,
-      password,
-      // cur_salary,
-      // DOB,
-    } = req.body;
+    const { first_name, last_name, email, password } = req.body;
 
     if (!first_name || !last_name || !email || !password)
       return res.sendStatus(401);
@@ -48,6 +41,7 @@ userController.createUser = async (req, res, next) => {
     const createUserVals = [first_name, last_name, email, hashedPassword];
     const data = await db.query(createUserText, createUserVals);
     res.locals.id = data.rows[0].id;
+    res.locals.email = data.rows[0].email;
 
     return next();
   } catch (err) {
@@ -55,7 +49,7 @@ userController.createUser = async (req, res, next) => {
     return next({
       log: 'usersController.addUser: ERROR: Error writing to database',
       message: {
-        err: 'usersController.addUser: ERROR: Check database for details',
+        err: `${err.message}`,
       },
     });
   }
@@ -72,27 +66,29 @@ userController.verifyUser = async (req, res, next) => {
 
     const data = await db.query(verifyUserText, verifyUserData);
 
-    const hashedPassword = data.rows[0].password;
+    if (data.rows.length === 0) {
+      throw new Error('email does not exist!'); //this will throw us to catch block and the error message will be sent via global error handler
+    }
 
-    if (!hashedPassword) return res.sendStatus(401);
+    const hashedPassword = data.rows[0].password;
     const isMatch = await bcrypt.compare(password, hashedPassword);
 
-    if (!isMatch) return res.sendStatus(401);
-
-    console.log('res.locals.id', data.rows[0].id); //=>userid
-    res.locals.id = data.rows[0].id;
-
+    if (!isMatch) {
+      throw new Error('Password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
+    }
+    res.locals.id = data.rows[0].id; //=>userid
+    res.locals.email = data.rows[0].email; //=>userid
     return next();
   } catch (err) {
     return next({
       log: 'usersController.verifyUser: ERROR: Unable to verify user data.',
+      status: 401,
       message: {
-        err: `usersController.verifyUser: ERROR: ${err}`,
+        err: `${err.message}`,
       },
     });
   }
 };
-
 // userController.editUser = (req, res, next) => {
 
 // };

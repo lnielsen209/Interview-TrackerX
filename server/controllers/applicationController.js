@@ -8,9 +8,9 @@ applicationController.getAllApps = (req, res, next) => {
   // get user's personal data
   const getAppData =
     'SELECT * FROM applications WHERE applicant_id = $1 ORDER BY id ASC';
-  db.query(getAppData, [UID]) // array of variables to use in query
+  db.query(getAppData, [UID])
     .then((data) => {
-      //console.log('data.rows==>', data.rows);
+      console.log('data.rows==>', data.rows);
       res.locals.userData = data.rows;
       return next();
     })
@@ -20,8 +20,7 @@ applicationController.getAllApps = (req, res, next) => {
         log:
           'applicationsController.getUserData: ERROR: Error getting database',
         message: {
-          err:
-            'applicationsController.getUserData: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -66,8 +65,7 @@ applicationController.addApp = (req, res, next) => {
       return next({
         log: 'applicationsController.addApp: ERROR: Error writing to database',
         message: {
-          err:
-            'applicationsController.addApp: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -87,8 +85,7 @@ applicationController.deleteApp = (req, res, next) => {
         log:
           'applicationsController.deleteApp: ERROR: Error deleting application from database',
         message: {
-          err:
-            'applicationsController.deleteApp: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -140,8 +137,7 @@ applicationController.editApp = (req, res, next) => {
         log:
           'applicationsController.updateApp: ERROR: Error updating application in database',
         message: {
-          err:
-            'applicationsController.updateApp: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });

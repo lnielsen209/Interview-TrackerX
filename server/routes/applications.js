@@ -9,11 +9,10 @@ const stepRouter = require('../routes/steps');
 // get all applications for this user_id
 applicationRouter.get(
   '/',
-
-  //sessionController.isLoggedIn,
+  sessionController.isLoggedIn,
   applicationController.getAllApps,
   (req, res) => {
-    console.log('res.locals===>', res.locals); //contains userDAta and user(userEmail)
+    console.log('get all apps res.locals===>', res.locals); //contains userDAta and user(userEmail)
     return res.send(res.locals);
   }
 );
@@ -30,9 +29,14 @@ applicationRouter.post(
 );
 
 // edit app
-applicationRouter.put('/:app_id', applicationController.editApp, (req, res) => {
-  res.status(200).json({});
-});
+applicationRouter.put(
+  '/:app_id',
+  sessionController.isLoggedIn,
+  applicationController.editApp,
+  (req, res) => {
+    res.status(200).json({});
+  }
+);
 
 // delete app
 applicationRouter.delete(

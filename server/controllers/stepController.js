@@ -1,4 +1,5 @@
 const db = require('../models/model.js');
+const { sendEmail } = require('../emails/accounts');
 
 const stepController = {};
 
@@ -16,16 +17,13 @@ stepController.getAllSteps = (req, res, next) => {
         log:
           'stepController.getAllSteps: ERROR: Error getting steps from database',
         message: {
-          err: 'stepController.getAllSteps: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
 };
 
 stepController.addStep = (req, res, next) => {
-  //console.log('req===>', req);
-  // const { app_id } = req.params;
-  // console.log('application_id', app_id);
   const {
     appId,
     date,
@@ -36,7 +34,7 @@ stepController.addStep = (req, res, next) => {
     notes,
   } = req.body;
 
-  console.log('req.body===>', req.body);
+  console.log('addstep res.locals===>', res.locals.user);
 
   const addStepText = `INSERT INTO steps 
   (app_id, date, step_type, contact_name, contact_role, contact_info, notes) 
@@ -62,7 +60,7 @@ stepController.addStep = (req, res, next) => {
       return next({
         log: 'stepController.addStep: ERROR: Error writing to database',
         message: {
-          err: 'stepController.addStep: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -82,7 +80,7 @@ stepController.deleteStep = (req, res, next) => {
         log:
           'stepsController.deleteStep: ERROR: Error deleting application from database',
         message: {
-          err: 'stepsController.deleteStep: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -106,8 +104,10 @@ stepController.editStep = (req, res, next) => {
   contact_info = $5, 
   notes = $6
   WHERE id = $7
+
+  RETURNING *
   `;
-  console.log('editstep req.body===>', req.body);
+
   const queryVals = [
     date,
     step_type,
@@ -120,8 +120,13 @@ stepController.editStep = (req, res, next) => {
   console.log('stepID===>', req.params.step_id);
 
   db.query(queryText, queryVals)
-    .then(({ rows }) => {
-      res.locals.step = rows;
+    .then((data) => {
+      res.locals.step = data.rows;
+      console.log('edit step res.locals====>', res.locals);
+      const { first_name, email } = res.locals.user;
+      const { step_type, contact_name, date } = res.locals.step[0];
+      //console.log('step DATA====>', data.rows);
+      sendEmail(email, first_name, step_type, date, contact_name);
       return next();
     })
     .catch((err) => {
@@ -130,7 +135,7 @@ stepController.editStep = (req, res, next) => {
         log:
           'stepController.updateStep: ERROR: Error updating application in database',
         message: {
-          err: 'stepController.updateStep: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });

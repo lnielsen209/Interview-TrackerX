@@ -6,7 +6,6 @@ const dotenv = require('dotenv').config();
 const app = express();
 
 const userRouter = require('./routes/users');
-const sessionController = require('./controllers/sessionController');
 
 const PORT = 3000;
 
@@ -16,7 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Route Handlers
-app.get('*', sessionController.checkUser);
 app.use('/user', userRouter);
 
 //Default Error Handler
@@ -28,7 +26,9 @@ app.use((err, req, res, next) => {
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log('default err --->', err);
-  console.log('default error errorlog-->', errorObj.log);
+
+  console.log('errorObj.message===>', errorObj.message);
+  console.log('errorObj.status===>', errorObj.status);
   return res.status(errorObj.status).json(errorObj.message);
 });
 

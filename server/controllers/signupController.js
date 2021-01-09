@@ -20,7 +20,7 @@ signupController.signup = (req, res, next) => {
       return next({
         log: 'signupController.addUser: ERROR: Error writing to database',
         message: {
-          err: 'signupController.addUser: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
