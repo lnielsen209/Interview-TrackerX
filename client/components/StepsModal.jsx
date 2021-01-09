@@ -1,5 +1,12 @@
+<<<<<<< Updated upstream
 import React, { useState } from 'react';
 import { useAuth } from '../routes/useAuth';
+=======
+import React from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../index';
+import { useLocation } from 'react-router-dom';
+>>>>>>> Stashed changes
 
 const modalTitle = {
   add: 'Add new step',

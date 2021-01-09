@@ -1,7 +1,13 @@
+<<<<<<< Updated upstream
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
 import axios from 'axios';
+=======
+import React from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../index';
+>>>>>>> Stashed changes
 
 const modalTitle = {
   add: 'Add new application',

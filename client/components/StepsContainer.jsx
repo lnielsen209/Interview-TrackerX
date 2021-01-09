@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
+<<<<<<< Updated upstream
 import { useAuth } from '../routes/useAuth';
+=======
+import { UserContext } from '../index';
+>>>>>>> Stashed changes
 import StepsTable from './StepsTable.jsx';
 import SignoutButton from './SignoutButton';
 

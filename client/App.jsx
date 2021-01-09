@@ -2,6 +2,7 @@ import React from 'react';
 import DashboardContainer from './components/DashboardContainer';
 import Signup from '../client/components/Signup';
 import Login from '../client/components/Login';
+<<<<<<< Updated upstream
 import StepsContainer from './components/StepsContainer';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { ProvideAuth } from './routes/useAuth';
@@ -30,6 +31,30 @@ const App = () => {
         </Switch>
       </BrowserRouter>
     </ProvideAuth>
+=======
+import Step from './components/StepsContainer';
+import NotFoundPage from './components/NotFoundPage';
+import { Switch } from 'react-router-dom';
+import AppRoute from './components/AppRoute';
+
+const App = () => {
+  return (
+    <Switch>
+      <AppRoute path='/login'>
+        <Login />
+      </AppRoute>
+      <AppRoute path='/signup'>
+        <Signup />
+      </AppRoute>
+      <AppRoute path='/application/:id/step'>
+        <Step />
+      </AppRoute>
+      <AppRoute isPrivate exact path='/'>
+        <DashboardContainer />
+      </AppRoute>
+      <AppRoute component={NotFoundPage} />
+    </Switch>
+>>>>>>> Stashed changes
   );
 };
 

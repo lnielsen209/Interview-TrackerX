@@ -1,6 +1,12 @@
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
+=======
+import React, { useState, useEffect, useContext } from 'react';
+import { useLocation } from 'react-router-dom';
+import { UserContext } from '../index';
+>>>>>>> Stashed changes
 import StepsTableHeader from './StepsTableHeader.jsx';
 import StepsTableRow from './StepsTableRows.jsx';
 import StepsTableFooter from './StepsTableFooter.jsx';

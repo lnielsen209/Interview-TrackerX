@@ -1,29 +1,28 @@
 const db = require('../models/model.js');
 const { sendEmail } = require('../emails/accounts');
 
-const stepController = {};
+const stepsController = {};
 
-stepController.getAllSteps = (req, res, next) => {
-  const { app_id } = req.params;
-  const getStepData = `SELECT * FROM steps WHERE app_id = $1 ORDER BY id ASC`;
-  db.query(getStepData, [app_id])
+stepsController.getAllSteps = (req, res, next) => {
+  const userID = res.locals.userID
+  const queryData = `SELECT * FROM steps WHERE app_id = $1 ORDER BY id ASC`;
+  db.query(queryData, [userID])
     .then((data) => {
-      res.locals.stepData = data.rows;
+      res.locals.stepsData = data.rows;
       return next();
     })
     .catch((err) => {
-      console.log('getallsteps err--->', err);
       return next({
         log:
-          'stepController.getAllSteps: ERROR: Error getting steps from database',
+        `stepsController.getAllSteps: Error getting steps from database ERROR: {err}`,
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
 };
 
-stepController.addStep = (req, res, next) => {
+stepsController.addStep = (req, res, next) => {
   const {
     appId,
     date,
@@ -34,13 +33,11 @@ stepController.addStep = (req, res, next) => {
     notes,
   } = req.body;
 
-  console.log('addstep res.locals===>', res.locals.user);
-
-  const addStepText = `INSERT INTO steps 
+  const queryText = `INSERT INTO steps 
   (app_id, date, step_type, contact_name, contact_role, contact_info, notes) 
   VALUES ($1, $2, $3, $4, $5, $6, $7);`;
 
-  const addStepValues = [
+  const values = [
     appId,
     date,
     step_type,
@@ -50,43 +47,40 @@ stepController.addStep = (req, res, next) => {
     notes,
   ];
 
-  db.query(addStepText, addStepValues)
+  db.query(queryText, values)
     .then((data) => {
-      console.log('data.row==>', data.rows);
       return next();
     })
     .catch((err) => {
-      console.log('addstep err-->', err);
       return next({
-        log: 'stepController.addStep: ERROR: Error writing to database',
+        log: `stepsController.addStep: Error writing to database ERROR: ${err}`,
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
 };
-stepController.deleteStep = (req, res, next) => {
+
+stepsController.deleteStep = (req, res, next) => {
   const queryText = `DELETE FROM steps WHERE id = $1`;
-  const queryVal = [req.params.step_id];
+  const value = [req.params.step_id];
 
   db.query(queryText, queryVal)
-    .then(({ rows }) => {
-      res.locals.step = rows;
+    .then(( data ) => {
       return next();
     })
     .catch((err) => {
-      console.log('delete err===>', err);
       return next({
         log:
-          'stepsController.deleteStep: ERROR: Error deleting application from database',
+          `stepsController.deleteStep: Error deleting application from database ERROR: ${err}`,
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
 };
 
-stepController.editStep = (req, res, next) => {
+stepsController.editStep = (req, res, next) => {
   const {
     date,
     step_type,
@@ -108,7 +102,7 @@ stepController.editStep = (req, res, next) => {
   RETURNING *
   `;
 
-  const queryVals = [
+  const values = [
     date,
     step_type,
     contact_name,
@@ -117,28 +111,24 @@ stepController.editStep = (req, res, next) => {
     notes,
     Number(req.params.step_id),
   ];
-  console.log('stepID===>', req.params.step_id);
-
-  db.query(queryText, queryVals)
+  db.query(queryText, values)
     .then((data) => {
+      // TODO
       res.locals.step = data.rows;
-      console.log('edit step res.locals====>', res.locals);
       const { first_name, email } = res.locals.user;
       const { step_type, contact_name, date } = res.locals.step[0];
-      //console.log('step DATA====>', data.rows);
       sendEmail(email, first_name, step_type, date, contact_name);
       return next();
     })
     .catch((err) => {
-      console.log('editstep err--->', err);
       return next({
         log:
-          'stepController.updateStep: ERROR: Error updating application in database',
+          'stepsController.updateStep: ERROR: Error updating application in database ${err}',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
 };
 
-module.exports = stepController;
+module.exports = stepsController;
