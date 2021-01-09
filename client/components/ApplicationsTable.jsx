@@ -10,7 +10,8 @@ import axios from 'axios';
 const ApplicationsTable = () => {
   const [appData, setAppData] = useState([]);
   const [appDataDefault, setAppDataDefault] = useState([]);
-  const [companySearchInput, setCompanySearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+  const [categorySearchInput, setCategorySearchInput] = useState('company');
   const [showModal, setShowModal] = useState({ action: null, id: null }); // none / edit /add
   const [updateState, setUpdateState] = useState(true);
 
@@ -40,14 +41,23 @@ const ApplicationsTable = () => {
     }
   };
 
-  const updateCompanySearchInput = async (companySearchInput) => {
+  const filterSearchData = (searchInput, categorySearchInput) => {
     const filtered = appDataDefault.filter((application) => {
-      return application.company
+      return application[categorySearchInput]
         .toLowerCase()
-        .includes(companySearchInput.toLowerCase());
+        .includes(searchInput.toLowerCase());
     });
-    setCompanySearchInput(companySearchInput);
     setAppData(filtered);
+  };
+
+  const updateSearchInput = (searchInput) => {
+    filterSearchData(searchInput, categorySearchInput);
+    setSearchInput(searchInput);
+  };
+
+  const updateCategorySearchInput = (categorySearchInput) => {
+    filterSearchData(searchInput, categorySearchInput);
+    setCategorySearchInput(categorySearchInput);
   };
 
   //Delete application from the DB
@@ -68,12 +78,13 @@ const ApplicationsTable = () => {
 
   return (
     <div>
+      <SearchBar
+        searchInput={searchInput}
+        categorySearchInput={categorySearchInput}
+        updateSearchInput={updateSearchInput}
+        updateCategoryInput={updateCategorySearchInput}
+      />
       <table id="tracker">
-        <SearchBar
-          searchInput={companySearchInput}
-          updateSearchInput={updateCompanySearchInput}
-          searchName={'Company'}
-        />
         <ApplicationsTableHeader />
         <ApplicationsTableRows
           appData={appData}

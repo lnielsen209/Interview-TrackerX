@@ -201,16 +201,16 @@ const ApplicationsModal = ({
               onChange={(e) => setAppStatus(e.target.value)}
               required
             >
-              <option value="1">Not Applied</option>
-              <option value="2">Applied</option>
-              <option value="3">Phone Screening</option>
-              <option value="4">Technical Interview</option>
-              <option value="5">Interviewing</option>
-              <option value="6">Offer Received</option>
-              <option value="7">Offer Accepted</option>
-              <option value="8">Offer Rejected</option>
-              <option value="9">Application Rejected</option>
-              <option value="10">Not Interested</option>
+              <option value="Not Applied">Not Applied</option>
+              <option value="Applied">Applied</option>
+              <option value="Phone Screening">Phone Screening</option>
+              <option value="Technical Interview">Technical Interview</option>
+              <option value="Interviewing">Interviewing</option>
+              <option value="Offer Received">Offer Received</option>
+              <option value="Offer Accepted">Offer Accepted</option>
+              <option value="Offer Rejected">Offer Rejected</option>
+              <option value="Application Rejected">Application Rejected</option>
+              <option value="Not Interested">Not Interested</option>
             </select>
           </label>
           <div className="modalButtonWrapper">
