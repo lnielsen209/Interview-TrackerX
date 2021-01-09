@@ -6,7 +6,7 @@ const dotenv = require('dotenv').config();
 const app = express();
 
 const userRouter = require('./routes/users');
-const sessionController = require('./controllers/sessionController');
+// const sessionController = require('./controllers/sessionController');
 
 const PORT = 3000;
 
