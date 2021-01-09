@@ -1,7 +1,5 @@
-import React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../App.jsx';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useAuth } from '../routes/useAuth';
 
 const modalTitle = {
   add: 'Add new step',
@@ -26,11 +24,11 @@ const StepsModal = ({
   const [contact, setContact] = useState(currentStep.contact || '');
   const [notes, setNote] = useState(currentStep.notes || '');
 
-  const context = useContext(UserContext);
+  const auth = useAuth();
   console.log('appID', appId);
 
   const addStep = (body) => {
-    fetch(`/user/${context.user.id}/application/${appId}/step`, {
+    fetch(`/user/${auth.user.id}/application/${appId}/step`, {
       method: 'POST',
 
       headers: {
@@ -44,21 +42,20 @@ const StepsModal = ({
         setShowModalStep({ action: null, id: null });
         setUpdateState(true); // add from Lee
       })
-      .catch((err) => console.log('addStep ERROR: ', err));
+      .catch((error) =>
+        console.log('addStep ERROR: ', error.response.data.err)
+      );
   };
 
   const editStep = (body) => {
-    fetch(
-      `/user/${context.user.id}/application/${appId}/step/${currentStep.id}`,
-      {
-        method: 'PUT',
+    fetch(`/user/${auth.user.id}/application/${appId}/step/${currentStep.id}`, {
+      method: 'PUT',
 
-        headers: {
-          'content-type': 'application/JSON',
-        },
-        body: JSON.stringify(body),
-      }
-    ).then((data) => {
+      headers: {
+        'content-type': 'application/JSON',
+      },
+      body: JSON.stringify(body),
+    }).then((data) => {
       data.json();
       console.log(`step updated`);
       setShowModalStep({ action: null, id: null });
@@ -87,15 +84,15 @@ const StepsModal = ({
   };
 
   return (
-    <div id="div3" className="modalWrapper">
-      <div className="modalBackground">
+    <div id='div3' className='modalWrapper'>
+      <div className='modalBackground'>
         <h2>{modalTitle[action]}</h2>
-        <form id="list" className="modalForm">
+        <form id='list' className='modalForm'>
           <label>
             Date
             <input
-              type="date"
-              id="date"
+              type='date'
+              id='date'
               value={date.slice(0, 10)}
               onChange={(e) => setDate(e.target.value)}
               required
@@ -104,9 +101,9 @@ const StepsModal = ({
           <label>
             Progess
             <input
-              type="text"
-              placeholder="e.g. interview, screening, offer"
-              id="step_type"
+              type='text'
+              placeholder='e.g. interview, screening, offer'
+              id='step_type'
               value={step_type}
               onChange={(e) => setStepType(e.target.value)}
               required
@@ -115,9 +112,9 @@ const StepsModal = ({
           <label>
             Contact Name
             <input
-              type="text"
+              type='text'
               // placeholder="contact information"
-              id="contact_name"
+              id='contact_name'
               value={contact_name}
               onChange={(e) => setContactName(e.target.value)}
               required
@@ -126,9 +123,9 @@ const StepsModal = ({
           <label>
             Contact Role
             <input
-              type="text"
-              placeholder="e.g. HR representative, manager"
-              id="contact_role"
+              type='text'
+              placeholder='e.g. HR representative, manager'
+              id='contact_role'
               value={contact_role}
               onChange={(e) => setContractRole(e.target.value)}
               required
@@ -137,9 +134,9 @@ const StepsModal = ({
           <label>
             Contact
             <input
-              type="text"
-              placeholder="e.g. phone number or email"
-              id="contact"
+              type='text'
+              placeholder='e.g. phone number or email'
+              id='contact'
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               required
@@ -148,25 +145,25 @@ const StepsModal = ({
           <label>
             Notes
             <input
-              type="text"
+              type='text'
               // placeholder="notes"
-              id="notes"
+              id='notes'
               value={notes}
               onChange={(e) => setNote(e.target.value)}
               required
             />
           </label>
-          <div className="modalButtonWrapper">
+          <div className='modalButtonWrapper'>
             <button
-              className="modalButton"
+              className='modalButton'
               onClick={() => setShowModalStep({ action: null, id: null })}
             >
               Cancel
             </button>
 
             <button
-              type="submit"
-              className="modalButton"
+              type='submit'
+              className='modalButton'
               onClick={handleSubmit}
             >
               Save

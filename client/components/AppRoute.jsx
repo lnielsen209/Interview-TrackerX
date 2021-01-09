@@ -11,15 +11,16 @@ const AppRoute = ({ component: Component, path, isPrivate, ...rest }) => {
     <Route
       path={path}
       render={props =>
-        // isPrivate && !token ? (
-        true ?
+        // isPrivate ? (
+          // isPrivate && !token ? (
+          false ? (
           <Redirect to={{ pathname: '/login' }} />
         ) : (
-    <Component {...props} />
-  )
-}
-{...rest }
-/>
+            <Component {...props} />
+          )
+      }
+      {...rest}
+    />
   );
 };
 

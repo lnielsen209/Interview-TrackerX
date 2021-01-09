@@ -43,7 +43,7 @@ const Signup = () => {
           if (responseStatus === 200) {
             console.log('data', data);
             context.saveUser(data.id);
-            history.push('/dashboard');
+            history.push('/');
           }
         })
         .catch((err) => console.log('err', err));

@@ -1,9 +1,17 @@
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { UserContext } from '../App.jsx';
+<<<<<<< Updated upstream
+import { useAuth } from '../routes/useAuth';
+=======
+import { UserContext } from '../index';
+>>>>>>> Stashed changes
 import axios from 'axios';
+import { loginUser, useAuthContext } from '../state';
 
 const Signup = () => {
+  const history = useHistory();
+  const { authState, dispatch } = useAuthContext();
+
   // react hooks
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
@@ -11,13 +19,28 @@ const Signup = () => {
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
 
-  const context = useContext(UserContext);
+<<<<<<< Updated upstream
+  const auth = useAuth();
   const history = useHistory();
+=======
+  const context = useContext(UserContext);
+
+  const handleLogin = async () => {
+    let payload = { email, password };
+    try {
+      await loginUser(dispatch, payload); //loginUser action makes the request and handles all the neccessary state changes
+      //navigate to dashboard on success
+      history.push({
+        pathname: '/',
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+>>>>>>> Stashed changes
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // check if passwords match before submit
     if (password !== password2) {
       alert('password does not match');
     } else {
@@ -28,13 +51,27 @@ const Signup = () => {
           email,
           password,
         });
-        if (res.status === 200) {
+<<<<<<< Updated upstream
           console.log('res.data ===> ', res.data);
+          auth.signup(res.data.id, res.data.email, () =>
+            history.push('/dashboard')
+          );
+          console.log('auth.user in Signup Component ===> ', auth.user);
+=======
+        // refactor
+        if (res.status === 200) {
+          handleLogin()
           context.saveUser(res.data.id);
-          history.push('/dashboard');
         }
+>>>>>>> Stashed changes
       } catch (error) {
-        console.log('Error in handleSubmit of Signup component:', error);
+           if (error.response.status === 401) {
+             history.push('/');
+           }
+        console.log(
+          'Error in handleSubmit of Signup component:',
+          error.response.data.err
+        );
       }
     }
   };
@@ -43,9 +80,9 @@ const Signup = () => {
     <div id="wrapper">
       <div id="sign-up" className="login-wrapper">
         <form onSubmit={handleSubmit} id="list">
-          <h1>Create an Account</h1>
+          <h1>Let's get started</h1>
           <>
-            <p>First Name</p>
+            <p>First name</p>
             <input
               className="inputSignUp"
               type="text"
@@ -55,7 +92,7 @@ const Signup = () => {
             />
           </>
           <>
-            <p>Last Name</p>
+            <p>Last name</p>
             <input
               className="inputSignUp"
               type="text"
@@ -65,7 +102,7 @@ const Signup = () => {
             />
           </>
           <>
-            <p>Email Address</p>
+            <p>Email address</p>
             <input
               className="inputSignUp"
               type="email"
@@ -85,7 +122,7 @@ const Signup = () => {
             />
           </>
           <>
-            <p>Re-enter password</p>
+            <p>Confirm password</p>
             <input
               className="inputSignUp"
               type="password"
@@ -94,10 +131,8 @@ const Signup = () => {
               required
             />
           </>
-          <button>Create Account</button>
-          <Link to="/">
-            <button>Back</button>
-          </Link>
+          <button className="loginButton">Create Account</button>
+          <div style={{ textAlign: "center" }}><Link style={{ textDecoration: 'none', fontWeight: '400', color: '#3b3a3a' }} to="/">Already have an account? </Link></div>
         </form>
       </div>
     </div>

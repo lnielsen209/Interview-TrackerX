@@ -1,22 +1,26 @@
 @font-face {
-  font-family: 'Clarendon';
-  src: url('//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.eot');
-  src: url('//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.eot?#iefix')
-      format('embedded-opentype'),
-    url('//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.woff2')
-      format('woff2'),
-    url('//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.woff')
-      format('woff'),
-    url('//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.ttf')
-      format('truetype'),
-    url('//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.svg#Clarendon')
-      format('svg');
+  font-family: "Clarendon";
+  src: url("//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.eot");
+  src: url("//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/51430e57421d8cb4cea86dcd577ec180.svg#Clarendon")
+      format("svg");
 }
 
-h1 {
+/* h1 {
   font-weight: lighter;
-  font-family: 'clarendon';
+  font-family: "clarendon";
   font-size: 1.5em;
+} */
+
+h1 {
+  font-weight: 700;
 }
 
 body {
@@ -26,9 +30,9 @@ body {
   padding: 0px;
   /* font-family: 'lucida grande', tahoma, verdana, arial, sans-serif; */
   /* background: linear-gradient(white, #d3d8e8); */
-  background: #abcaf9;
-  font-family: 'futura';
-  font-weight: lighter;
+  background: white;
+  font-family: "Roboto", sans-serif;
+  /* font-weight: lighter; */
   color: #0e0e0e;
 }
 
@@ -43,8 +47,8 @@ body {
   /* right: 10px; */
   flex-direction: column;
   align-items: center;
-  border: #fbb829 solid 1px;
-  background-color: #fefbaf;
+  border: rgb(222, 222, 222) solid 1px;
+  background-color: rgb(244, 244, 244);
   padding: 20px;
   margin: 10px;
 }
@@ -54,9 +58,14 @@ body {
   align-items: baseline;
 }
 
-.loginButtonWrapper {
-  margin: 20px;
+.recent-posts p {
+  font-size: 28;
+  font-weight: 700;
 }
+
+/* .loginButtonWrapper {
+  margin: 20px;
+} */
 
 #sign-up {
   position: absolute;
@@ -66,12 +75,18 @@ body {
   align-items: center;
 }
 
+#sign-up p {
+  margin-bottom: 0;
+  font-weight: 300;
+}
+
 input {
   border-radius: 5px;
   border: 1px solid #8a8989;
-  margin: 5px 0;
+  /* margin: 5px 0; */
   padding: 5px;
   background-color: rgb(250, 250, 250);
+  width: 100%;
 }
 
 button {
@@ -85,15 +100,24 @@ button {
 }
 
 .loginButton {
+  padding: 10px 15px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 5px;
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: whitesmoke;
+  height: 40px;
+}
+
+.signupButton {
   color: #195ec3;
   background-color: rgb(250, 250, 250);
   /* border: 1px; */
   border: 1px solid #195ec3;
-}
-
-.signupButton {
-  padding: 10px 15px;
-  font-weight: bold;
 }
 
 .modalForm input {
@@ -109,17 +133,23 @@ button {
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.9);
+  background: white;
   height: 100%;
   z-index: 10;
-  color: #195ec3;
+  color: black;
+  font-weight: 300;
+  /* font-size: 11px; */
 }
 
 .modalBackground {
-  background: #fefbaf;
+  background: rgb(244, 244, 244);
   width: 50%;
   height: 90%;
   padding: 30px;
+}
+
+.modalBackground h2 {
+  margin-top: 50px;
 }
 
 .modalForm {
@@ -159,16 +189,16 @@ button {
 }
 
 #sticky {
+  font-family: "Roboto", sans-serif;
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: #ffe545;
-  color: #195ec3;
+  background-color: rgb(214, 235, 243);
+  color: black;
   padding: 15px;
   padding-left: 25px;
   text-align: left;
 }
-
 
 @media (max-width: 900px) {
   .low-priority-col {
@@ -186,7 +216,7 @@ button {
 
 #title {
   text-align: center;
-  font-family: 'futura';
+  /* font-family: "futura"; */
   font-size: 2em;
   font-weight: 400;
 }
@@ -219,7 +249,7 @@ tr {
 #tracker th {
   padding: 10px;
   text-align: center;
-  background-color: #fbb829;
+  background-color: rgb(244, 244, 244);
   color: #195ec3;
   font-weight: 500;
   font-size: 1.1em;

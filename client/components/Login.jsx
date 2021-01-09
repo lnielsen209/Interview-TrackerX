@@ -1,47 +1,58 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { UserContext } from '../App.jsx';
+import { useAuth } from '../routes/useAuth';
 import axios from 'axios';
+import { loginUser, useAuthContext } from '../state';
 
 const Login = () => {
+  const history = useHistory();
+  const { authState, dispatch } = useAuthContext();
+
   // react hooks
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
-  const context = useContext(UserContext);
+  const auth = useAuth();
+  // console.log('auth in Loginin Component', auth)
   const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let payload = { username, password };
 
     try {
       const res = await axios.post('/user/login', { username, password });
-      if (res.status === 200) {
-        console.log('res.data ===> ', res.data);
-        context.saveUser(res.data.id);
-        history.push('/dashboard');
-      }
+      console.log('res==>', res);
+
+      console.log('res.data ===> ', res.data);
+      auth.login(res.data.id, res.data.email, () => history.push('/dashboard'));
     } catch (error) {
-      console.log('Error in handleSubmit of Login component:', error);
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log(
+        'Error in handleSubmit of Login component: ',
+        error.response.data.err
+      );
     }
   };
 
   return (
-    <div className="outer-wrapper">
-      <div className="recent-posts">
-        <p align="left">
+    <div className='outer-wrapper'>
+      <div className='recent-posts'>
+        <p align='left'>
           Get interview insights while you manage <br />
           every step in your job search, from application to offer.
         </p>
       </div>
-      <div className="login-wrapper">
-        <h1>Log in:</h1>
-        <form onSubmit={handleSubmit}>
+      <div id='sign-up' className='login-wrapper'>
+        <form onSubmit={handleSubmit} id='list'>
+          <h1>Log in</h1>
           <>
             <p>Email</p>
             <input
               value={username}
-              type="email"
+              type='email'
               onChange={(e) => setUserName(e.target.value)}
               required
             />
@@ -50,17 +61,28 @@ const Login = () => {
             <p>Password</p>
             <input
               password={password}
-              type="password"
+              type='password'
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </>
-          <div className="loginButtonWrapper">
-            <button className="loginButton">Log in</button>
-            <p>or</p>
-            <Link to="/signup">
-              <button className="signupButton">Sign up</button>
-            </Link>
+          <div className='loginButtonWrapper'>
+            <button className='loginButton'>Log in</button>
+            <div>
+              <span style={{ color: '#727171', fontWeight: '300' }}>
+                Don't have an account?{' '}
+                <Link
+                  style={{
+                    textDecoration: 'none',
+                    fontWeight: '400',
+                    color: '#3b3a3a',
+                  }}
+                  to='/signup'
+                >
+                  Create one
+                </Link>
+              </span>
+            </div>
           </div>
         </form>
       </div>

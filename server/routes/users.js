@@ -1,63 +1,51 @@
 const express = require('express');
 
 const userController = require('../controllers/userController.js');
-const sessionController = require('../controllers/sessionController');
-
-const applicationRouter = require('../routes/applications');
-
+const authController = require('../controllers/authController');
 const userRouter = express.Router();
+const router = express.Router();
 
-// Route to create a new user
-userRouter.post(
-  '/signup',
-  userController.createUser,
-  sessionController.startSession,
-  (req, res) => {
-    res.status(200).json({ id: res.locals.id });
-  }
-);
-
-userRouter.post(
-  '/login',
-  userController.verifyUser,
-  sessionController.startSession,
-  (req, res) => {
-    res.status(200).json({ id: res.locals.id });
-  }
-);
-
-//log out by replacing the token to " " and set the expiration to 1 millisecond
-userRouter.get('/logout', (req, res) => {
-  res.clearCookie('token');
-  console.log('logout==>', res.locals); //contains user(userEmail)
-  res.sendStatus(200);
+router.use(function(req, res, next) {
+  res.header(
+    'Access-Control-Allow-Headers',
+    'x-access-token, Authorization, Origin, Content-Type, Accept'
+  );
+  return next();
 });
 
-// get user data at login
+// userRouter -> /user
+// Get user data at login
 userRouter.get(
-  '/:user_id',
-
+  '/',
+  authController.verifyToken,
   userController.getUserData,
   (req, res) => {
     res.status(200).json(res.locals.userData);
   }
 );
 
-// add new user
-// router.post("/", usersController.addUser, (req, res) => {
-//   res.status(200).json(res.locals.userId);
-// });
+userRouter.post(
+  '/signup',
+  userController.createUser,
+  authController.generateToken,
+  (req, res) => {
+    res.status(200).json({ id: res.locals.id, token: res.locals.token, email: res.locals.email});
+  }
+);
 
-// edit user
-// router.put('/:user_id', usersController.editUser, (req, res) => {
-//   res.status(200).json({});
-// });
+userRouter.post(
+  '/login',
+  authController.verifyUser,
+  authController.generateToken,
+  (req, res) => {
+    res.status(200).json({ id: res.locals.id, token: res.locals.token, email: res.locals.email });
+  }
+);
 
-// delete
-// router.delete('/:user_id', usersController.deleteUser, (req, res) => {
-//   res.status(200).json({});
+// We won't need this because front end would delete token @ logout from localStorage + login and signup always generate a new token
+// userRouter.get('/logout', (req, res) => {
+//   res.clearCookie('token');
+//   res.sendStatus(200);
 // });
-
-userRouter.use('/:user_id/application', applicationRouter);
 
 module.exports = userRouter;

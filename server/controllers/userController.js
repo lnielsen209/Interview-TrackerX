@@ -4,23 +4,21 @@ const bcrypt = require('bcrypt');
 const userController = {};
 
 userController.getUserData = (req, res, next) => {
-  const UID = req.params.user_id;
 
   // get user's personal data
-  const getUserData = 'SELECT * FROM applicants WHERE id = $1';
+  const queryText = 'SELECT * FROM applicants WHERE id = $1';
 
-  db.query(getUserData, [UID]) // array of variables to use in query
+  db.query(queryText, [res.locals.userID])
     .then((data) => {
       res.locals.userData = data.rows[0];
-      console.log('userDAta===>', res.locals.userData);
       return next();
     })
     .catch((err) => {
-      console.log('getuserdataErr--->', err);
       return next({
-        log: 'usersController.getUserData: ERROR: Error getting database',
+        log: `usersController.getUserData: Error getting database ERROR: ${err}`,
+        status: 500,
         message: {
-          err: 'usersController.getUserData: ERROR: Check database for details',
+          err: err.message,
         },
       });
     });
@@ -28,77 +26,29 @@ userController.getUserData = (req, res, next) => {
 
 userController.createUser = async (req, res, next) => {
   try {
-    const {
-      first_name,
-      last_name,
-      email,
-      password,
-      // cur_salary,
-      // DOB,
-    } = req.body;
-
+    const { first_name, last_name, email, password } = req.body;
     if (!first_name || !last_name || !email || !password)
-      return res.sendStatus(401);
+      throw new Error("fields can not be empty");
 
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    const createUserText =
+   
+    // parameterized query
+    const queryText =
       'INSERT INTO applicants (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *';
-    const createUserVals = [first_name, last_name, email, hashedPassword];
-    const data = await db.query(createUserText, createUserVals);
-    res.locals.id = data.rows[0].id;
-
+    const values = [first_name, last_name, email, hashedPassword];
+    const data = await db.query(queryText, values);
+    res.locals.userID = data.rows[0].id;
     return next();
   } catch (err) {
-    console.log('createUser err==>', err);
     return next({
-      log: 'usersController.addUser: ERROR: Error writing to database',
+      log: `usersController.addUser: Error writing to database ERROR: ${err}`,
+      status: 401,
       message: {
-        err: 'usersController.addUser: ERROR: Check database for details',
+        err: err.message,
       },
     });
   }
 };
-
-userController.verifyUser = async (req, res, next) => {
-  const { username, password } = req.body;
-
-  if (!username || !password) return res.sendStatus(401);
-
-  try {
-    const verifyUserText = ` SELECT * FROM applicants WHERE email = $1`;
-    const verifyUserData = [username];
-
-    const data = await db.query(verifyUserText, verifyUserData);
-
-    const hashedPassword = data.rows[0].password;
-
-    if (!hashedPassword) return res.sendStatus(401);
-    const isMatch = await bcrypt.compare(password, hashedPassword);
-
-    if (!isMatch) return res.sendStatus(401);
-
-    console.log('res.locals.id', data.rows[0].id); //=>userid
-    res.locals.id = data.rows[0].id;
-
-    return next();
-  } catch (err) {
-    return next({
-      log: 'usersController.verifyUser: ERROR: Unable to verify user data.',
-      message: {
-        err: `usersController.verifyUser: ERROR: ${err}`,
-      },
-    });
-  }
-};
-
-// userController.editUser = (req, res, next) => {
-
-// };
-
-// userController.deleteUser = (req, res, next) => {
-//     // delete all apps and all steps
-// };
 
 module.exports = userController;

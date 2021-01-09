@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../App.jsx';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../routes/useAuth';
 import ApplicationsTableHeader from './ApplicationsTableHeader.jsx';
 import ApplicationsTableRows from './ApplicationsTableRows.jsx';
 import ApplicationsTableFooter from './ApplicationsTableFooter.jsx';
@@ -8,27 +9,28 @@ import axios from 'axios';
 const ApplicationsTable = () => {
   const [appData, setAppData] = useState([]);
   const [showModal, setShowModal] = useState({ action: null, id: null }); // none / edit /add
-  const [updateState, setUpdateState] = useState(true);
 
-  const context = useContext(UserContext);
+  const auth = useAuth();
+  const history = useHistory();
 
   // get the users data from the DB
   useEffect(() => {
-    if (updateState) fetchApplications();
-  }, [updateState]);
+    fetchApplications();
+  }, []);
 
   const fetchApplications = async () => {
     try {
-      const res = await axios.get(`/user/${context.user.id}/application`);
-      if (res.status === 200) {
-        console.log('userEmail===>', res.data.user);
-        setAppData(res.data.userData);
-        setUpdateState(false);
-      }
+      const res = await axios.get(`/application`);
+      // const res = await axios.get(`/user/${auth.user.id}/application`);
+      setAppData(res.data.userData);
+      setUpdateState(false);
     } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
       console.log(
         'Error in fetchApplications of DashboardTable component:',
-        error
+        error.response.data.err
       );
     }
   };
@@ -36,16 +38,16 @@ const ApplicationsTable = () => {
   //Delete application from the DB
   const removeApplications = async (id) => {
     try {
-      const res = await axios.delete(
-        `/user/${context.user.id}/application/${id}`
-      );
-      if (res.status === 200) {
-        setUpdateState(true);
-      }
+      const res = await axios.delete(`/application/${id}`);
+      // const res = await axios.delete(`/user/${auth.user.id}/application/${id}`);
+      setAppData(res.data.userData);
     } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
       console.log(
         'Error in removeApplications of DashboardTable component:',
-        error
+        error.response.data.err
       );
     }
   };

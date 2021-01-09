@@ -1,6 +1,9 @@
+import React, { useContext } from 'react';
+import { UserContext } from '../../index';
+
 export async function loginUser(dispatch, loginPayload) {
-  let token = localStorage.getItem('currentUser')
-    ? JSON.parse(localStorage.getItem('currentUser')).token
+  let token = localStorage.getItem('user')
+    ? JSON.parse(localStorage.getItem('user')).token
     : '';
 
   const requestOptions = {
@@ -8,20 +11,21 @@ export async function loginUser(dispatch, loginPayload) {
     headers: { 'Content-Type': 'application/json', Authorization: `${token}` },
     body: JSON.stringify(loginPayload),
   };
+  console.log("loginPayload",loginPayload)
 
   try {
     dispatch({ type: 'REQUEST_LOGIN' });
-    let response = await fetch(`/api/auth/login`, requestOptions);
+    let response = await fetch(`/user/login`, requestOptions);
     let data = await response.json();
-
-    if (data.user) {
-      // if (data === null) {
+    const context = useContext(UserContext);
+    context.saveUser(data.id);
+    // data.user 
+    if (data.id) {
       dispatch({ type: 'LOGIN_SUCCESS', payload: data });
-      localStorage.setItem('currentUser', JSON.stringify(data));
+      localStorage.setItem('user', JSON.stringify(data));
+      console.log("data ", data)
     }
-
-    // dispatch({ type: 'LOGIN_ERROR', error: data.errors[0] });
-    dispatch({ type: 'ERROR', payload: data });
+    dispatch({ type: 'ERROR', payload: data.message });
   } catch (error) {
     dispatch({ type: 'ERROR', payload: error });
   }
@@ -29,6 +33,5 @@ export async function loginUser(dispatch, loginPayload) {
 
 export async function logout(dispatch) {
   dispatch({ type: 'LOGOUT' });
-  localStorage.removeItem('currentUser');
-  localStorage.removeItem('token');
+  localStorage.removeItem('user');
 }
