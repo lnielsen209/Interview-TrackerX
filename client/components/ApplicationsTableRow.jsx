@@ -8,19 +8,6 @@ const ApplicationsTableRow = ({
   setShowModal,
   removeApplications,
 }) => {
-  const appStatusLabel = {
-    1: 'Not Applied',
-    2: 'Applied',
-    3: 'Phone Screening',
-    4: 'Technical Interview',
-    5: 'Interviewing',
-    6: 'Offer Received',
-    7: 'Offer Accepted',
-    8: 'Offer Rejected',
-    9: 'Application Rejected',
-    10: 'Not Interested',
-  };
-
   const {
     id,
     company,
@@ -49,7 +36,7 @@ const ApplicationsTableRow = ({
       <td className="low-priority-col" id="notes-column">
         {notes}
       </td>
-      <td>{appStatusLabel[app_status]}</td>
+      <td>{app_status}</td>
       <td className="operation">
         <button
           className="deleteButton"
