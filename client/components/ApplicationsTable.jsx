@@ -10,7 +10,7 @@ const ApplicationsTable = () => {
   const [showModal, setShowModal] = useState({ action: null, id: null }); // none / edit /add
   const [updateState, setUpdateState] = useState(true);
 
-    const auth = useAuth();
+  const auth = useAuth();
 
   // get the users data from the DB
   useEffect(() => {
@@ -21,10 +21,6 @@ const ApplicationsTable = () => {
     try {
       const res = await axios.get(`/user/${auth.user.id}/application`);
       if (res.status === 200) {
-<<<<<<< HEAD
-        console.log('user and app data===>', res.data);
-=======
->>>>>>> ca147d5c2472a4fd1826a09cf45efc4c797f68f8
         setAppData(res.data.userData);
         setUpdateState(false);
       }
@@ -39,9 +35,7 @@ const ApplicationsTable = () => {
   //Delete application from the DB
   const removeApplications = async (id) => {
     try {
-      const res = await axios.delete(
-        `/user/${auth.user.id}/application/${id}`
-      );
+      const res = await axios.delete(`/user/${auth.user.id}/application/${id}`);
       if (res.status === 200) {
         setUpdateState(true);
       }
