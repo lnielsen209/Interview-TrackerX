@@ -3,10 +3,13 @@ import { UserContext } from '../App.jsx';
 import ApplicationsTableHeader from './ApplicationsTableHeader.jsx';
 import ApplicationsTableRows from './ApplicationsTableRows.jsx';
 import ApplicationsTableFooter from './ApplicationsTableFooter.jsx';
+import SearchBar from './SearchBar';
 import axios from 'axios';
 
 const ApplicationsTable = () => {
   const [appData, setAppData] = useState([]);
+  const [appDataDefault, setAppDataDefault] = useState([]);
+  const [companySearchInput, setCompanySearchInput] = useState('');
   const [showModal, setShowModal] = useState({ action: null, id: null }); // none / edit /add
   const [updateState, setUpdateState] = useState(true);
 
@@ -23,6 +26,7 @@ const ApplicationsTable = () => {
       if (res.status === 200) {
         console.log('userEmail===>', res.data.user);
         setAppData(res.data.userData);
+        setAppDataDefault(res.data.userData);
         setUpdateState(false);
       }
     } catch (error) {
@@ -31,6 +35,26 @@ const ApplicationsTable = () => {
         error
       );
     }
+  };
+
+  const updateCompanySearchInput = async (companySearchInput) => {
+    const filtered = appDataDefault.filter((application) => {
+      return application.company
+        .toLowerCase()
+        .includes(companySearchInput.toLowerCase());
+    });
+    setCompanySearchInput(companySearchInput);
+    setAppData(filtered);
+  };
+
+  const updateStatusSearchInput = async (statusSearchInput) => {
+    const filtered = appDataDefault.filter((application) => {
+      return application.app_status
+        .toLowerCase()
+        .includes(statusSearchInput.toLowerCase());
+    });
+    setStatusSearchInput(statusSearchInput);
+    setAppData(filtered);
   };
 
   //Delete application from the DB
@@ -52,7 +76,12 @@ const ApplicationsTable = () => {
 
   return (
     <div>
-      <table id='tracker'>
+      <table id="tracker">
+        <SearchBar
+          searchInput={companySearchInput}
+          updateSearchInput={updateCompanySearchInput}
+          searchName={'company'}
+        />
         <ApplicationsTableHeader />
         <ApplicationsTableRows
           appData={appData}

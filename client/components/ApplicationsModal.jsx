@@ -13,7 +13,7 @@ const ApplicationsModal = ({
   currentApp,
   setUpdateState,
 }) => {
-  const [tracker, setTracker] = useState([]);
+  // const [tracker, setTracker] = useState([]);
 
   const [job_title, setJobTitle] = useState(currentApp.job_title || '');
   const [company, setCompany] = useState(currentApp.company || '');
