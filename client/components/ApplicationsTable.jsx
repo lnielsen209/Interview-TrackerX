@@ -47,16 +47,6 @@ const ApplicationsTable = () => {
     setAppData(filtered);
   };
 
-  const updateStatusSearchInput = async (statusSearchInput) => {
-    const filtered = appDataDefault.filter((application) => {
-      return application.app_status
-        .toLowerCase()
-        .includes(statusSearchInput.toLowerCase());
-    });
-    setStatusSearchInput(statusSearchInput);
-    setAppData(filtered);
-  };
-
   //Delete application from the DB
   const removeApplications = async (id) => {
     try {
@@ -80,7 +70,7 @@ const ApplicationsTable = () => {
         <SearchBar
           searchInput={companySearchInput}
           updateSearchInput={updateCompanySearchInput}
-          searchName={'company'}
+          searchName={'Company'}
         />
         <ApplicationsTableHeader />
         <ApplicationsTableRows
