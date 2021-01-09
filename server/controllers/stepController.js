@@ -33,7 +33,8 @@ stepController.addStep = (req, res, next) => {
     contact,
     notes,
   } = req.body;
-  console.log('useremail===>', res.locals.user);
+
+  console.log('addstep res.locals===>', res.locals.user);
 
   const addStepText = `INSERT INTO steps 
   (app_id, date, step_type, contact_name, contact_role, contact_info, notes) 
