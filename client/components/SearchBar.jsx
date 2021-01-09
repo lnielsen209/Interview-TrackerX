@@ -17,7 +17,7 @@ const SearchBar = ({ searchInput, updateSearchInput, updateCategoryInput }) => {
         <option value={'job_title'}>Title</option>
         <option value={'location'}>Location</option>
         <option value={'found_by'}>Found By</option>
-        <option value={' Via'}>Applied Via</option>
+        <option value={'how_applied'}>Applied Via</option>
         <option value={'url'}>URL</option>
         <option value={'notes'}>Notes</option>
         <option value={'app_status'}>App Status</option>
