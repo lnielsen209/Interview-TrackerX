@@ -9,7 +9,6 @@ const stepRouter = require('../routes/steps');
 // get all applications for this user_id
 applicationRouter.get(
   '/',
-
   sessionController.isLoggedIn,
   applicationController.getAllApps,
   (req, res) => {

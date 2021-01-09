@@ -1,7 +1,5 @@
-import React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../App.jsx';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useAuth } from '../routes/useAuth';
 
 const modalTitle = {
   add: 'Add new step',
@@ -26,11 +24,11 @@ const StepsModal = ({
   const [contact, setContact] = useState(currentStep.contact || '');
   const [notes, setNote] = useState(currentStep.notes || '');
 
-  const context = useContext(UserContext);
+   const auth = useAuth();
   console.log('appID', appId);
 
   const addStep = (body) => {
-    fetch(`/user/${context.user.id}/application/${appId}/step`, {
+    fetch(`/user/${auth.user.id}/application/${appId}/step`, {
       method: 'POST',
 
       headers: {
@@ -44,12 +42,14 @@ const StepsModal = ({
         setShowModalStep({ action: null, id: null });
         setUpdateState(true); // add from Lee
       })
-      .catch((err) => console.log('addStep ERROR: ', err));
+      .catch((error) =>
+        console.log('addStep ERROR: ', error.response.data.err)
+      );
   };
 
   const editStep = (body) => {
     fetch(
-      `/user/${context.user.id}/application/${appId}/step/${currentStep.id}`,
+      `/user/${auth.user.id}/application/${appId}/step/${currentStep.id}`,
       {
         method: 'PUT',
 

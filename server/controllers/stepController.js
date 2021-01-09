@@ -17,7 +17,7 @@ stepController.getAllSteps = (req, res, next) => {
         log:
           'stepController.getAllSteps: ERROR: Error getting steps from database',
         message: {
-          err: 'stepController.getAllSteps: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -33,7 +33,8 @@ stepController.addStep = (req, res, next) => {
     contact,
     notes,
   } = req.body;
-  console.log('useremail===>', res.locals.user);
+
+  console.log('addstep res.locals===>', res.locals.user);
 
   const addStepText = `INSERT INTO steps 
   (app_id, date, step_type, contact_name, contact_role, contact_info, notes) 
@@ -59,7 +60,7 @@ stepController.addStep = (req, res, next) => {
       return next({
         log: 'stepController.addStep: ERROR: Error writing to database',
         message: {
-          err: 'stepController.addStep: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -79,7 +80,7 @@ stepController.deleteStep = (req, res, next) => {
         log:
           'stepsController.deleteStep: ERROR: Error deleting application from database',
         message: {
-          err: 'stepsController.deleteStep: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });
@@ -134,7 +135,7 @@ stepController.editStep = (req, res, next) => {
         log:
           'stepController.updateStep: ERROR: Error updating application in database',
         message: {
-          err: 'stepController.updateStep: ERROR: Check database for details',
+          err: `${err.message}`,
         },
       });
     });

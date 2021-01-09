@@ -1,6 +1,7 @@
-import React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../App.jsx';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../routes/useAuth';
+import axios from 'axios';
 
 const modalTitle = {
   add: 'Add new application',
@@ -13,8 +14,6 @@ const ApplicationsModal = ({
   currentApp,
   setUpdateState,
 }) => {
-  const [tracker, setTracker] = useState([]);
-
   const [job_title, setJobTitle] = useState(currentApp.job_title || '');
   const [company, setCompany] = useState(currentApp.company || '');
   const [how_applied, setHowApplied] = useState(currentApp.how_applied || '');
@@ -27,41 +26,50 @@ const ApplicationsModal = ({
   const [notes, setNotes] = useState(currentApp.notes || '');
   const [app_status, setAppStatus] = useState(currentApp.app_status || '');
 
-  //   const fakeUID = 2;
+  const auth = useAuth();
+  const history = useHistory();
 
-  const context = useContext(UserContext);
+  const addApplication = async (body) => {
+    try {
+      const res = await axios.post(`/user/${auth.user.id}/application`, body);
+      console.log('res==>', res);
 
-  const addApplication = (body) => {
-    fetch(`/user/${context.user.id}/application`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
-      body: JSON.stringify(body),
-    })
-      .then((data) => {
-        data.json();
-        console.log('new application added');
-        setShowModal({ action: null, id: null });
-        setUpdateState(true); // add from Lee
-      })
-      .catch((err) => console.log('addApplication ERROR: ', err));
-  };
-
-  const editApplication = (body) => {
-    console.log('call edit app');
-    fetch(`/user/${context.user.id}/application/${currentApp.id}`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/JSON',
-      },
-      body: JSON.stringify(body),
-    }).then((data) => {
-      data.json();
-      console.log(`application updated`);
+      console.log('new application added');
       setShowModal({ action: null, id: null });
       setUpdateState(true); // add from Lee
-    });
+    } catch (error) {
+      console.log('error.response.status ===> ', error.response.status);
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log(
+        'Error in addApplication of ApplicationsModel component: ',
+        error.response.data.err
+      );
+    }
+  };
+
+  const editApplication = async (body) => {
+    console.log('call edit app');
+    try {
+      const res = await axios.put(
+        `/user/${auth.user.id}/application/${currentApp.id}`,
+        body
+      );
+      console.log('res==>', res);
+
+      console.log('new application added');
+      setShowModal({ action: null, id: null });
+      setUpdateState(true); // add from Lee
+    } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log(
+        'Error in editApplication of ApplicationsModel component: ',
+        error.response.data.err
+      );
+    }
   };
 
   const handleSubmit = (e) => {
