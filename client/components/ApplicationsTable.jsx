@@ -12,12 +12,11 @@ const ApplicationsTable = () => {
   const [updateState, setUpdateState] = useState(true);
 
   const auth = useAuth();
-    const history = useHistory();
-
+  const history = useHistory();
 
   // get the users data from the DB
   useEffect(() => {
-    if (updateState) fetchApplications();
+    fetchApplications();
   }, [updateState]);
 
   const fetchApplications = async () => {
@@ -42,9 +41,9 @@ const ApplicationsTable = () => {
       const res = await axios.delete(`/user/${auth.user.id}/application/${id}`);
       setUpdateState(true);
     } catch (error) {
-       if (error.response.status === 401) {
-         history.push('/');
-       }
+      if (error.response.status === 401) {
+        history.push('/');
+      }
       console.log(
         'Error in removeApplications of DashboardTable component:',
         error.response.data.err

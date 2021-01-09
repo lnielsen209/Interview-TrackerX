@@ -23,7 +23,7 @@ const StepsTable = ({ state }) => {
 
   // get the applications steps data from the DB
   useEffect(() => {
-    if (updateState) fetchSteps();
+    fetchSteps();
   }, [updateState]);
 
   const fetchSteps = async () => {
