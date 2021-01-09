@@ -11,7 +11,7 @@ const createToken = (id) => {
   });
 };
 
-// create token 
+// create token
 authController.generateToken = (req, res, next) => {
   const { id } = res.locals;
   try {
@@ -33,20 +33,19 @@ authController.generateToken = (req, res, next) => {
 authController.verifyToken = async (req, res, next) => {
   // const token = req.cookies.token;
   let token = req.headers['x-access-token'] || req.headers['authorization'];
-  
+
   if (token.startsWith('Bearer')) {
-    token = token.slice(7, token.length)
+    token = token.slice(7, token.length);
   }
 
   try {
     if (!token) {
-      throw new Error("Unauthorized!");
+      throw new Error('Unauthorized!');
     }
     const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
 
     res.locals.userID = decodedToken.id;
-    return next()
-
+    return next();
   } catch (err) {
     return next({
       log: `authController.verifyToken: Unable to verify JWT token ERROR: ${err}`,
@@ -60,7 +59,7 @@ authController.verifyToken = async (req, res, next) => {
 
 authController.verifyUser = async (req, res, next) => {
   const { username, password } = req.body;
-  if (!username || !password) throw new Error("fields can not be empty");
+  if (!username || !password) throw new Error('fields can not be empty');
   try {
     const queryText = `SELECT * FROM applicants WHERE email = $1`;
     const value = [username];
@@ -74,7 +73,7 @@ authController.verifyUser = async (req, res, next) => {
       throw new Error('Password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
     }
     res.locals.id = data.rows[0].id;
-    res.locals.email = data.rows[0].email; 
+    res.locals.email = data.rows[0].email;
     return next();
   } catch (err) {
     return next({
