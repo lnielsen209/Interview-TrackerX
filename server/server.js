@@ -6,7 +6,6 @@ const dotenv = require('dotenv').config();
 const app = express();
 
 const userRouter = require('./routes/users');
-// const sessionController = require('./controllers/sessionController');
 
 const PORT = 3000;
 
@@ -16,7 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Route Handlers
-// app.get('*', sessionController.checkUser);
 app.use('/user', userRouter);
 
 //Default Error Handler

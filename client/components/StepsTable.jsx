@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
 import StepsTableHeader from './StepsTableHeader.jsx';
 import StepsTableRow from './StepsTableRows.jsx';
@@ -15,6 +15,7 @@ const StepsTable = ({ state }) => {
     id: null,
   }); // none / edit /add
 
+  const history = useHistory();
   const auth = useAuth();
   console.log('state in Steps Component ===> ', useLocation().state);
 
@@ -30,12 +31,13 @@ const StepsTable = ({ state }) => {
       const res = await axios.get(
         `/user/${auth.user.id}/application/${state.application.id}/step`
       );
-      if (res.status === 200) {
-        console.log('res.data===>', res);
-        setStepData(res.data);
-        setUpdateState(false);
-      }
+      console.log('res.data===>', res);
+      setStepData(res.data);
+      setUpdateState(false);
     } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
       console.log(
         'Error in fetchSteps of StepsTable component:',
         error.response.data.err
@@ -49,10 +51,11 @@ const StepsTable = ({ state }) => {
       const res = await axios.delete(
         `/user/${auth.user.id}/application/${app_id}/step/${step_id}`
       );
-      if (res.status === 200) {
-        setUpdateState(true);
-      }
+      setUpdateState(true);
     } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
       console.log(
         'Error in handleSubmit of StepsTable component:',
         error.response.data.err
@@ -61,8 +64,8 @@ const StepsTable = ({ state }) => {
   };
 
   return (
-    <div className='tableContainer'>
-      <table id='stepsTracker'>
+    <div className="tableContainer">
+      <table id="stepsTracker">
         <StepsTableHeader />
         <StepsTableRow
           stepData={stepData}

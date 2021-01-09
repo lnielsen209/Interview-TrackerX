@@ -18,13 +18,16 @@ const Login = () => {
     try {
       const res = await axios.post('/user/login', { username, password });
       console.log('res==>', res);
-      if (res.status === 200) {
+   
         console.log('res.data ===> ', res.data);
         auth.login(res.data.id, res.data.email, () =>
           history.push('/dashboard')
         );
-      }
+   
     } catch (error) {
+       if (error.response.status === 401) {
+         history.push('/');
+       }
       console.log(
         'Error in handleSubmit of Login component: ',
         error.response.data.err

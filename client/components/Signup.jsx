@@ -28,14 +28,15 @@ const Signup = () => {
           email,
           password,
         });
-        if (res.status === 200) {
           console.log('res.data ===> ', res.data);
           auth.signup(res.data.id, res.data.email, () =>
             history.push('/dashboard')
           );
           console.log('auth.user in Signup Component ===> ', auth.user);
-        }
       } catch (error) {
+           if (error.response.status === 401) {
+             history.push('/');
+           }
         console.log(
           'Error in handleSubmit of Signup component:',
           error.response.data.err

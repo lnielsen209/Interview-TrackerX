@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
 import ApplicationsTableHeader from './ApplicationsTableHeader.jsx';
 import ApplicationsTableRows from './ApplicationsTableRows.jsx';
@@ -11,6 +12,8 @@ const ApplicationsTable = () => {
   const [updateState, setUpdateState] = useState(true);
 
   const auth = useAuth();
+    const history = useHistory();
+
 
   // get the users data from the DB
   useEffect(() => {
@@ -20,11 +23,12 @@ const ApplicationsTable = () => {
   const fetchApplications = async () => {
     try {
       const res = await axios.get(`/user/${auth.user.id}/application`);
-      if (res.status === 200) {
-        setAppData(res.data.userData);
-        setUpdateState(false);
-      }
+      setAppData(res.data.userData);
+      setUpdateState(false);
     } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
       console.log(
         'Error in fetchApplications of DashboardTable component:',
         error.response.data.err
@@ -36,10 +40,11 @@ const ApplicationsTable = () => {
   const removeApplications = async (id) => {
     try {
       const res = await axios.delete(`/user/${auth.user.id}/application/${id}`);
-      if (res.status === 200) {
-        setUpdateState(true);
-      }
+      setUpdateState(true);
     } catch (error) {
+       if (error.response.status === 401) {
+         history.push('/');
+       }
       console.log(
         'Error in removeApplications of DashboardTable component:',
         error.response.data.err
@@ -49,7 +54,7 @@ const ApplicationsTable = () => {
 
   return (
     <div>
-      <table id='tracker'>
+      <table id="tracker">
         <ApplicationsTableHeader />
         <ApplicationsTableRows
           appData={appData}
