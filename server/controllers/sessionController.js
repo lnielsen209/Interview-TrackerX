@@ -41,11 +41,11 @@ sessionController.isLoggedIn = async (req, res, next) => {
   //if token exists, verify the token
   try {
     const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-    console.log('decodedToken--->', decodedToken);
+    console.log('decodedToken ===>', decodedToken);
     //decodedToken.id is the userID
     next();
   } catch (err) {
-    console.log('isLogged in ERR===>', err);
+    console.log('isLogged in ERR ===>', err);
 
     //redirect to login page in the frontend
     res.status(401);

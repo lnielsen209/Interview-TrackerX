@@ -27,7 +27,7 @@ const ApplicationsTable = () => {
     } catch (error) {
       console.log(
         'Error in fetchApplications of DashboardTable component:',
-        error
+        error.response.data.err
       );
     }
   };
@@ -44,7 +44,7 @@ const ApplicationsTable = () => {
     } catch (error) {
       console.log(
         'Error in removeApplications of DashboardTable component:',
-        error
+        error.response.data.err
       );
     }
   };

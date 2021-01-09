@@ -14,7 +14,10 @@ const SignoutButton = () => {
         auth.signout(() => history.push('/'));
       }
     } catch (error) {
-      console.log('Error in handleSubmit of Logout component:', error);
+      console.log(
+        'Error in handleSubmit of Logout component:',
+        error.response.data.err
+      );
     }
   };
 

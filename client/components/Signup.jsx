@@ -30,13 +30,16 @@ const Signup = () => {
         });
         if (res.status === 200) {
           console.log('res.data ===> ', res.data);
-          auth.login(res.data.id, res.data.email, () =>
+          auth.signup(res.data.id, res.data.email, () =>
             history.push('/dashboard')
           );
           console.log('auth.user in Signup Component ===> ', auth.user);
         }
       } catch (error) {
-        console.log('Error in handleSubmit of Signup component:', error);
+        console.log(
+          'Error in handleSubmit of Signup component:',
+          error.response.data.err
+        );
       }
     }
   };

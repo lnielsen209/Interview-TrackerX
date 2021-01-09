@@ -37,13 +37,13 @@ const useProvideAuth = () => {
     cb();
   };
 
-  console.log('user in useAuth ===> ', user)
+  console.log('user in useAuth ===> ', user);
   return { user, login, signup, signout };
 };
 
-export function ProvideAuth({ children }) {
+export const ProvideAuth = ({ children }) => {
   const auth = useProvideAuth();
   return <authContext.Provider value={auth}>{children}</authContext.Provider>;
-}
+};
 
 export const useAuth = () => useContext(authContext);

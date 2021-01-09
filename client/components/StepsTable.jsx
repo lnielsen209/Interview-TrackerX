@@ -35,7 +35,10 @@ const StepsTable = ({ state }) => {
         setUpdateState(false);
       }
     } catch (error) {
-      console.log('Error in fetchSteps of StepsTable component:', error);
+      console.log(
+        'Error in fetchSteps of StepsTable component:',
+        error.response.data.err
+      );
     }
   };
 
@@ -49,7 +52,10 @@ const StepsTable = ({ state }) => {
         setUpdateState(true);
       }
     } catch (error) {
-      console.log('Error in handleSubmit of StepsTable component:', error);
+      console.log(
+        'Error in handleSubmit of StepsTable component:',
+        error.response.data.err
+      );
     }
   };
 

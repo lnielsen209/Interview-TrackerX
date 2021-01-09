@@ -29,14 +29,13 @@ userRouter.post(
 //log out by replacing the token to " " and set the expiration to 1 millisecond
 userRouter.get('/logout', (req, res) => {
   res.clearCookie('token');
-  console.log('logout==>', res.locals); //contains user(userEmail)
   res.sendStatus(200);
 });
 
 // get user data at login
 userRouter.get(
   '/:user_id',
-
+sessionController.isLoggedIn,
   userController.getUserData,
   (req, res) => {
     res.status(200).json(res.locals.userData);

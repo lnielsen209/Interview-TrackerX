@@ -24,7 +24,7 @@ const Login = () => {
         );
       }
     } catch (error) {
-      console.log('Error in handleSubmit of Login component: ', error);
+      console.log('Error in handleSubmit of Login component: ', error.response.data.err);
     }
   };
 

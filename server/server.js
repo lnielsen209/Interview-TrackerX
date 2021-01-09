@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Route Handlers
-// app.get('*', sessionController.checkUser);
+// app.use(sessionController.isLoggedIn);
 app.use('/user', userRouter);
 
 //Default Error Handler

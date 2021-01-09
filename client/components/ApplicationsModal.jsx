@@ -44,7 +44,7 @@ const ApplicationsModal = ({
         setUpdateState(true); // add from Lee
       })
       .catch((error) =>
-        console.log('addApplication ERROR: ', error)
+        console.log('addApplication ERROR: ', error.response.data.err)
       );
   };
 

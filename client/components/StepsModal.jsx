@@ -43,7 +43,7 @@ const StepsModal = ({
         setUpdateState(true); // add from Lee
       })
       .catch((error) =>
-        console.log('addStep ERROR: ', error)
+        console.log('addStep ERROR: ', error.response.data.err)
       );
   };
 

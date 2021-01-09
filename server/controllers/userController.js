@@ -81,7 +81,7 @@ userController.verifyUser = async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, hashedPassword);
 
     if (!isMatch) {
-      throw new Error('password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
+      throw new Error('Password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
     }
     res.locals.id = data.rows[0].id; //=>userid
     res.locals.email = data.rows[0].email; //=>userid
