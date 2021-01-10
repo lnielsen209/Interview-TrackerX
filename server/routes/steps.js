@@ -1,24 +1,23 @@
 const express = require('express');
-const stepsController = require('../controllers/stepsController');
-const authController = require('../controllers/authController');
+const stepController = require('../controllers/stepController');
+const sessionController = require('../controllers/sessionController');
 
 const stepRouter = express.Router({ mergeParams: true });
 
-// stepRouter -> /user/:user_id/application/:app_id/step
+// starts at /:app_id/step
+// get all steps for this application id
 stepRouter.get(
   '/',
-  authController.verifyToken,
-  stepsController.getAllSteps,
-  (req, res) => {
-    res.status(200).json(res.locals.stepsData);
-  }
+
+  stepController.getAllSteps,
+  (req, res) => res.status(200).json(res.locals.stepData)
 );
 
 // add new step
 stepRouter.post(
   '/',
-  authController.verifyToken,
-  stepsController.addStep,
+  sessionController.isLoggedIn,
+  stepController.addStep,
   (req, res) => {
     res.status(200).json({});
   }
@@ -27,8 +26,8 @@ stepRouter.post(
 // edit step
 stepRouter.put(
   '/:step_id',
-  authController.verifyToken,
-  stepsController.editStep,
+  sessionController.isLoggedIn,
+  stepController.editStep,
   (req, res) => {
     res.status(200).json({});
   }
@@ -37,8 +36,8 @@ stepRouter.put(
 // delete step
 stepRouter.delete(
   '/:step_id',
-  authController.verifyToken,
-  stepsController.deleteStep,
+  sessionController.isLoggedIn,
+  stepController.deleteStep,
   (req, res) => {
     res.status(200).json({});
   }

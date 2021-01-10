@@ -4,23 +4,33 @@ const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv').config();
 
 const app = express();
-const PORT = 8000;
+
+const userRouter = require('./routes/users');
+const sessionController = require('./controllers/sessionController');
+
+const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(cookieParser());
 
-const userRouter = require('./routes/users');
-const applicationRouter = require('./routes/applications');
-const stepRouter = require('./routes/steps');
-
-// Routes for express application
+// Route Handlers
+app.get('*', sessionController.checkUser);
 app.use('/user', userRouter);
-app.use('/applications', applicationRouter);
-app.use('/applications/:app_id/steps', stepRouter);
 
-// Catch-all to unknown routes (404)
-app.use((req, res) => res.sendStatus(404));
+//Default Error Handler
+app.use((err, req, res, next) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 400,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log('default err --->', err);
+  console.log('default error errorlog-->', errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
+});
 
 if (process.env.NODE_ENV === 'production') {
   // statically serve everything in the build folder on the route '/build'
@@ -31,20 +41,10 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-//Default Error Handler
-app.use((error, req, res, next) => {
-  const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
-    status: 500,
-    message: { err: 'An error occurred' },
-  };
-  const errorObj = Object.assign({}, defaultErr, error);
-  console.log("errorObj from global error catch -> ", errorObj);
-  return res.status(errorObj.status).json(errorObj.message);
-});
-//the frontend dont need to check status code to do conditional rendering, instead they should rely on whether the err property exists in the message sent. 
+// Catch-all to unknown routes (404)
+app.use((req, res) => res.sendStatus(404));
 
-
+//Start Server
 app.listen(PORT, () => {
   console.log(`Server listening on port: ${PORT}`);
 });

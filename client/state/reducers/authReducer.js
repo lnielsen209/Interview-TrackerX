@@ -34,7 +34,7 @@ export const AuthReducer = (prevState, action) => {
       return {
         ...prevState,
         loading: false,
-        errorMessage: action.payload.message,
+        errorMessage: action.payload.error_message,
       };
 
     default:

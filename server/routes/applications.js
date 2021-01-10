@@ -1,47 +1,50 @@
 const express = require('express');
-const applicationsController = require('../controllers/applicationsController');
-const authController = require('../controllers/authController');
+const applicationController = require('../controllers/applicationController');
+const sessionController = require('../controllers/sessionController');
 
-const applicationRouter = express.Router();
+const applicationRouter = express.Router({ mergeParams: true });
 
-// applicationRouter -> /applications
+const stepRouter = require('../routes/steps');
+
+// get all applications for this user_id
 applicationRouter.get(
   '/',
-  authController.verifyToken,
-  applicationsController.getAllApps,
+
+  //sessionController.isLoggedIn,
+  applicationController.getAllApps,
   (req, res) => {
-    return res.send(res.locals.userData);
+    console.log('res.locals===>', res.locals); //contains userDAta and user(userEmail)
+    return res.send(res.locals);
   }
 );
 
-// add new application
+// add new app
+
 applicationRouter.post(
   '/',
-  authController.verifyToken,
-  applicationsController.addApp,
-  (req, res) => {
-    res.status(201).json({});
-  }
-);
-
-// edit app
-applicationRouter.put(
-  '/',
-  authController.verifyToken,
-  applicationsController.editApp,
+  sessionController.isLoggedIn,
+  applicationController.addApp,
   (req, res) => {
     res.status(200).json({});
   }
 );
 
-// delete application
+// edit app
+applicationRouter.put('/:app_id', applicationController.editApp, (req, res) => {
+  res.status(200).json({});
+});
+
+// delete app
 applicationRouter.delete(
-  '/',
-  authController.verifyToken,
-  applicationsController.deleteApp,
+  '/:app_id',
+  sessionController.isLoggedIn,
+  applicationController.deleteApp,
   (req, res) => {
-    res.status(204).json(res.locals.message);
+    res.status(200).json({});
   }
 );
+
+//the param app_id here is the application id
+applicationRouter.use('/:app_id/step', stepRouter);
 
 module.exports = applicationRouter;

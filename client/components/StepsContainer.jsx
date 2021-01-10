@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-<<<<<<< Updated upstream
-import { useAuth } from '../routes/useAuth';
-=======
-import { UserContext } from '../index';
->>>>>>> Stashed changes
+import { UserContext } from '../App.jsx';
 import StepsTable from './StepsTable.jsx';
 import SignoutButton from './SignoutButton';
 
 const StepsContainer = () => {
   const history = useHistory();
-   const auth = useAuth();
+  const context = useContext(UserContext);
   const { state } = useLocation();
   console.log('state in Steps Component ===> ', useLocation().state);
 
@@ -18,7 +14,7 @@ const StepsContainer = () => {
     <>
       <h1 id="title">Application Progress</h1>
       <div className="tableContainer">
-        {auth.user.id ? (
+        {context.user.id ? (
           <>
             <p>
               {state.application.job_title} at {state.application.company} in
