@@ -5,7 +5,6 @@ import StepsTable from './StepsTable';
 const ApplicationsTableRow = ({
   idx,
   dashboardTableRow,
-  appData,
   setShowModal,
   removeApplications,
 }) => {
@@ -22,11 +21,11 @@ const ApplicationsTableRow = ({
     app_status,
   } = dashboardTableRow;
 
-  const [hideSteps, setHideSteps] = useState('true');
+  const [showSteps, setShowSteps] = useState(false);
 
   return (
     <>
-      <tr key={id} onClick={() => setHideSteps(!hideSteps)}>
+      <tr key={id} onClick={() => setShowSteps(!showSteps)}>
         <td id="hide-ID-col">{id}</td>
         <td>{company}</td>
         <td>{job_title}</td>
@@ -53,7 +52,7 @@ const ApplicationsTableRow = ({
           </button>
         </td>
       </tr>
-      {!hideSteps && (
+      {showSteps && (
         <tr>
           <td colSpan={10}>
             <StepsTable app={dashboardTableRow} />
