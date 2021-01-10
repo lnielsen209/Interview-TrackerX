@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
+import StepsTableAddButton from './StepsTableAddButton.jsx';
 import StepsTableHeader from './StepsTableHeader.jsx';
 import StepsTableRows from './StepsTableRows.jsx';
-import StepsTableFooter from './StepsTableFooter.jsx';
 import axios from 'axios';
 
 const StepsTable = ({ app }) => {
@@ -64,19 +64,19 @@ const StepsTable = ({ app }) => {
 
   return (
     <div className="tableContainer">
+      <StepsTableAddButton
+        stepData={stepData}
+        setUpdateState={setUpdateState}
+        showModalStep={showModalStep}
+        setShowModalStep={setShowModalStep}
+        app={app}
+      />
       <table id="stepsTracker">
         <StepsTableHeader />
         <StepsTableRows
           stepData={stepData}
           setShowModalStep={setShowModalStep}
           removeStep={removeStep}
-        />
-        <StepsTableFooter
-          stepData={stepData}
-          setUpdateState={setUpdateState}
-          showModalStep={showModalStep}
-          setShowModalStep={setShowModalStep}
-          app={app}
         />
       </table>
     </div>
