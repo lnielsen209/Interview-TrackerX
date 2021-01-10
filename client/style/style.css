@@ -158,17 +158,6 @@ button {
   text-align: left;
 }
 
-#sticky {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: #ffe545;
-  color: #195ec3;
-  padding: 15px;
-  padding-left: 25px;
-  text-align: left;
-}
-
 @media (max-width: 900px) {
   .low-priority-col {
     display: none;
@@ -240,3 +229,15 @@ tr {
   max-width: 40px;
 }
 
+.MainNav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #1c73e7;
+  height: 10vh;
+}
+
+.MainNav a {
+  color: white;
+  text-decoration: none;
+}

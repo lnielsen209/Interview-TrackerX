@@ -5,10 +5,12 @@ import Login from '../client/components/Login';
 import { Route, Switch } from 'react-router-dom';
 import { ProvideAuth } from './routes/useAuth';
 import PrivateRoute from './routes/PrivateRoute';
+import MainNav from './components/MainNav';
 
 const App = () => {
   return (
     <ProvideAuth>
+      <MainNav />
       <Switch>
         <Route exact path="/">
           <Login />
