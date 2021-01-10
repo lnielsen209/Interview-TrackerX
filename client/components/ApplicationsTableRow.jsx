@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import StepsTable from './StepsTable';
 
 const ApplicationsTableRow = ({
   idx,
@@ -21,45 +22,45 @@ const ApplicationsTableRow = ({
     app_status,
   } = dashboardTableRow;
 
-  return (
-    <tr key={id}>
-      <td id="hide-ID-col">{id}</td>
-      <td>{company}</td>
-      <td>{job_title}</td>
-      <td>{location}</td>
-      <td className="low-priority-col">{found_by}</td>
-      <td className="low-priority-col">{how_applied}</td>
-      <td className="low-priority-col" id="date-column">
-        {new Date(date_applied).toLocaleDateString('en-US')}
-      </td>
-      <td>{url}</td>
-      <td className="low-priority-col" id="notes-column">
-        {notes}
-      </td>
-      <td>{app_status}</td>
-      <td className="operation">
-        <button
-          className="deleteButton"
-          onClick={() => setShowModal({ action: 'edit', id: idx })}
-        >
-          Edit
-        </button>
-        <button className="button" onClick={() => removeApplications(id)}>
-          Delete
-        </button>
+  const [hideSteps, setHideSteps] = useState('true');
 
-        <Link
-          to={{
-            pathname: `/application/${id}/step`,
-            state: { application: appData[idx] },
-          }}
-        >
-          <button src="step" className="editStep">
-            View progress
+  return (
+    <>
+      <tr key={id} onClick={() => setHideSteps(!hideSteps)}>
+        <td id="hide-ID-col">{id}</td>
+        <td>{company}</td>
+        <td>{job_title}</td>
+        <td>{location}</td>
+        <td className="low-priority-col">{found_by}</td>
+        <td className="low-priority-col">{how_applied}</td>
+        <td className="low-priority-col" id="date-column">
+          {new Date(date_applied).toLocaleDateString('en-US')}
+        </td>
+        <td>{url}</td>
+        <td className="low-priority-col" id="notes-column">
+          {notes}
+        </td>
+        <td>{app_status}</td>
+        <td className="operation">
+          <button
+            className="deleteButton"
+            onClick={() => setShowModal({ action: 'edit', id: idx })}
+          >
+            Edit
           </button>
-        </Link>
-      </td>
-    </tr>
+          <button className="button" onClick={() => removeApplications(id)}>
+            Delete
+          </button>
+        </td>
+      </tr>
+      {!hideSteps && (
+        <tr>
+          <td colSpan={10}>
+            <StepsTable app={dashboardTableRow} />
+          </td>
+        </tr>
+      )}
+    </>
   );
 };
 export default ApplicationsTableRow;

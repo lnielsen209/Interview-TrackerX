@@ -2,11 +2,11 @@ import React from 'react';
 import StepsModal from './StepsModal.jsx';
 
 const StepsTableFooter = ({
-  state,
   stepData,
   setUpdateState,
   showModalStep,
   setShowModalStep,
+  app,
 }) => {
   return (
     <tfoot>
@@ -21,14 +21,12 @@ const StepsTableFooter = ({
                   ? stepData[showModalStep.id]
                   : {}
               }
-              appId={state.application.id}
+              appId={app.id}
               setUpdateState={setUpdateState}
             />
           ) : (
             <button
-              onClick={() =>
-                setShowModalStep({ action: 'add', id: state.application.id })
-              }
+              onClick={() => setShowModalStep({ action: 'add', id: null })}
             >
               Add new step
             </button>

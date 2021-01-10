@@ -169,7 +169,6 @@ button {
   text-align: left;
 }
 
-
 @media (max-width: 900px) {
   .low-priority-col {
     display: none;
