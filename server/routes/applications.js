@@ -13,7 +13,7 @@ applicationRouter.get(
   applicationController.getAllApps,
   (req, res) => {
     console.log('get all apps res.locals===>', res.locals); //contains userDAta and user(userEmail)
-    return res.send(res.locals);
+    return res.status(200).json({ userData: res.locals.userData });
   }
 );
 
@@ -24,7 +24,7 @@ applicationRouter.post(
   sessionController.isLoggedIn,
   applicationController.addApp,
   (req, res) => {
-    res.status(200).json({});
+    res.status(200).json({ message: `app added` });
   }
 );
 
@@ -34,7 +34,7 @@ applicationRouter.put(
   sessionController.isLoggedIn,
   applicationController.editApp,
   (req, res) => {
-    res.status(200).json({});
+    res.status(200).json({ message: `app updated` });
   }
 );
 
@@ -44,7 +44,7 @@ applicationRouter.delete(
   sessionController.isLoggedIn,
   applicationController.deleteApp,
   (req, res) => {
-    res.status(200).json({});
+    res.status(200).json({ message: `app deleted` });
   }
 );
 

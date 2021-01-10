@@ -3,29 +3,6 @@ const bcrypt = require('bcrypt');
 
 const userController = {};
 
-userController.getUserData = (req, res, next) => {
-  const UID = req.params.user_id;
-
-  // get user's personal data
-  const getUserData = 'SELECT * FROM applicants WHERE id = $1';
-
-  db.query(getUserData, [UID]) // array of variables to use in query
-    .then((data) => {
-      res.locals.userData = data.rows[0];
-      console.log('userDAta===>', res.locals.userData);
-      return next();
-    })
-    .catch((err) => {
-      console.log('getuserdataErr--->', err);
-      return next({
-        log: 'usersController.getUserData: ERROR: Error getting database',
-        message: {
-          err: `${err.message}`,
-        },
-      });
-    });
-};
-
 userController.createUser = async (req, res, next) => {
   try {
     const { first_name, last_name, email, password } = req.body;
@@ -89,12 +66,5 @@ userController.verifyUser = async (req, res, next) => {
     });
   }
 };
-// userController.editUser = (req, res, next) => {
-
-// };
-
-// userController.deleteUser = (req, res, next) => {
-//     // delete all apps and all steps
-// };
 
 module.exports = userController;
