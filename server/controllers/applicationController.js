@@ -40,19 +40,18 @@ applicationController.addApp = (req, res, next) => {
       return next({
         log: 'applicationsController.addApp: ERROR: Error writing to database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
 };
 
 applicationController.deleteApp = (req, res, next) => {
-  const queryText = 'DELETE FROM applications WHERE id = $1';
+  const queryText = 'DELETE FROM applications WHERE id = $1 RETURNING *';
   const queryVal = [req.params.app_id];
 
   db.query(queryText, queryVal)
-    .then(({ rows }) => {
-      res.locals.transaction = rows;
+    .then((data) => {
       return next();
     })
     .catch((err) => {
@@ -60,7 +59,7 @@ applicationController.deleteApp = (req, res, next) => {
         log:
           'applicationsController.deleteApp: ERROR: Error deleting application from database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
@@ -105,8 +104,6 @@ applicationController.editApp = (req, res, next) => {
 
   db.query(queryText, queryVals)
     .then((data) => {
-      res.locals.transaction = data.rows; //not sure why we need to store this but let's put it here now
-      //console.log('edit app data==>', data);
       return next();
     })
     .catch((err) => {
@@ -114,7 +111,7 @@ applicationController.editApp = (req, res, next) => {
         log:
           'applicationsController.updateApp: ERROR: Error updating application in database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
@@ -138,7 +135,7 @@ applicationController.getAllApps = (req, res, next) => {
         log:
           'applicationsController.getUserData: ERROR: Error getting database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });

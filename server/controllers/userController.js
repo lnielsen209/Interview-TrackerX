@@ -26,7 +26,7 @@ userController.createUser = async (req, res, next) => {
     return next({
       log: 'usersController.addUser: ERROR: Error writing to database',
       message: {
-        err: `${err.message}`,
+        err: err.message,
       },
     });
   }
@@ -61,7 +61,7 @@ userController.verifyUser = async (req, res, next) => {
       log: 'usersController.verifyUser: ERROR: Unable to verify user data.',
       status: 401,
       message: {
-        err: `${err.message}`,
+        err: err.message,
       },
     });
   }
