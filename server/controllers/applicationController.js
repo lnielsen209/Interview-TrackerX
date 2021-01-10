@@ -1,29 +1,35 @@
 const db = require('../models/model.js');
 
-const applicationsController = {};
+const applicationController = {};
 
-applicationsController.getAllApps = (req, res, next) => {
-  const userID = res.locals.userID
-  const queryText =
+applicationController.getAllApps = (req, res, next) => {
+  const UID = req.params.user_id;
+  console.log('getallApps UID==>', UID);
+  // get user's personal data
+  const getAppData =
     'SELECT * FROM applications WHERE applicant_id = $1 ORDER BY id ASC';
-  db.query(queryText, [userID])
+  db.query(getAppData, [UID]) // array of variables to use in query
     .then((data) => {
-      res.locals.userData = data.rows[0]; //appsData?
+      //console.log('data.rows==>', data.rows);
+      res.locals.userData = data.rows;
       return next();
     })
     .catch((err) => {
+      console.log('getallApps===>', err);
       return next({
         log:
-          `applicationsController.getUserData: ERROR: Error getting database ${err}`,
+          'applicationsController.getUserData: ERROR: Error getting database',
         message: {
-          err: `${err.message}`,
+          err:
+            'applicationsController.getUserData: ERROR: Check database for details',
         },
       });
     });
 };
 
-applicationsController.addApp = (req, res, next) => {
-  const userID = res.locals.userID
+applicationController.addApp = (req, res, next) => {
+  const UID = req.params.user_id;
+  console.log('UID is:', UID);
   const {
     company,
     job_title,
@@ -36,11 +42,11 @@ applicationsController.addApp = (req, res, next) => {
     app_status,
   } = req.body;
 
-  const queryText =
+  const addApp =
     'INSERT INTO applications (applicant_id, company, job_title, how_applied, url, date_applied, location, found_by, notes, app_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
 
-  db.query(queryText, [
-    userID,
+  db.query(addApp, [
+    UID,
     company,
     job_title,
     how_applied,
@@ -52,41 +58,43 @@ applicationsController.addApp = (req, res, next) => {
     app_status,
   ])
     .then((data) => {
+      console.log(data.rows);
       return next();
     })
     .catch((err) => {
+      console.log('addAPP err ==>', err);
       return next({
-        log: `applicationsController.addApp: Error writing to database ERROR: ${err}`,
-        status: 400,
+        log: 'applicationsController.addApp: ERROR: Error writing to database',
         message: {
-          err: err.message,
+          err:
+            'applicationsController.addApp: ERROR: Check database for details',
         },
       });
     });
 };
 
-applicationsController.deleteApp = (req, res, next) => {
+applicationController.deleteApp = (req, res, next) => {
   const queryText = 'DELETE FROM applications WHERE id = $1';
-  const value = [req.params.app_id];
+  const queryVal = [req.params.app_id];
 
-  db.query(queryText, value)
-    .then((data) => {
-      res.locals.message = { message: 'application deleted' }
+  db.query(queryText, queryVal)
+    .then(({ rows }) => {
+      res.locals.transaction = rows;
       return next();
     })
     .catch((err) => {
       return next({
         log:
-          `applicationsController.deleteApp: Error deleting application from database ERROR: ${err}`,
-        status: 400,
+          'applicationsController.deleteApp: ERROR: Error deleting application from database',
         message: {
-          err: err.message,
+          err:
+            'applicationsController.deleteApp: ERROR: Check database for details',
         },
       });
     });
 };
 
-applicationsController.editApp = (req, res, next) => {
+applicationController.editApp = (req, res, next) => {
   const {
     company,
     job_title,
@@ -132,10 +140,11 @@ applicationsController.editApp = (req, res, next) => {
         log:
           'applicationsController.updateApp: ERROR: Error updating application in database',
         message: {
-          err: `${err.message}`,
+          err:
+            'applicationsController.updateApp: ERROR: Check database for details',
         },
       });
     });
 };
 
-module.exports = applicationsController;
+module.exports = applicationController;
