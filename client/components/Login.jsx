@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
+
+import OAuth from './oAuth';
 import axios from 'axios';
 
 const Login = () => {
@@ -18,16 +20,13 @@ const Login = () => {
     try {
       const res = await axios.post('/user/login', { username, password });
       console.log('res==>', res);
-   
-        console.log('res.data ===> ', res.data);
-        auth.login(res.data.id, res.data.email, () =>
-          history.push('/dashboard')
-        );
-   
+
+      console.log('res.data ===> ', res.data);
+      auth.login(res.data.id, res.data.email, () => history.push('/dashboard'));
     } catch (error) {
-       if (error.response.status === 401) {
-         history.push('/');
-       }
+      if (error.response.status === 401) {
+        history.push('/');
+      }
       console.log(
         'Error in handleSubmit of Login component: ',
         error.response.data.err
@@ -43,6 +42,7 @@ const Login = () => {
           every step in your job search, from application to offer.
         </p>
       </div>
+      <OAuth />
       <div className='login-wrapper'>
         <h1>Log in:</h1>
         <form onSubmit={handleSubmit}>

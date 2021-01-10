@@ -6,6 +6,7 @@ const dotenv = require('dotenv').config();
 const app = express();
 
 const userRouter = require('./routes/users');
+const oAuthRouter = require('./routes/oAuth');
 
 const PORT = 3000;
 
@@ -15,6 +16,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Route Handlers
+//oAuth router
+//==> auth/google
+app.use('/auth', oAuthRouter);
+
 app.use('/user', userRouter);
 
 //Default Error Handler
