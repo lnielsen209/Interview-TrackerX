@@ -19,9 +19,8 @@ const Login = () => {
 
     try {
       const res = await axios.post('/user/login', { username, password });
-      console.log('res==>', res);
 
-      console.log('res.data ===> ', res.data);
+      // console.log('res.data ===> ', res.data);
       auth.login(res.data.id, res.data.email, () => history.push('/dashboard'));
     } catch (error) {
       if (error.response.status === 401) {

@@ -33,11 +33,11 @@ const ApplicationsModal = ({
     try {
       const res = await axios.post(`/user/${auth.user.id}/application`, body);
 
-      console.log('new application added');
+      // console.log('new application added');
       setShowModal({ action: null, id: null });
       setUpdateState(true); // add from Lee
     } catch (error) {
-      console.log('error.response.status ===> ', error.response.status);
+      // console.log('error.response.status ===> ', error.response.status);
       if (error.response.status === 401) {
         history.push('/');
       }
@@ -55,7 +55,7 @@ const ApplicationsModal = ({
         body
       );
 
-      console.log('new application added');
+      // console.log('new application edited');
       setShowModal({ action: null, id: null });
       setUpdateState(true); // add from Lee
     } catch (error) {
@@ -91,7 +91,7 @@ const ApplicationsModal = ({
     }
   };
 
-  console.log('currentapp', currentApp);
+  // console.log('currentapp ===> ', currentApp);
   return (
     <div id="div3" className="modalWrapper">
       <div className="modalBackground">

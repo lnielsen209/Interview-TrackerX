@@ -28,15 +28,15 @@ const StepsTableRow = ({
       <td>{contact_info}</td>
       <td>{notes}</td>
       <td className="operation">
-        <button
+        <i
           className="deleteButton"
           onClick={() => setShowModalStep({ action: 'edit', id: idx })}
         >
           <FontAwesomeIcon icon={faPen} />
-        </button>
-        <button className="button" onClick={() => removeStep(app_id, id)}>
+        </i>
+        <i className="button" onClick={() => removeStep(app_id, id)}>
           <FontAwesomeIcon icon={faTrash} />
-        </button>
+        </i>
       </td>
     </tr>
   );

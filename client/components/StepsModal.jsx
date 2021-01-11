@@ -26,7 +26,7 @@ const StepsModal = ({
   const [notes, setNote] = useState(currentStep.notes || '');
 
   const auth = useAuth();
-  console.log('appID', appId);
+  // console.log('appID ===> ', appId);
 
   const addStep = async (body) => {
     try {
@@ -35,11 +35,11 @@ const StepsModal = ({
         body
       );
 
-      console.log('new step added');
+      // console.log('new step added');
       setShowModalStep({ action: null, id: null });
       setUpdateState(true); // add from Lee
     } catch (error) {
-      console.log('error.response.status ===> ', error.response.status);
+      // console.log('error.response.status ===> ', error.response.status);
       if (error.response.status === 401) {
         history.push('/');
       }

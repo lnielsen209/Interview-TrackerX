@@ -26,7 +26,13 @@ const ApplicationsTableRow = ({
 
   return (
     <>
-      <tr key={id} onClick={() => setShowSteps(!showSteps)}>
+      <tr
+        key={id}
+        onClick={(e) => {
+          console.log('e.target.tagName ===> ', e.target.tagName);
+          e.target.tagName === 'TD' ? setShowSteps(!showSteps) : null;
+        }}
+      >
         <td id="hide-ID-col">{id}</td>
         <td>{company}</td>
         <td>{job_title}</td>
@@ -41,19 +47,19 @@ const ApplicationsTableRow = ({
           {notes}
         </td>
         <td>{app_status}</td>
-        <td className="operation">
-          <button onClick={() => setShowModal({ action: 'edit', id: idx })}>
+        <td>
+          <i onClick={() => setShowModal({ action: 'edit', id: idx })}>
             <FontAwesomeIcon icon={faPen} />
-          </button>
-          <button onClick={() => removeApplications(id)}>
+          </i>
+          <i onClick={() => removeApplications(id)}>
             <FontAwesomeIcon icon={faTrash} />
-          </button>
+          </i>
         </td>
       </tr>
       {showSteps && (
         <tr>
           <td colSpan={10}>
-              <StepsTable app={dashboardTableRow} />
+            <StepsTable app={dashboardTableRow} />
           </td>
         </tr>
       )}

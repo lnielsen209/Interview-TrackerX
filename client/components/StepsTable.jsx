@@ -18,7 +18,7 @@ const StepsTable = ({ app }) => {
   const history = useHistory();
   const auth = useAuth();
 
-  console.log('stepsTracker ===> ', stepData);
+  // console.log('stepsData ===> ', stepData);
 
   // get the applications steps data from the DB
   useEffect(() => {
@@ -30,7 +30,7 @@ const StepsTable = ({ app }) => {
       const res = await axios.get(
         `/user/${auth.user.id}/application/${app.id}/step`
       );
-      console.log('res.data===>', res);
+      // console.log('res.data ===>', res.data);
       setStepData(res.data);
       setUpdateState(false);
     } catch (error) {
