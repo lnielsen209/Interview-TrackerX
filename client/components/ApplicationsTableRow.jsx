@@ -62,7 +62,7 @@ const ApplicationsTableRow = ({
         classNames="showSteps"
         unmountOnExit
       >
-        <tr class="stepsTableBackground">
+        <tr className="stepsTableBackground">
           <td colSpan={10}>
             <StepsTable app={dashboardTableRow} />
           </td>

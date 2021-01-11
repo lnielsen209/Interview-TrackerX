@@ -98,15 +98,6 @@ const ApplicationsModal = ({
         <h2>{modalTitle[action]}</h2>
         <form id="list" className="modalForm">
           <label>
-            Job Title
-            <input
-              type="text"
-              value={job_title}
-              onChange={(e) => setJobTitle(e.target.value)}
-              required
-            />
-          </label>
-          <label>
             Company
             <input
               type="text"
@@ -115,6 +106,16 @@ const ApplicationsModal = ({
               required
             />
           </label>
+          <label>
+            Position
+            <input
+              type="text"
+              value={job_title}
+              onChange={(e) => setJobTitle(e.target.value)}
+              required
+            />
+          </label>
+
           <label>
             How I applied
             <input

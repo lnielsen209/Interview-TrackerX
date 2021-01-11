@@ -19,7 +19,10 @@ const ApplicationsTableAddButton = ({
           currentApp={showModal.action === 'edit' ? appData[showModal.id] : {}}
         />
       ) : (
-        <i class="addButtonApp" onClick={() => setShowModal({ action: 'add', id: null })}>
+        <i
+          className="addButtonApp"
+          onClick={() => setShowModal({ action: 'add', id: null })}
+        >
           <FontAwesomeIcon icon={faPlus} />
         </i>
       )}
