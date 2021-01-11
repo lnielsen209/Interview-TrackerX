@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import StepsTable from './StepsTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { CSSTransition } from 'react-transition-group';
 
 const ApplicationsTableRow = ({
   idx,
@@ -28,10 +29,9 @@ const ApplicationsTableRow = ({
     <>
       <tr
         key={id}
-        onClick={(e) => {
-          console.log('e.target.tagName ===> ', e.target.tagName);
-          e.target.tagName === 'TD' ? setShowSteps(!showSteps) : null;
-        }}
+        onClick={(e) =>
+          e.target.tagName === 'TD' ? setShowSteps(!showSteps) : null
+        }
       >
         <td id="hide-ID-col">{id}</td>
         <td>{company}</td>
@@ -56,13 +56,18 @@ const ApplicationsTableRow = ({
           </i>
         </td>
       </tr>
-      {showSteps && (
-        <tr>
+      <CSSTransition
+        in={showSteps}
+        timeout={500}
+        classNames="showSteps"
+        unmountOnExit
+      >
+        <tr class="stepsTableBackground">
           <td colSpan={10}>
             <StepsTable app={dashboardTableRow} />
           </td>
         </tr>
-      )}
+      </CSSTransition>
     </>
   );
 };

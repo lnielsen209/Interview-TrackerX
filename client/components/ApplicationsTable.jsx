@@ -84,20 +84,22 @@ const ApplicationsTable = () => {
         updateSearchInput={updateSearchInput}
         updateCategoryInput={updateCategorySearchInput}
       />
-      <ApplicationsTableAddButton
-        appData={appData}
-        showModal={showModal}
-        setShowModal={setShowModal}
-        setUpdateState={setUpdateState}
-      />
-      <table id="tracker">
-        <ApplicationsTableHeader />
-        <ApplicationsTableRows
+      <div className="applicationTable">
+        <table id="tracker">
+          <ApplicationsTableHeader />
+          <ApplicationsTableRows
+            appData={appData}
+            setShowModal={setShowModal}
+            removeApplications={removeApplications}
+          />
+        </table>
+        <ApplicationsTableAddButton
           appData={appData}
+          showModal={showModal}
           setShowModal={setShowModal}
-          removeApplications={removeApplications}
+          setUpdateState={setUpdateState}
         />
-      </table>
+      </div>
     </div>
   );
 };

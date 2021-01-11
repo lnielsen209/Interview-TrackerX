@@ -19,10 +19,9 @@ const ApplicationsTableAddButton = ({
           currentApp={showModal.action === 'edit' ? appData[showModal.id] : {}}
         />
       ) : (
-        <button onClick={() => setShowModal({ action: 'add', id: null })}>
+        <i class="addButtonApp" onClick={() => setShowModal({ action: 'add', id: null })}>
           <FontAwesomeIcon icon={faPlus} />
-          Add new application
-        </button>
+        </i>
       )}
     </div>
   );

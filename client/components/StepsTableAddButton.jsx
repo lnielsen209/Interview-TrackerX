@@ -23,10 +23,12 @@ const StepsTableAddButton = ({
           setUpdateState={setUpdateState}
         />
       ) : (
-        <button onClick={() => setShowModalStep({ action: 'add', id: null })}>
+        <i
+          class="addButtonStep"
+          onClick={() => setShowModalStep({ action: 'add', id: null })}
+        >
           <FontAwesomeIcon icon={faPlus} />
-          Add new step
-        </button>
+        </i>
       )}
     </div>
   );

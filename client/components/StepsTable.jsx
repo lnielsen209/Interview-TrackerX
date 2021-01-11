@@ -64,13 +64,6 @@ const StepsTable = ({ app }) => {
 
   return (
     <div className="tableContainer">
-      <StepsTableAddButton
-        stepData={stepData}
-        setUpdateState={setUpdateState}
-        showModalStep={showModalStep}
-        setShowModalStep={setShowModalStep}
-        app={app}
-      />
       <table id="stepsTracker">
         <StepsTableHeader />
         <StepsTableRows
@@ -79,6 +72,13 @@ const StepsTable = ({ app }) => {
           removeStep={removeStep}
         />
       </table>
+      <StepsTableAddButton
+        stepData={stepData}
+        setUpdateState={setUpdateState}
+        showModalStep={showModalStep}
+        setShowModalStep={setShowModalStep}
+        app={app}
+      />
     </div>
   );
 };
