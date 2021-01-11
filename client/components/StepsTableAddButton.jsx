@@ -1,5 +1,7 @@
 import React from 'react';
 import StepsModal from './StepsModal.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const StepsTableAddButton = ({
   stepData,
@@ -22,6 +24,7 @@ const StepsTableAddButton = ({
         />
       ) : (
         <button onClick={() => setShowModalStep({ action: 'add', id: null })}>
+          <FontAwesomeIcon icon={faPlus} />
           Add new step
         </button>
       )}

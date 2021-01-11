@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import StepsTable from './StepsTable';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const ApplicationsTableRow = ({
   idx,
@@ -41,21 +42,18 @@ const ApplicationsTableRow = ({
         </td>
         <td>{app_status}</td>
         <td className="operation">
-          <button
-            className="deleteButton"
-            onClick={() => setShowModal({ action: 'edit', id: idx })}
-          >
-            Edit
+          <button onClick={() => setShowModal({ action: 'edit', id: idx })}>
+            <FontAwesomeIcon icon={faPen} />
           </button>
-          <button className="button" onClick={() => removeApplications(id)}>
-            Delete
+          <button onClick={() => removeApplications(id)}>
+            <FontAwesomeIcon icon={faTrash} />
           </button>
         </td>
       </tr>
       {showSteps && (
         <tr>
           <td colSpan={10}>
-            <StepsTable app={dashboardTableRow} />
+              <StepsTable app={dashboardTableRow} />
           </td>
         </tr>
       )}

@@ -1,5 +1,7 @@
 import React from 'react';
 import ApplicationsModal from './ApplicationsModal.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const ApplicationsTableAddButton = ({
   appData,
@@ -18,6 +20,7 @@ const ApplicationsTableAddButton = ({
         />
       ) : (
         <button onClick={() => setShowModal({ action: 'add', id: null })}>
+          <FontAwesomeIcon icon={faPlus} />
           Add new application
         </button>
       )}

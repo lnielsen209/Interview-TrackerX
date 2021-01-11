@@ -2,6 +2,8 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const SignoutButton = () => {
   const auth = useAuth();
@@ -24,7 +26,12 @@ const SignoutButton = () => {
     }
   };
 
-  return <button onClick={handleClick}>Log Out</button>;
+  return (
+    <button onClick={handleClick}>
+      <FontAwesomeIcon icon={faSignOutAlt} />
+      Sign Out
+    </button>
+  );
 };
 
 export default SignoutButton;
