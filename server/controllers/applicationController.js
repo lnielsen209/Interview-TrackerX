@@ -2,32 +2,8 @@ const db = require('../models/model.js');
 
 const applicationController = {};
 
-applicationController.getAllApps = (req, res, next) => {
-  const UID = req.params.user_id;
-  console.log('getallApps UID==>', UID);
-  // get user's personal data
-  const getAppData =
-    'SELECT * FROM applications WHERE applicant_id = $1 ORDER BY id ASC';
-  db.query(getAppData, [UID])
-    .then((data) => {
-      console.log('data.rows==>', data.rows);
-      res.locals.userData = data.rows;
-      return next();
-    })
-    .catch((err) => {
-      console.log('getallApps===>', err);
-      return next({
-        log:
-          'applicationsController.getUserData: ERROR: Error getting database',
-        message: {
-          err: `${err.message}`,
-        },
-      });
-    });
-};
-
 applicationController.addApp = (req, res, next) => {
-  const UID = req.params.user_id;
+  const UID = res.locals.userID;
   console.log('UID is:', UID);
   const {
     company,
@@ -57,7 +33,6 @@ applicationController.addApp = (req, res, next) => {
     app_status,
   ])
     .then((data) => {
-      console.log(data.rows);
       return next();
     })
     .catch((err) => {
@@ -65,19 +40,18 @@ applicationController.addApp = (req, res, next) => {
       return next({
         log: 'applicationsController.addApp: ERROR: Error writing to database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
 };
 
 applicationController.deleteApp = (req, res, next) => {
-  const queryText = 'DELETE FROM applications WHERE id = $1';
+  const queryText = 'DELETE FROM applications WHERE id = $1 RETURNING *';
   const queryVal = [req.params.app_id];
 
   db.query(queryText, queryVal)
-    .then(({ rows }) => {
-      res.locals.transaction = rows;
+    .then((data) => {
       return next();
     })
     .catch((err) => {
@@ -85,7 +59,7 @@ applicationController.deleteApp = (req, res, next) => {
         log:
           'applicationsController.deleteApp: ERROR: Error deleting application from database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
@@ -113,7 +87,8 @@ applicationController.editApp = (req, res, next) => {
                      found_by = $7, 
                      notes = $8, 
                      app_status= $9
-                     WHERE id = $10`;
+                     WHERE id = $10
+                     RETURNING *`;
   const queryVals = [
     company,
     job_title,
@@ -126,10 +101,9 @@ applicationController.editApp = (req, res, next) => {
     app_status,
     Number(req.params.app_id),
   ];
-  console.log(queryVals);
+
   db.query(queryText, queryVals)
-    .then(({ rows }) => {
-      res.locals.transaction = rows;
+    .then((data) => {
       return next();
     })
     .catch((err) => {
@@ -137,7 +111,31 @@ applicationController.editApp = (req, res, next) => {
         log:
           'applicationsController.updateApp: ERROR: Error updating application in database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
+        },
+      });
+    });
+};
+
+applicationController.getAllApps = (req, res, next) => {
+  const UID = res.locals.userID;
+  console.log('getallApps UID==>', UID);
+  // get user's personal data
+  const getAppData =
+    'SELECT * FROM applications WHERE applicant_id = $1 ORDER BY id ASC';
+  db.query(getAppData, [UID])
+    .then((data) => {
+      console.log('data.rows==>', data.rows);
+      res.locals.userData = data.rows;
+      return next();
+    })
+    .catch((err) => {
+      console.log('getallApps===>', err);
+      return next({
+        log:
+          'applicationsController.getUserData: ERROR: Error getting database',
+        message: {
+          err: err.message,
         },
       });
     });

@@ -26,7 +26,7 @@ const ApplicationsTable = () => {
   const fetchApplications = async () => {
     try {
       const res = await axios.get(`/user/${auth.user.id}/application`);
-
+      console.log(res.data.userData);
       setAppData(res.data.userData);
       setAppDataDefault(res.data.userData);
       setUpdateState(false);

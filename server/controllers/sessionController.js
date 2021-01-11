@@ -44,18 +44,9 @@ sessionController.isLoggedIn = async (req, res, next) => {
     const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
     console.log('decodedToken--->', decodedToken);
 
-    const userID = decodedToken.id;
-    const queryText = `SELECT * from applicants WHERE id = $1`;
-
-    db.query(queryText, [userID], (err, data) => {
-      if (err) {
-        console.log('dbERR===>', err);
-        return next(err);
-      }
-      console.log('userData from applicants table===>', data.rows[0]);
-      res.locals.user = data.rows[0];
-      return next();
-    });
+    //save userID on res.locals
+    res.locals.userID = decodedToken.id;
+    return next();
   } catch (err) {
     //redirect to login page in the frontend
     return next({
@@ -67,35 +58,5 @@ sessionController.isLoggedIn = async (req, res, next) => {
     });
   }
 };
-
-// sessionController.checkUser = (req, res, next) => {
-//   const token = req.cookies.token;
-//   console.log('checkuser token==>', token);
-
-//   if (!token) {
-//     res.locals.user = null;
-//     next();
-//   }
-
-//   jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-//     if (err) {
-//       res.locals.user = null;
-//       next();
-//     } else {
-//       const userID = decodedToken.id;
-//       const queryText = `SELECT * from applicants WHERE id = $1`;
-
-//       db.query(queryText, [userID], (err, data) => {
-//         if (err) {
-//           console.log('dbERR===>', err);
-//           return next(err);
-//         }
-//         console.log('checkuser email data===>', data.rows[0].email);
-//         res.locals.user = data.rows[0].email;
-//         return next();
-//       });
-//     }
-//   });
-// };
 
 module.exports = sessionController;

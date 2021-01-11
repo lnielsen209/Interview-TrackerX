@@ -17,7 +17,7 @@ stepController.getAllSteps = (req, res, next) => {
         log:
           'stepController.getAllSteps: ERROR: Error getting steps from database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
@@ -60,18 +60,17 @@ stepController.addStep = (req, res, next) => {
       return next({
         log: 'stepController.addStep: ERROR: Error writing to database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
 };
 stepController.deleteStep = (req, res, next) => {
-  const queryText = `DELETE FROM steps WHERE id = $1`;
+  const queryText = `DELETE FROM steps WHERE id = $1 RETURNING *`;
   const queryVal = [req.params.step_id];
 
   db.query(queryText, queryVal)
-    .then(({ rows }) => {
-      res.locals.step = rows;
+    .then((data) => {
       return next();
     })
     .catch((err) => {
@@ -80,7 +79,7 @@ stepController.deleteStep = (req, res, next) => {
         log:
           'stepsController.deleteStep: ERROR: Error deleting application from database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
@@ -121,12 +120,15 @@ stepController.editStep = (req, res, next) => {
 
   db.query(queryText, queryVals)
     .then((data) => {
-      res.locals.step = data.rows;
+      // res.locals.step = data.rows;
       console.log('edit step res.locals====>', res.locals);
-      const { first_name, email } = res.locals.user;
-      const { step_type, contact_name, date } = res.locals.step[0];
-      //console.log('step DATA====>', data.rows);
-      sendEmail(email, first_name, step_type, date, contact_name);
+
+      //email functionality is temporarily commented out
+
+      // const { first_name, email } = res.locals.user;
+      // const { step_type, contact_name, date } = res.locals.step[0];
+      // //console.log('step DATA====>', data.rows);
+      // sendEmail(email, first_name, step_type, date, contact_name);
       return next();
     })
     .catch((err) => {
@@ -135,7 +137,7 @@ stepController.editStep = (req, res, next) => {
         log:
           'stepController.updateStep: ERROR: Error updating application in database',
         message: {
-          err: `${err.message}`,
+          err: err.message,
         },
       });
     });
