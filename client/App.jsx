@@ -12,19 +12,19 @@ const App = () => {
     <ProvideAuth>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact path='/'>
             <Login />
           </Route>
 
-          <Route exact path="/signup">
+          <Route exact path='/signup'>
             <Signup />
           </Route>
 
-          <PrivateRoute exact path="/dashboard">
+          <PrivateRoute exact path='/dashboard'>
             <DashboardContainer />
           </PrivateRoute>
 
-          <PrivateRoute exact path="/application/:id/step">
+          <PrivateRoute exact path='/application/:id/step'>
             <StepsContainer />
           </PrivateRoute>
         </Switch>

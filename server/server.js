@@ -1,25 +1,26 @@
 const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const dotenv = require('dotenv').config();
+const cookieSession = require('cookie-session');
+require('dotenv').config();
 
 const app = express();
-
 const userRouter = require('./routes/users');
-const oAuthRouter = require('./routes/oAuth');
-
+const authRouter = require('./routes/oAuth');
+const passport = require('passport');
 const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use(cookieSession({ maxAge: 60 * 60 * 1000, keys: [process.env.keys] }));
 app.use(cookieParser());
 
-// Route Handlers
-//oAuth router
-//==> auth/google
-app.use('/auth', oAuthRouter);
+app.use(passport.initialize());
+app.use(passport.session());
 
+//Route Handlers
+app.use('/auth', authRouter);
 app.use('/user', userRouter);
 
 //Default Error Handler

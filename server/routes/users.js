@@ -1,12 +1,9 @@
 const express = require('express');
-
 const userController = require('../controllers/userController.js');
 const sessionController = require('../controllers/sessionController');
-
 const applicationRouter = require('../routes/applications');
 
 const userRouter = express.Router();
-const oAuthRouter = require('../routes/oAuth');
 
 // Route to create a new user
 userRouter.post(

@@ -1,20 +1,30 @@
 const express = require('express');
 const { router } = require('../server');
-const oAuthRouter = express.Router({ mergeParams: true });
+const authRouter = express.Router({ mergeParams: true });
+require('../config/passport-config');
+const passport = require('passport');
 
-oAuthRouter.get(`/login`, (req, res) => {});
+authRouter.get(`/login`, (req, res) => {});
 
-oAuthRouter.get('/logout', (req, res) => {
+authRouter.get('/logout', (req, res) => {
   //passport
 
   res.send('logging out');
 });
 
 //auth with google
-oAuthRouter.get('/google', (req, res) => {
-  //passport...
+authRouter.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
 
-  res.send('logging in with google');
-});
+authRouter.get(
+  '/google/redirect',
+  passport.authenticate('google'),
+  (req, res) => {
+    console.log('in redirect');
+    res.status(200).json(req.user);
+  }
+);
 
-module.exports = oAuthRouter;
+module.exports = authRouter;
