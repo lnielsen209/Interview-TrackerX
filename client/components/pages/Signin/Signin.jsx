@@ -5,29 +5,29 @@ import { useAuth } from '../../../routes/useAuth';
 import OAuth from './oAuth';
 import axios from 'axios';
 
-const Login = () => {
+const Signin = () => {
   // react hooks
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const auth = useAuth();
-  // console.log('auth in Loginin Component', auth)
+  // console.log('auth in Signin Component', auth)
   const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const res = await axios.post('/user/login', { username, password });
+      const res = await axios.post('/user/signin', { username, password });
 
       // console.log('res.data ===> ', res.data);
-      auth.login(res.data.id, res.data.email, () => history.push('/'));
+      auth.signin(res.data.id, res.data.email, () => history.push('/'));
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
-        'Error in handleSubmit of Login component: ',
+        'Error in handleSubmit of Signin component: ',
         error.response.data.err
       );
     }
@@ -42,7 +42,7 @@ const Login = () => {
         </p>
       </div>
       <OAuth />
-      <div className="login-wrapper">
+      <div className="signin-wrapper">
         <h1>Log in:</h1>
         <form onSubmit={handleSubmit}>
           <>
@@ -63,8 +63,8 @@ const Login = () => {
               required
             />
           </>
-          <div className="loginButtonWrapper">
-            <button className="loginButton">Log in</button>
+          <div className="signinButtonWrapper">
+            <button className="signinButton">Log in</button>
             <p>or</p>
             <Link to="/signup">
               <button className="signupButton">Sign up</button>
@@ -76,4 +76,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signin;

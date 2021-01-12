@@ -35,7 +35,7 @@ const StepsTable = ({ app }) => {
       setUpdateState(false);
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
         'Error in fetchSteps of StepsTable component:',
@@ -53,7 +53,7 @@ const StepsTable = ({ app }) => {
       setUpdateState(true);
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
         'Error in handleSubmit of StepsTable component:',

@@ -1,19 +1,13 @@
 
-h1 {
-  font-weight: lighter;
-  font-family: 'clarendon';
-  font-size: 1.5em;
-}
-
 .wrapper {
   padding: 20px;
 }
 
-.login-wrapper {
+.signin-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #d9d9d9;
+  background-color: #ffffff;
   padding: 20px;
   margin: 10px;
 }
@@ -23,7 +17,7 @@ h1 {
   align-items: baseline;
 }
 
-.loginButtonWrapper {
+.signinButtonWrapper {
   margin: 20px;
 }
 
@@ -52,7 +46,7 @@ button {
   color: rgb(250, 250, 250);
 }
 
-.loginButton {
+.signinButton {
   color: #1666c5;
   background-color: rgb(250, 250, 250);
   border: 1px solid #1666c5;
@@ -138,7 +132,6 @@ button {
 
 #title {
   text-align: center;
-  font-family: 'futura';
   font-size: 2em;
   font-weight: 400;
 }

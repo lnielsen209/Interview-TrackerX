@@ -32,7 +32,7 @@ const ApplicationsTable = () => {
       setUpdateState(false);
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
         'Error in fetchApplications of DashboardTable component:',
@@ -67,7 +67,7 @@ const ApplicationsTable = () => {
       setUpdateState(true);
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
         'Error in removeApplications of DashboardTable component:',

@@ -39,7 +39,7 @@ const ApplicationsModal = ({
     } catch (error) {
       // console.log('error.response.status ===> ', error.response.status);
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
         'Error in addApplication of ApplicationsModel component: ',
@@ -60,7 +60,7 @@ const ApplicationsModal = ({
       setUpdateState(true); // add from Lee
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
         'Error in editApplication of ApplicationsModel component: ',

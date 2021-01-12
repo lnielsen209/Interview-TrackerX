@@ -16,7 +16,7 @@ const DashboardContainer = () => {
           </>
         ) : (
           <p>
-            Login first <Link to="/login">here</Link>
+            Sign in first <Link to="/signin">here</Link>
           </p>
         )}
       </div>

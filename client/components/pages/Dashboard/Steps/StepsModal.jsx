@@ -41,7 +41,7 @@ const StepsModal = ({
     } catch (error) {
       // console.log('error.response.status ===> ', error.response.status);
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
         'Error in addStep of StepsModel component: ',
@@ -60,7 +60,7 @@ const StepsModal = ({
       setUpdateState(true); // add from Lee
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
         'Error in editStep of StepsModel component: ',

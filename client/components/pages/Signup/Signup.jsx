@@ -33,7 +33,7 @@ const Signup = () => {
         // console.log('auth.user in Signup Component ===> ', auth.user);
       } catch (error) {
         if (error.response.status === 401) {
-          history.push('/login');
+          history.push('/signin');
         }
         console.log(
           'Error in handleSubmit of Signup component:',
@@ -45,7 +45,7 @@ const Signup = () => {
 
   return (
     <div id="wrapper">
-      <div id="sign-up" className="login-wrapper">
+      <div id="sign-up" className="signin-wrapper">
         <form onSubmit={handleSubmit} id="list">
           <h1>Create an Account</h1>
           <>

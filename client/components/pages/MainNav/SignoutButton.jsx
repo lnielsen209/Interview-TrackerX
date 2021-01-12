@@ -13,11 +13,11 @@ const SignoutButton = () => {
     try {
       const res = await axios.get('/user/logout');
       if (res.status === 200) {
-        auth.signout(() => history.push('/login'));
+        auth.signout(() => history.push('/signin'));
       }
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/login');
+        history.push('/signin');
       }
       console.log(
         'Error in handleSubmit of Logout component:',

@@ -1,22 +1,23 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Button = styled.button`
   color: white;
   background: ${(p) => (p.secondary ? 'black' : '#f8049c')};
   font-weight: bold;
-  padding: 8px;
-  border-radius: 4px;
+  ${(p) =>
+    p.large
+      ? css`
+          padding: 8px;
+          border-radius: 4px;
+          font-size: 1em;
+        `
+      : css`
+          padding: 16px;
+          border-radius: 4px;
+          font-size: 1em;
+        `}
   box-shadow: none;
-  font-size: 1em;
   border: none;
-  width: 100%;
-  display: block;
-  white-space: none;
-
-  &:disabled {
-    background: #eee;
-    color: #666;
-  }
 `;
 
 export { Button };

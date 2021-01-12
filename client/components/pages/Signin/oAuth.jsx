@@ -5,5 +5,5 @@ export default function oAuth() {
     e.preventDefault();
   };
 
-  return <button onClick={handleClick}>login with Google</button>;
+  return <button onClick={handleClick}>Sign in with Google</button>;
 }
