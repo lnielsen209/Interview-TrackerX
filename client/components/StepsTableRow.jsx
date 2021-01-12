@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const StepsTableRow = ({
   idx,
@@ -26,15 +28,15 @@ const StepsTableRow = ({
       <td>{contact_info}</td>
       <td>{notes}</td>
       <td className="operation">
-        <button
+        <i
           className="deleteButton"
           onClick={() => setShowModalStep({ action: 'edit', id: idx })}
         >
-          Edit
-        </button>
-        <button className="button" onClick={() => removeStep(app_id, id)}>
-          Delete
-        </button>
+          <FontAwesomeIcon icon={faPen} />
+        </i>
+        <i className="button" onClick={() => removeStep(app_id, id)}>
+          <FontAwesomeIcon icon={faTrash} />
+        </i>
       </td>
     </tr>
   );

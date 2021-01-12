@@ -1,7 +1,6 @@
-import React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../App.jsx';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useAuth } from '../routes/useAuth';
+import axios from 'axios';
 
 const modalTitle = {
   add: 'Add new step',
@@ -26,44 +25,48 @@ const StepsModal = ({
   const [contact, setContact] = useState(currentStep.contact || '');
   const [notes, setNote] = useState(currentStep.notes || '');
 
-  const context = useContext(UserContext);
-  console.log('appID', appId);
+  const auth = useAuth();
+  // console.log('appID ===> ', appId);
 
-  const addStep = (body) => {
-    fetch(`/user/${context.user.id}/application/${appId}/step`, {
-      method: 'POST',
+  const addStep = async (body) => {
+    try {
+      const res = await axios.post(
+        `/user/${auth.user.id}/application/${appId}/step`,
+        body
+      );
 
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
-      body: JSON.stringify(body),
-    })
-      .then((data) => {
-        data.json();
-        console.log('new step added');
-        setShowModalStep({ action: null, id: null });
-        setUpdateState(true); // add from Lee
-      })
-      .catch((err) => console.log('addStep ERROR: ', err));
-  };
-
-  const editStep = (body) => {
-    fetch(
-      `/user/${context.user.id}/application/${appId}/step/${currentStep.id}`,
-      {
-        method: 'PUT',
-
-        headers: {
-          'content-type': 'application/JSON',
-        },
-        body: JSON.stringify(body),
-      }
-    ).then((data) => {
-      data.json();
-      console.log(`step updated`);
+      // console.log('new step added');
       setShowModalStep({ action: null, id: null });
       setUpdateState(true); // add from Lee
-    });
+    } catch (error) {
+      // console.log('error.response.status ===> ', error.response.status);
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log(
+        'Error in addStep of StepsModel component: ',
+        error.response.data.err
+      );
+    }
+  };
+
+  const editStep = async (body) => {
+    try {
+      const res = await axios.put(
+        `/user/${auth.user.id}/application/${appId}/step/${currentStep.id}`,
+        body
+      );
+      setShowModalStep({ action: null, id: null });
+      setUpdateState(true); // add from Lee
+    } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log(
+        'Error in editStep of StepsModel component: ',
+        error.response.data.err
+      );
+    }
   };
 
   const handleSubmit = (e) => {
@@ -95,7 +98,6 @@ const StepsModal = ({
             Date
             <input
               type="date"
-              id="date"
               value={date.slice(0, 10)}
               onChange={(e) => setDate(e.target.value)}
               required
@@ -106,7 +108,6 @@ const StepsModal = ({
             <input
               type="text"
               placeholder="e.g. interview, screening, offer"
-              id="step_type"
               value={step_type}
               onChange={(e) => setStepType(e.target.value)}
               required
@@ -116,8 +117,6 @@ const StepsModal = ({
             Contact Name
             <input
               type="text"
-              // placeholder="contact information"
-              id="contact_name"
               value={contact_name}
               onChange={(e) => setContactName(e.target.value)}
               required
@@ -128,7 +127,6 @@ const StepsModal = ({
             <input
               type="text"
               placeholder="e.g. HR representative, manager"
-              id="contact_role"
               value={contact_role}
               onChange={(e) => setContractRole(e.target.value)}
               required
@@ -139,7 +137,6 @@ const StepsModal = ({
             <input
               type="text"
               placeholder="e.g. phone number or email"
-              id="contact"
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               required
@@ -149,8 +146,6 @@ const StepsModal = ({
             Notes
             <input
               type="text"
-              // placeholder="notes"
-              id="notes"
               value={notes}
               onChange={(e) => setNote(e.target.value)}
               required

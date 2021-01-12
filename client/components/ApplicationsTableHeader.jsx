@@ -3,7 +3,7 @@ import React from 'react';
 const ApplicationsTableHeader = () => {
   const headerElement = [
     'Company',
-    'Title',
+    'Position',
     'Location',
     'Found by',
     'Applied via',

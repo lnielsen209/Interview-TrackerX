@@ -8,9 +8,13 @@ const stepRouter = express.Router({ mergeParams: true });
 // get all steps for this application id
 stepRouter.get(
   '/',
-
+  sessionController.isLoggedIn,
   stepController.getAllSteps,
-  (req, res) => res.status(200).json(res.locals.stepData)
+
+  (req, res) => {
+    console.log('getSteps===>', res.locals),
+      res.status(200).json(res.locals.stepData);
+  }
 );
 
 // add new step
@@ -19,7 +23,7 @@ stepRouter.post(
   sessionController.isLoggedIn,
   stepController.addStep,
   (req, res) => {
-    res.status(200).json({});
+    res.status(200).json({ message: `step added` });
   }
 );
 
@@ -29,7 +33,7 @@ stepRouter.put(
   sessionController.isLoggedIn,
   stepController.editStep,
   (req, res) => {
-    res.status(200).json({});
+    res.status(200).json({ message: `step editted` });
   }
 );
 
@@ -39,7 +43,7 @@ stepRouter.delete(
   sessionController.isLoggedIn,
   stepController.deleteStep,
   (req, res) => {
-    res.status(200).json({});
+    res.status(200).json({ message: `step editted` });
   }
 );
 

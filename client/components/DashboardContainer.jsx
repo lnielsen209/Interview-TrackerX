@@ -1,20 +1,18 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { UserContext } from '../App.jsx';
+import { useAuth } from '../routes/useAuth';
 import ApplicationsTable from './ApplicationsTable.jsx';
-import SignoutButton from './SignoutButton';
 
 const DashboardContainer = () => {
-  const context = useContext(UserContext);
+   const auth = useAuth();
 
   return (
     <>
       <h2 id="title">Applications Dashboard</h2>
       <div className="tableContainer">
-        {context.user.id ? (
+        {auth.user.id ? (
           <>
             <ApplicationsTable />
-            <SignoutButton />
           </>
         ) : (
           <p>

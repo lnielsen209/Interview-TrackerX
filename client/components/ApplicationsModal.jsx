@@ -1,6 +1,7 @@
-import React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../App.jsx';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../routes/useAuth';
+import axios from 'axios';
 
 const modalTitle = {
   add: 'Add new application',
@@ -13,8 +14,6 @@ const ApplicationsModal = ({
   currentApp,
   setUpdateState,
 }) => {
-  const [tracker, setTracker] = useState([]);
-
   const [job_title, setJobTitle] = useState(currentApp.job_title || '');
   const [company, setCompany] = useState(currentApp.company || '');
   const [how_applied, setHowApplied] = useState(currentApp.how_applied || '');
@@ -27,41 +26,47 @@ const ApplicationsModal = ({
   const [notes, setNotes] = useState(currentApp.notes || '');
   const [app_status, setAppStatus] = useState(currentApp.app_status || '');
 
-  //   const fakeUID = 2;
+  const auth = useAuth();
+  const history = useHistory();
 
-  const context = useContext(UserContext);
+  const addApplication = async (body) => {
+    try {
+      const res = await axios.post(`/user/${auth.user.id}/application`, body);
 
-  const addApplication = (body) => {
-    fetch(`/user/${context.user.id}/application`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'Application/JSON',
-      },
-      body: JSON.stringify(body),
-    })
-      .then((data) => {
-        data.json();
-        console.log('new application added');
-        setShowModal({ action: null, id: null });
-        setUpdateState(true); // add from Lee
-      })
-      .catch((err) => console.log('addApplication ERROR: ', err));
-  };
-
-  const editApplication = (body) => {
-    console.log('call edit app');
-    fetch(`/user/${context.user.id}/application/${currentApp.id}`, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/JSON',
-      },
-      body: JSON.stringify(body),
-    }).then((data) => {
-      data.json();
-      console.log(`application updated`);
+      // console.log('new application added');
       setShowModal({ action: null, id: null });
       setUpdateState(true); // add from Lee
-    });
+    } catch (error) {
+      // console.log('error.response.status ===> ', error.response.status);
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log(
+        'Error in addApplication of ApplicationsModel component: ',
+        error.response.data.err
+      );
+    }
+  };
+
+  const editApplication = async (body) => {
+    try {
+      const res = await axios.put(
+        `/user/${auth.user.id}/application/${currentApp.id}`,
+        body
+      );
+
+      // console.log('new application edited');
+      setShowModal({ action: null, id: null });
+      setUpdateState(true); // add from Lee
+    } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log(
+        'Error in editApplication of ApplicationsModel component: ',
+        error.response.data.err
+      );
+    }
   };
 
   const handleSubmit = (e) => {
@@ -86,44 +91,36 @@ const ApplicationsModal = ({
     }
   };
 
-  console.log('currentapp', currentApp);
+  // console.log('currentapp ===> ', currentApp);
   return (
     <div id="div3" className="modalWrapper">
       <div className="modalBackground">
         <h2>{modalTitle[action]}</h2>
-        <form
-          // onSubmit={handleSubmit} doesn't work
-          id="list"
-          className="modalForm"
-        >
-          <label>
-            Job Title
-            <input
-              type="text"
-              // placeholder="Job Title"
-              id="job_title"
-              value={job_title}
-              onChange={(e) => setJobTitle(e.target.value)}
-              required
-            />
-          </label>
+        <form id="list" className="modalForm">
           <label>
             Company
             <input
               type="text"
-              // placeholder="company"
-              id="company"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
               required
             />
           </label>
           <label>
+            Position
+            <input
+              type="text"
+              value={job_title}
+              onChange={(e) => setJobTitle(e.target.value)}
+              required
+            />
+          </label>
+
+          <label>
             How I applied
             <input
               type="text"
               placeholder="e.g. email, company website, Glassdoor,..."
-              id="how_applied"
               value={how_applied}
               onChange={(e) => setHowApplied(e.target.value)}
               required
@@ -133,8 +130,6 @@ const ApplicationsModal = ({
             Date applied
             <input
               type="date"
-              // placeholder="Date applied"
-              id="date_applied"
               value={date_applied.slice(0, 10)}
               onChange={(e) => setDateApplied(e.target.value)}
               required
@@ -144,8 +139,6 @@ const ApplicationsModal = ({
             Location
             <input
               type="text"
-              // placeholder="Location"
-              id="location"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               required
@@ -155,8 +148,6 @@ const ApplicationsModal = ({
             URL
             <input
               type="text"
-              // placeholder="URL"
-              id="url"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               required
@@ -167,7 +158,6 @@ const ApplicationsModal = ({
             <input
               type="text"
               placeholder="e.g. recruiter/agency, linkedIn, Google,..."
-              id="found_by"
               value={found_by}
               onChange={(e) => setFoundBy(e.target.value)}
               required
@@ -177,8 +167,6 @@ const ApplicationsModal = ({
             Notes
             <input
               type="text"
-              // placeholder="Notes"
-              id="notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               required
@@ -187,22 +175,20 @@ const ApplicationsModal = ({
           <label>
             App Status
             <select
-              // type="text"
-              id="app_status"
               value={app_status}
               onChange={(e) => setAppStatus(e.target.value)}
               required
             >
-              <option value="1">Not Applied</option>
-              <option value="2">Applied</option>
-              <option value="3">Phone Screening</option>
-              <option value="4">Technical Interview</option>
-              <option value="5">Interviewing</option>
-              <option value="6">Offer Received</option>
-              <option value="7">Offer Accepted</option>
-              <option value="8">Offer Rejected</option>
-              <option value="9">Application Rejected</option>
-              <option value="10">Not Interested</option>
+              <option value="Not Applied">Not Applied</option>
+              <option value="Applied">Applied</option>
+              <option value="Phone Screening">Phone Screening</option>
+              <option value="Technical Interview">Technical Interview</option>
+              <option value="Interviewing">Interviewing</option>
+              <option value="Offer Received">Offer Received</option>
+              <option value="Offer Accepted">Offer Accepted</option>
+              <option value="Offer Rejected">Offer Rejected</option>
+              <option value="Application Rejected">Application Rejected</option>
+              <option value="Not Interested">Not Interested</option>
             </select>
           </label>
           <div className="modalButtonWrapper">
@@ -218,7 +204,7 @@ const ApplicationsModal = ({
               className="modalButton"
               onClick={handleSubmit}
             >
-              Save{' '}
+              Save
             </button>
           </div>
         </form>

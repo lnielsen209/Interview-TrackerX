@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
-import { UserContext } from '../App.jsx';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useAuth } from '../routes/useAuth';
+import StepsTableAddButton from './StepsTableAddButton.jsx';
 import StepsTableHeader from './StepsTableHeader.jsx';
-import StepsTableRow from './StepsTableRows.jsx';
-import StepsTableFooter from './StepsTableFooter.jsx';
+import StepsTableRows from './StepsTableRows.jsx';
 import axios from 'axios';
 
-const StepsTable = ({ state }) => {
+const StepsTable = ({ app }) => {
   // react hooks
   const [stepData, setStepData] = useState([]);
   const [updateState, setUpdateState] = useState(true);
@@ -15,10 +15,10 @@ const StepsTable = ({ state }) => {
     id: null,
   }); // none / edit /add
 
-  const context = useContext(UserContext);
-  console.log('state in Steps Component ===> ', useLocation().state);
+  const history = useHistory();
+  const auth = useAuth();
 
-  console.log('stepsTracker ===> ', stepData);
+  // console.log('stepsData ===> ', stepData);
 
   // get the applications steps data from the DB
   useEffect(() => {
@@ -28,14 +28,19 @@ const StepsTable = ({ state }) => {
   const fetchSteps = async () => {
     try {
       const res = await axios.get(
-        `/user/${context.user.id}/application/${state.application.id}/step`
+        `/user/${auth.user.id}/application/${app.id}/step`
       );
-      if (res.status === 200) {
-        setStepData(res.data);
-        setUpdateState(false);
-      }
+      // console.log('res.data ===>', res.data);
+      setStepData(res.data);
+      setUpdateState(false);
     } catch (error) {
-      console.log('Error in fetchSteps of StepsTable component:', error);
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log(
+        'Error in fetchSteps of StepsTable component:',
+        error.response.data.err
+      );
     }
   };
 
@@ -43,13 +48,17 @@ const StepsTable = ({ state }) => {
   const removeStep = async (app_id, step_id) => {
     try {
       const res = await axios.delete(
-        `/user/${context.user.id}/application/${app_id}/step/${step_id}`
+        `/user/${auth.user.id}/application/${app_id}/step/${step_id}`
       );
-      if (res.status === 200) {
-        setUpdateState(true);
-      }
+      setUpdateState(true);
     } catch (error) {
-      console.log('Error in handleSubmit of StepsTable component:', error);
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log(
+        'Error in handleSubmit of StepsTable component:',
+        error.response.data.err
+      );
     }
   };
 
@@ -57,19 +66,19 @@ const StepsTable = ({ state }) => {
     <div className="tableContainer">
       <table id="stepsTracker">
         <StepsTableHeader />
-        <StepsTableRow
+        <StepsTableRows
           stepData={stepData}
           setShowModalStep={setShowModalStep}
           removeStep={removeStep}
         />
-        <StepsTableFooter
-          state={state}
-          stepData={stepData}
-          setUpdateState={setUpdateState}
-          showModalStep={showModalStep}
-          setShowModalStep={setShowModalStep}
-        />
       </table>
+      <StepsTableAddButton
+        stepData={stepData}
+        setUpdateState={setUpdateState}
+        showModalStep={showModalStep}
+        setShowModalStep={setShowModalStep}
+        app={app}
+      />
     </div>
   );
 };

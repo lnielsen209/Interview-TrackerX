@@ -24,7 +24,7 @@ sessionController.startSession = (req, res, next) => {
     return next({
       log: 'sessionController.startSession: ERROR: Unable to add JWT token',
       message: {
-        err: `sessionController.startSession: ERROR: ERROR ${err}`,
+        err: `${err.message}`,
       },
     });
   }
@@ -36,56 +36,27 @@ sessionController.isLoggedIn = async (req, res, next) => {
 
   //check if the token exists
   //if doesn't exist, redirect to login in the frontend
-  if (!token) return res.status(401);
-
-  //if token exists, verify the token
   try {
+    if (!token) {
+      throw new Error('session expires, please log in again');
+    }
+    //if token exists, verify the token
     const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
     console.log('decodedToken--->', decodedToken);
-    //decodedToken.id is the userID
-    next();
-  } catch (err) {
-    console.log('isLogged in ERR===>', err);
 
+    //save userID on res.locals
+    res.locals.userID = decodedToken.id;
+    return next();
+  } catch (err) {
     //redirect to login page in the frontend
-    res.status(418); //im a teapot
     return next({
-      log: 'sessionController.isLoggedIn: ERROR: Unable to verify JWT token',
+      log: `sessionController.isLoggedIn: Unable to verify JWT token ERROR: ${err}`,
+      status: 401,
       message: {
-        err: `sessionController.isLogged In: ERROR: ERROR ${err}`,
+        err: err.message,
       },
     });
   }
-};
-
-sessionController.checkUser = (req, res, next) => {
-  const token = req.cookies.token;
-  console.log('checkuser token==>', token);
-
-  if (!token) {
-    res.locals.user = null;
-    next();
-  }
-
-  jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-    if (err) {
-      res.locals.user = null;
-      next();
-    } else {
-      const userID = decodedToken.id;
-      const queryText = `SELECT * from applicants WHERE id = $1`;
-
-      db.query(queryText, [userID], (err, data) => {
-        if (err) {
-          console.log('dbERR===>', err);
-          return next(err);
-        }
-        console.log('checkuser email data===>', data.rows[0].email);
-        res.locals.user = data.rows[0].email;
-        return next();
-      });
-    }
-  });
 };
 
 module.exports = sessionController;
