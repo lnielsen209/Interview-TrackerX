@@ -42,16 +42,14 @@ const Login = () => {
       console.log('res==>', res);
 
       console.log('res.data ===> ', res.data);
-      auth.login(res.data.id, res.data.email, res.data.route, () =>
-        history.push('/dashboard')
-      );
+      auth.login(res.data.id, res.data.email, () => history.push('/dashboard'));
     } catch (error) {
       if (error.response.status === 401) {
         history.push('/');
       }
       console.log(
         'Error in handleSubmit of Login component: ',
-        error.response.data.err
+        error.response.status.err
       );
     }
   };

@@ -82,27 +82,4 @@ authController.verifyAuthToken = async (req, res, next) => {
   }
 };
 
-authController.getAllApps = (req, res, next) => {
-  const UID = res.locals.id;
-  console.log('UID==>', UID);
-  // get user's personal data
-  const getAppData =
-    'SELECT * FROM applications WHERE applicant_id = $1 ORDER BY id ASC';
-  db.query(getAppData, [UID])
-    .then((data) => {
-      console.log('authdata.rows==>', data.rows);
-      res.locals.userData = data.rows;
-      return next();
-    })
-    .catch((err) => {
-      console.log('authgetallApps===>', err);
-      return next({
-        log: 'authController.getUserData: ERROR: Error getting database',
-        message: {
-          err: err.message,
-        },
-      });
-    });
-};
-
 module.exports = authController;

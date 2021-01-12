@@ -21,7 +21,7 @@ const ApplicationsTable = () => {
   // get the users data from the DB
   useEffect(() => {
     if (updateState) fetchApplications();
-  }, []);
+  }, [updateState]);
 
   const fetchApplications = async () => {
     try {
