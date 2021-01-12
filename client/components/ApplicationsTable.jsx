@@ -21,10 +21,11 @@ const ApplicationsTable = () => {
   // get the users data from the DB
   useEffect(() => {
     if (updateState) fetchApplications();
-  }, [updateState]);
+  }, []);
 
   const fetchApplications = async () => {
     try {
+      console.log('in this route');
       const res = await axios.get(`/user/${auth.user.id}/application`);
       console.log(res.data.userData);
       setAppData(res.data.userData);

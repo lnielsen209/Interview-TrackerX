@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const db = require('../models/model');
 
 const authController = {};
 
@@ -11,17 +12,21 @@ const createToken = (id) => {
 };
 
 authController.createAuthToken = (req, res, next) => {
-  const authID = req.user.password;
-  console.log('authID===>', authID);
+  // const authID = { id: req.user.id, route: req.route.path };
+  const authID = req.user.id;
+
+  console.log('authID===>', req.user.id);
+  //console.log('route===>', req.route.path);
 
   try {
     const token = createToken(authID);
-    console.log('fortunetoken==>', token);
-    res.cookie('fortuneCookie', token, {
+    console.log('oauthToken==>', token);
+    res.cookie('token', token, {
       httpOnly: false,
       maxAge: maxAge * 1000,
     });
-
+    //res.locals.route = req.route.path;
+    //==>'/google/redirect'
     return next();
   } catch (err) {
     return next({
@@ -34,8 +39,8 @@ authController.createAuthToken = (req, res, next) => {
 };
 
 authController.verifyAuthToken = async (req, res, next) => {
-  const token = req.cookies.fortuneCookie;
-  console.log('token===>', token);
+  const token = req.cookies.token;
+  console.log('authtoken===>', token);
 
   //check if the token exists
   //if doesn't exist, redirect to login in the frontend
@@ -44,16 +49,27 @@ authController.verifyAuthToken = async (req, res, next) => {
       throw new Error('session expires, please log in again');
     }
 
-    //if token exists,send back the token
-    res.locals.fortune = token;
+    //if token exists, verify the token and send back token, id, and email for frontend auth
+    const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
+    console.log('decodedFortuneToken--->', decodedToken);
 
-    //if token exists, verify the token
-    // const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-    // console.log('decodedToken--->', decodedToken);
+    const userID = decodedToken.id;
+    console.log('decodedToken.id==>', decodedToken.id);
+    const queryText = `SELECT * from applicants WHERE id = $1`;
 
-    //save userID on res.locals
-    // res.locals.userID = decodedToken.id;
-    return next();
+    db.query(queryText, [userID], (err, data) => {
+      if (err) {
+        console.log('dbERR===>', err);
+        return next(err);
+      }
+      console.log('userdata===>', data.rows[0]);
+      //save userID, email, route and toekn on res.locals
+      res.locals.email = data.rows[0].email;
+      // res.locals.route = decodedToken.id.route;
+      res.locals.id = userID;
+      //res.locals.token = token;
+      return next();
+    });
   } catch (err) {
     //redirect to login page in the frontend
     return next({
@@ -64,6 +80,29 @@ authController.verifyAuthToken = async (req, res, next) => {
       },
     });
   }
+};
+
+authController.getAllApps = (req, res, next) => {
+  const UID = res.locals.id;
+  console.log('UID==>', UID);
+  // get user's personal data
+  const getAppData =
+    'SELECT * FROM applications WHERE applicant_id = $1 ORDER BY id ASC';
+  db.query(getAppData, [UID])
+    .then((data) => {
+      console.log('authdata.rows==>', data.rows);
+      res.locals.userData = data.rows;
+      return next();
+    })
+    .catch((err) => {
+      console.log('authgetallApps===>', err);
+      return next({
+        log: 'authController.getUserData: ERROR: Error getting database',
+        message: {
+          err: err.message,
+        },
+      });
+    });
 };
 
 module.exports = authController;

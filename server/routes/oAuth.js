@@ -21,9 +21,10 @@ authRouter.get(
 );
 
 authRouter.get(`/login`, authController.verifyAuthToken, (req, res) => {
-  console.log('im in');
-  console.log(res.locals);
-  res.status(200).json({ fortune: res.locals.fortune });
+  res.status(200).json({
+    id: res.locals.id,
+    email: res.locals.email,
+  });
 });
 
 authRouter.get('/logout', (req, res) => {

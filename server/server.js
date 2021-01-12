@@ -22,10 +22,6 @@ app.use(passport.session());
 
 app.use(cors());
 
-// const corsOptions = {
-//   origin: 'http://localhost:8080/',
-//   optionsSuccessStatus: 200,
-// };
 app.options('*', cors());
 //Route Handlers
 app.use('/auth', authRouter);

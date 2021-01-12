@@ -5,12 +5,13 @@ import ApplicationsTable from './ApplicationsTable.jsx';
 import SignoutButton from './SignoutButton';
 
 const DashboardContainer = () => {
-   const auth = useAuth();
+  const auth = useAuth();
 
   return (
     <>
-      <h2 id="title">Applications Dashboard</h2>
-      <div className="tableContainer">
+      <h2 id='title'>Applications Dashboard</h2>
+      <div className='tableContainer'>
+        {console.log('auth.user===>', auth.user.id)}
         {auth.user.id ? (
           <>
             <ApplicationsTable />
@@ -18,7 +19,7 @@ const DashboardContainer = () => {
           </>
         ) : (
           <p>
-            Login first <Link to="/">here</Link>
+            Login first <Link to='/'>here</Link>
           </p>
         )}
       </div>

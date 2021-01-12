@@ -4,9 +4,7 @@ import { useAuth } from '../routes/useAuth';
 
 import OAuth from './oAuth';
 import axios from 'axios';
-import Cookies from 'js-cookie';
-import Dashboard from './DashboardContainer';
-import DashboardContainer from './DashboardContainer';
+// import Cookies from 'js-cookie';
 
 const Login = () => {
   // react hooks
@@ -16,36 +14,25 @@ const Login = () => {
   const auth = useAuth();
   // console.log('auth in Loginin Component', auth)
   const history = useHistory();
-  const fortuneCookie = Cookies.get('fortuneCookie');
-  //useEffect
-  //check fortunate cookie
-  //yes=>fetch /verifytoken
-  // useEffect(() => {
-  //   let mounted = true;
-  //   if (mounted) {
-  //     oauthLogin();
-  //   }
-  //   return () => {
-  //     mounted = false;
-  //   };
-  // });
+  // const authToken = Cookies.get('token');
 
-  // const oauthLogin = async () => {
-  //   try {
-  //     const res = await axios.get(`/auth/login`);
-  //     console.log('res==>', res);
+  useEffect(() => {
+    oauthLogin();
+  }, []);
 
-  //     if (fortuneCookie === res.data.fortune) {
-  //       console.log('i wanna go to dashboard!!');
-  //       history.push('/dashBoard');
-  //     }
-  //   } catch (error) {
-  //     // if (error.response.status === 401) {
-  //     //   history.push('/');
-  //     // }
-  //     console.log('Error in authLogin: ', error.response);
-  //   }
-  // };
+  const oauthLogin = async () => {
+    try {
+      const res = await axios.get(`/auth/login`);
+      console.log('res==>', res.data);
+
+      auth.login(res.data.id, res.data.email, () => history.push('/dashboard'));
+    } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log('Error in authLogin: ', error.response);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,7 +42,9 @@ const Login = () => {
       console.log('res==>', res);
 
       console.log('res.data ===> ', res.data);
-      auth.login(res.data.id, res.data.email, () => history.push('/dashboard'));
+      auth.login(res.data.id, res.data.email, res.data.route, () =>
+        history.push('/dashboard')
+      );
     } catch (error) {
       if (error.response.status === 401) {
         history.push('/');

@@ -14,6 +14,7 @@ const useProvideAuth = () => {
       ...user,
       id,
       email,
+
       isAuthenticated: true,
     });
     cb();
