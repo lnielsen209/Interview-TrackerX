@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useAuth } from '../routes/useAuth';
+import { useAuth } from '../../../routes/useAuth';
 
 import OAuth from './oAuth';
 import axios from 'axios';
@@ -21,10 +21,10 @@ const Login = () => {
       const res = await axios.post('/user/login', { username, password });
 
       // console.log('res.data ===> ', res.data);
-      auth.login(res.data.id, res.data.email, () => history.push('/dashboard'));
+      auth.login(res.data.id, res.data.email, () => history.push('/'));
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/login');
       }
       console.log(
         'Error in handleSubmit of Login component: ',
@@ -34,22 +34,22 @@ const Login = () => {
   };
 
   return (
-    <div className='outer-wrapper'>
-      <div className='recent-posts'>
-        <p align='left'>
+    <div className="outer-wrapper">
+      <div className="recent-posts">
+        <p align="left">
           Get interview insights while you manage <br />
           every step in your job search, from application to offer.
         </p>
       </div>
       <OAuth />
-      <div className='login-wrapper'>
+      <div className="login-wrapper">
         <h1>Log in:</h1>
         <form onSubmit={handleSubmit}>
           <>
             <p>Email</p>
             <input
               value={username}
-              type='email'
+              type="email"
               onChange={(e) => setUserName(e.target.value)}
               required
             />
@@ -58,16 +58,16 @@ const Login = () => {
             <p>Password</p>
             <input
               password={password}
-              type='password'
+              type="password"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </>
-          <div className='loginButtonWrapper'>
-            <button className='loginButton'>Log in</button>
+          <div className="loginButtonWrapper">
+            <button className="loginButton">Log in</button>
             <p>or</p>
-            <Link to='/signup'>
-              <button className='signupButton'>Sign up</button>
+            <Link to="/signup">
+              <button className="signupButton">Sign up</button>
             </Link>
           </div>
         </form>

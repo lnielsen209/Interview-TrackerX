@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../routes/useAuth';
+import { useAuth } from '../../../../routes/useAuth';
 import axios from 'axios';
 
 const modalTitle = {
@@ -41,7 +41,7 @@ const StepsModal = ({
     } catch (error) {
       // console.log('error.response.status ===> ', error.response.status);
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/login');
       }
       console.log(
         'Error in addStep of StepsModel component: ',
@@ -60,7 +60,7 @@ const StepsModal = ({
       setUpdateState(true); // add from Lee
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/login');
       }
       console.log(
         'Error in editStep of StepsModel component: ',

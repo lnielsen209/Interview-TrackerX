@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import StepsTable from './StepsTable';
+import StepsTable from '../Steps/StepsTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition } from 'react-transition-group';

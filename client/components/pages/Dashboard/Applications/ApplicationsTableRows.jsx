@@ -1,5 +1,5 @@
 import React from 'react';
-import ApplicationsTableRow from './ApplicationsTableRow.jsx';
+import ApplicationsTableRow from './ApplicationsTableRow';
 
 const ApplicationsTableRows = ({
   appData,

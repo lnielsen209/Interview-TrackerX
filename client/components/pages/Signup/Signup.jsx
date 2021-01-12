@@ -1,6 +1,6 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useAuth } from '../routes/useAuth';
+import { useAuth } from '../../../routes/useAuth';
 import axios from 'axios';
 
 const Signup = () => {
@@ -28,15 +28,13 @@ const Signup = () => {
           email,
           password,
         });
-          // console.log('res.data ===> ', res.data);
-          auth.signup(res.data.id, res.data.email, () =>
-            history.push('/dashboard')
-          );
-          // console.log('auth.user in Signup Component ===> ', auth.user);
+        // console.log('res.data ===> ', res.data);
+        auth.signup(res.data.id, res.data.email, () => history.push('/'));
+        // console.log('auth.user in Signup Component ===> ', auth.user);
       } catch (error) {
-           if (error.response.status === 401) {
-             history.push('/');
-           }
+        if (error.response.status === 401) {
+          history.push('/login');
+        }
         console.log(
           'Error in handleSubmit of Signup component:',
           error.response.data.err

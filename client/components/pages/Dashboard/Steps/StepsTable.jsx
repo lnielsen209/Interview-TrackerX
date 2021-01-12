@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../routes/useAuth';
-import StepsTableAddButton from './StepsTableAddButton.jsx';
-import StepsTableHeader from './StepsTableHeader.jsx';
-import StepsTableRows from './StepsTableRows.jsx';
+import { useAuth } from '../../../../routes/useAuth';
+import StepsTableAddButton from './StepsTableAddButton';
+import StepsTableHeader from './StepsTableHeader';
+import StepsTableRows from './StepsTableRows';
 import axios from 'axios';
 
 const StepsTable = ({ app }) => {
@@ -35,7 +35,7 @@ const StepsTable = ({ app }) => {
       setUpdateState(false);
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/login');
       }
       console.log(
         'Error in fetchSteps of StepsTable component:',
@@ -53,7 +53,7 @@ const StepsTable = ({ app }) => {
       setUpdateState(true);
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/login');
       }
       console.log(
         'Error in handleSubmit of StepsTable component:',

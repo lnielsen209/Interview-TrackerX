@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../routes/useAuth';
-import ApplicationsTable from './ApplicationsTable.jsx';
+import { useAuth } from '../../../routes/useAuth';
+import ApplicationsTable from './Applications/ApplicationsTable';
 
 const DashboardContainer = () => {
    const auth = useAuth();
@@ -16,7 +16,7 @@ const DashboardContainer = () => {
           </>
         ) : (
           <p>
-            Login first <Link to="/">here</Link>
+            Login first <Link to="/login">here</Link>
           </p>
         )}
       </div>

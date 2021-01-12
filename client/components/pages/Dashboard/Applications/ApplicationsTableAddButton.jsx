@@ -1,5 +1,5 @@
 import React from 'react';
-import ApplicationsModal from './ApplicationsModal.jsx';
+import ApplicationsModal from './ApplicationsModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
