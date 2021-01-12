@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
 
 import OAuth from './oAuth';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import Dashboard from './DashboardContainer';
+import DashboardContainer from './DashboardContainer';
 
 const Login = () => {
   // react hooks
@@ -13,6 +16,36 @@ const Login = () => {
   const auth = useAuth();
   // console.log('auth in Loginin Component', auth)
   const history = useHistory();
+  const fortuneCookie = Cookies.get('fortuneCookie');
+  //useEffect
+  //check fortunate cookie
+  //yes=>fetch /verifytoken
+  // useEffect(() => {
+  //   let mounted = true;
+  //   if (mounted) {
+  //     oauthLogin();
+  //   }
+  //   return () => {
+  //     mounted = false;
+  //   };
+  // });
+
+  // const oauthLogin = async () => {
+  //   try {
+  //     const res = await axios.get(`/auth/login`);
+  //     console.log('res==>', res);
+
+  //     if (fortuneCookie === res.data.fortune) {
+  //       console.log('i wanna go to dashboard!!');
+  //       history.push('/dashBoard');
+  //     }
+  //   } catch (error) {
+  //     // if (error.response.status === 401) {
+  //     //   history.push('/');
+  //     // }
+  //     console.log('Error in authLogin: ', error.response);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();

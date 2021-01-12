@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 require('dotenv').config();
@@ -19,6 +20,13 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(cors());
+
+// const corsOptions = {
+//   origin: 'http://localhost:8080/',
+//   optionsSuccessStatus: 200,
+// };
+app.options('*', cors());
 //Route Handlers
 app.use('/auth', authRouter);
 app.use('/user', userRouter);

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const db = require('../models/model.js');
 
 const sessionController = {};
@@ -13,6 +13,7 @@ const createToken = (id) => {
 
 sessionController.startSession = (req, res, next) => {
   const { id } = res.locals;
+
   console.log('id-->', id);
   try {
     const token = createToken(id);
@@ -24,7 +25,7 @@ sessionController.startSession = (req, res, next) => {
     return next({
       log: 'sessionController.startSession: ERROR: Unable to add JWT token',
       message: {
-        err: `${err.message}`,
+        err: err.message,
       },
     });
   }
