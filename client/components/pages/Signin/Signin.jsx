@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../../routes/useAuth';
-
+import PageLayout from '../../common/PageLayout';
+import {
+  H1,
+  PLeft,
+  PCenter,
+  SigninWrapper,
+  Input,
+} from '../../../style/styled';
 import OAuth from './oAuth';
 import axios from 'axios';
 
@@ -34,20 +41,16 @@ const Signin = () => {
   };
 
   return (
-    <div className="outer-wrapper">
-      <div className="recent-posts">
-        <p align="left">
-          Get interview insights while you manage <br />
-          every step in your job search, from application to offer.
-        </p>
+    <PageLayout className="outer-wrapper">
+      <div>
+        <H1>Get interview insights while you manage</H1>
+        <H1>every step in your job search, from application to offer.</H1>
       </div>
-      <OAuth />
-      <div className="signin-wrapper">
-        <h1>Log in:</h1>
+      <SigninWrapper>
         <form onSubmit={handleSubmit}>
           <>
-            <p>Email</p>
-            <input
+            <PLeft>Email</PLeft>
+            <Input
               value={username}
               type="email"
               onChange={(e) => setUserName(e.target.value)}
@@ -55,8 +58,8 @@ const Signin = () => {
             />
           </>
           <>
-            <p>Password</p>
-            <input
+            <PLeft>Password</PLeft>
+            <Input
               password={password}
               type="password"
               onChange={(e) => setPassword(e.target.value)}
@@ -65,14 +68,15 @@ const Signin = () => {
           </>
           <div className="signinButtonWrapper">
             <button className="signinButton">Log in</button>
-            <p>or</p>
+            <PCenter>or</PCenter>
+            <OAuth />
             <Link to="/signup">
               <button className="signupButton">Sign up</button>
             </Link>
           </div>
         </form>
-      </div>
-    </div>
+      </SigninWrapper>
+    </PageLayout>
   );
 };
 

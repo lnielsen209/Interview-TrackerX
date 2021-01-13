@@ -1,11 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-
-const theme = {
-  color: '#1a1a1a',
-  bg: '#f3f2ef',
-  primary: '#1666c5',
-  secondary: '#ffffff',
-};
+import { theme } from '../style/theme';
 
 const GlobalStyle = createGlobalStyle`
 *, *:after, *:before {
@@ -16,12 +10,12 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: ${theme.color};
+  background: ${theme.background};
+  text-align: center;
   min-width: 100vh;
   min-height: 100vh;
-  text-align: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: ${theme.bg};
-  color: ${theme.color};
 }
 
 a {

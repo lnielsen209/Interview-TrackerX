@@ -4,12 +4,10 @@ import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './routes/PrivateRoute';
 import Signup from './components/pages/Signup/Signup';
 import Signin from './components/pages/Signin/Signin';
-import MainNav from './components/pages/MainNav/MainNav';
 
 const App = () => {
   return (
     <>
-      <MainNav />
       <Switch>
         <Route exact path="/signin">
           <Signin />

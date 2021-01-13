@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../../routes/useAuth';
+import PageLayout from '../../common/PageLayout';
 import axios from 'axios';
 
 const Signup = () => {
@@ -44,7 +45,7 @@ const Signup = () => {
   };
 
   return (
-    <div id="wrapper">
+    <PageLayout id="wrapper">
       <div id="sign-up" className="signin-wrapper">
         <form onSubmit={handleSubmit} id="list">
           <h1>Create an Account</h1>
@@ -104,7 +105,7 @@ const Signup = () => {
           </Link>
         </form>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 

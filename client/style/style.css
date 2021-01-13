@@ -3,14 +3,6 @@
   padding: 20px;
 }
 
-.signin-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #ffffff;
-  padding: 20px;
-  margin: 10px;
-}
 .outer-wrapper {
   display: flex;
   justify-content: space-around;
@@ -29,13 +21,6 @@
   align-items: center;
 }
 
-input {
-  border-radius: 5px;
-  border: 1px solid #8a8989;
-  margin: 5px 0;
-  padding: 5px;
-  background-color: rgb(250, 250, 250);
-}
 
 button {
   margin: 5px;
@@ -184,17 +169,6 @@ tr {
 
 #date-column {
   max-width: 40px;
-}
-
-.MainNav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 10vh;
-}
-
-.MainNav a {
-  text-decoration: none;
 }
 
 i {
