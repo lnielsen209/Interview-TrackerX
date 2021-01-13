@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../routes/useAuth';
-import ApplicationsTableAddButton from './ApplicationsTableAddButton.jsx';
-import ApplicationsTableHeader from './ApplicationsTableHeader.jsx';
-import ApplicationsTableRows from './ApplicationsTableRows.jsx';
-import SearchBar from './SearchBar';
+import { useAuth } from '../../../../routes/useAuth';
+import ApplicationsTableAddButton from './ApplicationsTableAddButton';
+import ApplicationsTableHeader from './ApplicationsTableHeader';
+import ApplicationsTableRows from './ApplicationsTableRows';
+import SearchBar from '../SearchBar';
 import axios from 'axios';
 
 const ApplicationsTable = () => {
@@ -25,7 +25,6 @@ const ApplicationsTable = () => {
 
   const fetchApplications = async () => {
     try {
-      console.log('in this route');
       const res = await axios.get(`/user/${auth.user.id}/application`);
       // console.log('res.data.userData ===> ', res.data.userData);
       setAppData(res.data.userData);
@@ -33,7 +32,7 @@ const ApplicationsTable = () => {
       setUpdateState(false);
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/signin');
       }
       console.log(
         'Error in fetchApplications of DashboardTable component:',
@@ -68,7 +67,7 @@ const ApplicationsTable = () => {
       setUpdateState(true);
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/signin');
       }
       console.log(
         'Error in removeApplications of DashboardTable component:',
@@ -85,8 +84,8 @@ const ApplicationsTable = () => {
         updateSearchInput={updateSearchInput}
         updateCategoryInput={updateCategorySearchInput}
       />
-      <div className='applicationTable'>
-        <table id='tracker'>
+      <div className="applicationTable">
+        <table id="tracker">
           <ApplicationsTableHeader />
           <ApplicationsTableRows
             appData={appData}

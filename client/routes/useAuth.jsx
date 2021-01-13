@@ -9,7 +9,7 @@ const useProvideAuth = () => {
     email: null,
     isAuthenticated: false,
   });
-  const login = (id, email, cb) => {
+  const signin = (id, email, cb) => {
     setUser({
       ...user,
       id,
@@ -40,7 +40,7 @@ const useProvideAuth = () => {
   };
 
   // console.log('user in useAuth ===> ', user);
-  return { user, login, signup, signout };
+  return { user, signin, signup, signout };
 };
 
 // // Option 2 save user data in localStorage
@@ -51,7 +51,7 @@ const useProvideAuth = () => {
 //     isAuthenticated: false,
 //   };
 
-//   const login = (id, email, cb) => {
+//   const signin = (id, email, cb) => {
 //     const user = {
 //       id,
 //       email,
@@ -77,7 +77,7 @@ const useProvideAuth = () => {
 //   };
 
 //   // console.log('user in useAuth ===> ', user);
-//   return { user, login, signup, signout };
+//   return { user, signin, signup, signout };
 // };
 
 export const ProvideAuth = ({ children }) => {

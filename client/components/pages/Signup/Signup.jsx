@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useAuth } from '../routes/useAuth';
+import { useAuth } from '../../../routes/useAuth';
+import PageLayout from '../../common/PageLayout';
 import axios from 'axios';
 
 const Signup = () => {
@@ -28,15 +29,13 @@ const Signup = () => {
           email,
           password,
         });
-          // console.log('res.data ===> ', res.data);
-          auth.signup(res.data.id, res.data.email, () =>
-            history.push('/dashboard')
-          );
-          // console.log('auth.user in Signup Component ===> ', auth.user);
+        // console.log('res.data ===> ', res.data);
+        auth.signup(res.data.id, res.data.email, () => history.push('/'));
+        // console.log('auth.user in Signup Component ===> ', auth.user);
       } catch (error) {
-           if (error.response.status === 401) {
-             history.push('/');
-           }
+        if (error.response.status === 401) {
+          history.push('/signin');
+        }
         console.log(
           'Error in handleSubmit of Signup component:',
           error.response.data.err
@@ -46,8 +45,8 @@ const Signup = () => {
   };
 
   return (
-    <div id="wrapper">
-      <div id="sign-up" className="login-wrapper">
+    <PageLayout id="wrapper">
+      <div id="sign-up" className="signin-wrapper">
         <form onSubmit={handleSubmit} id="list">
           <h1>Create an Account</h1>
           <>
@@ -106,7 +105,7 @@ const Signup = () => {
           </Link>
         </form>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 

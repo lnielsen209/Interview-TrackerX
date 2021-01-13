@@ -1,27 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../routes/useAuth';
-import ApplicationsTable from './ApplicationsTable.jsx';
+import { useAuth } from '../../../routes/useAuth';
+import ApplicationsTable from './Applications/ApplicationsTable';
+import PageLayout from '../../common/PageLayout';
 
 const DashboardContainer = () => {
   const auth = useAuth();
 
   return (
-    <>
+    <PageLayout>
       <h2 id='title'>Applications Dashboard</h2>
       <div className='tableContainer'>
-        {console.log('auth.user===>', auth.user.id)}
         {auth.user.id ? (
           <>
             <ApplicationsTable />
           </>
         ) : (
           <p>
-            Login first <Link to='/'>here</Link>
+            Sign in first <Link to='/signin'>here</Link>
           </p>
         )}
       </div>
-    </>
+    </PageLayout>
   );
 };
 export default DashboardContainer;

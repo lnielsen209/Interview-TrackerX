@@ -4,14 +4,13 @@ const SearchBar = ({ searchInput, updateSearchInput, updateCategoryInput }) => {
   return (
     <div className={'searchBar'}>
       <input
-        className={'searchInput'}
         key={`searchField`}
         value={searchInput}
         placeholder={`Search...`}
         onChange={(e) => updateSearchInput(e.target.value)}
       />
       <select
-        className={"searchDropDown"}
+        className="searchDropDown"
         onChange={(e) => updateCategoryInput(e.target.value)}
       >
         <option value={'company'}>Company Name</option>

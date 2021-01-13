@@ -17,7 +17,7 @@ userRouter.post(
 );
 
 userRouter.post(
-  '/login',
+  '/signin',
   userController.verifyUser,
   sessionController.startSession,
   (req, res) => {

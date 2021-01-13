@@ -36,7 +36,7 @@ sessionController.isLoggedIn = async (req, res, next) => {
   console.log('token===>', token);
 
   //check if the token exists
-  //if doesn't exist, redirect to login in the frontend
+  //if doesn't exist, redirect to signin in the frontend
   try {
     if (!token) {
       throw new Error('session expires, please log in again');
@@ -49,7 +49,7 @@ sessionController.isLoggedIn = async (req, res, next) => {
     res.locals.userID = decodedToken.id;
     return next();
   } catch (err) {
-    //redirect to login page in the frontend
+    //redirect to signin page in the frontend
     return next({
       log: `sessionController.isLoggedIn: Unable to verify JWT token ERROR: ${err}`,
       status: 401,
