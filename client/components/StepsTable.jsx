@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
+import StepsTableAddButton from './StepsTableAddButton.jsx';
 import StepsTableHeader from './StepsTableHeader.jsx';
-import StepsTableRow from './StepsTableRows.jsx';
-import StepsTableFooter from './StepsTableFooter.jsx';
+import StepsTableRows from './StepsTableRows.jsx';
 import axios from 'axios';
 
-const StepsTable = ({ state }) => {
+const StepsTable = ({ app }) => {
   // react hooks
   const [stepData, setStepData] = useState([]);
   const [updateState, setUpdateState] = useState(true);
@@ -17,21 +17,20 @@ const StepsTable = ({ state }) => {
 
   const history = useHistory();
   const auth = useAuth();
-  console.log('state in Steps Component ===> ', useLocation().state);
 
-  console.log('stepsTracker ===> ', stepData);
+  // console.log('stepsData ===> ', stepData);
 
   // get the applications steps data from the DB
   useEffect(() => {
-    fetchSteps();
+    if (updateState) fetchSteps();
   }, [updateState]);
 
   const fetchSteps = async () => {
     try {
       const res = await axios.get(
-        `/user/${auth.user.id}/application/${state.application.id}/step`
+        `/user/${auth.user.id}/application/${app.id}/step`
       );
-      console.log('res.data===>', res);
+      // console.log('res.data ===>', res.data);
       setStepData(res.data);
       setUpdateState(false);
     } catch (error) {
@@ -67,19 +66,19 @@ const StepsTable = ({ state }) => {
     <div className="tableContainer">
       <table id="stepsTracker">
         <StepsTableHeader />
-        <StepsTableRow
+        <StepsTableRows
           stepData={stepData}
           setShowModalStep={setShowModalStep}
           removeStep={removeStep}
         />
-        <StepsTableFooter
-          state={state}
-          stepData={stepData}
-          setUpdateState={setUpdateState}
-          showModalStep={showModalStep}
-          setShowModalStep={setShowModalStep}
-        />
       </table>
+      <StepsTableAddButton
+        stepData={stepData}
+        setUpdateState={setUpdateState}
+        showModalStep={showModalStep}
+        setShowModalStep={setShowModalStep}
+        app={app}
+      />
     </div>
   );
 };

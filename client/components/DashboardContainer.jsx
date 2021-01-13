@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../routes/useAuth';
 import ApplicationsTable from './ApplicationsTable.jsx';
-import SignoutButton from './SignoutButton';
 
 const DashboardContainer = () => {
   const auth = useAuth();
@@ -15,7 +14,6 @@ const DashboardContainer = () => {
         {auth.user.id ? (
           <>
             <ApplicationsTable />
-            <SignoutButton />
           </>
         ) : (
           <p>

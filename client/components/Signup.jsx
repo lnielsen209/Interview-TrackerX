@@ -28,11 +28,11 @@ const Signup = () => {
           email,
           password,
         });
-          console.log('res.data ===> ', res.data);
+          // console.log('res.data ===> ', res.data);
           auth.signup(res.data.id, res.data.email, () =>
             history.push('/dashboard')
           );
-          console.log('auth.user in Signup Component ===> ', auth.user);
+          // console.log('auth.user in Signup Component ===> ', auth.user);
       } catch (error) {
            if (error.response.status === 401) {
              history.push('/');

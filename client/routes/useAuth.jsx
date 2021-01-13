@@ -39,7 +39,7 @@ const useProvideAuth = () => {
     cb();
   };
 
-  console.log('user in useAuth ===> ', user);
+  // console.log('user in useAuth ===> ', user);
   return { user, login, signup, signout };
 };
 
@@ -76,7 +76,7 @@ const useProvideAuth = () => {
 //     cb();
 //   };
 
-//   console.log('user in useAuth ===> ', user);
+//   // console.log('user in useAuth ===> ', user);
 //   return { user, login, signup, signout };
 // };
 
