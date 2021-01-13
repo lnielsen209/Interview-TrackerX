@@ -16,7 +16,7 @@ authRouter.get(
   passport.authenticate('google'),
   authController.createAuthToken,
   (req, res) => {
-    res.redirect('http://localhost:8080/');
+    res.redirect('/');
   }
 );
 
