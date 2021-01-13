@@ -2,15 +2,49 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../../routes/useAuth';
 import PageLayout from '../../common/PageLayout';
+import styled from 'styled-components';
 import {
-  H1,
-  PLeft,
-  PCenter,
-  SigninWrapper,
-  Input,
-} from '../../../style/styled';
+  StyledFormLabel,
+  StyledFormInput,
+  StyledButton,
+  StyledFormWrapper,
+  StyledH1,
+  StyledH3,
+} from '../../common';
+import { Theme } from '../../../style/Theme';
 import OAuth from './oAuth';
 import axios from 'axios';
+
+const Title = styled(StyledH1)`
+  font-family: sans-serif;
+  font-size: 42px;
+  font-weight: 200;
+  line-height: 50px;
+  color: ${Theme.primary};
+`;
+
+const H1 = styled(StyledH1)`
+  margin-bottom: 16px;
+  text-align: center;
+`;
+
+const H3 = styled(StyledH3)``;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const SigninWrapper = styled(StyledFormWrapper)``;
+
+const SigninLabal = styled(StyledFormLabel)``;
+
+const SigninInput = styled(StyledFormInput)``;
+
+const SigninButton = styled(StyledButton)``;
+
+const SignupButton = styled(StyledButton)``;
 
 const Signin = () => {
   // react hooks
@@ -28,15 +62,18 @@ const Signin = () => {
   const oauthSignin = async () => {
     try {
       const res = await axios.get(`/auth/signin`);
-      console.log('res==>', res.data);
+      // console.log('res.data ==>', res.data);
 
       auth.signin(res.data.id, res.data.email, () => history.push('/'));
     } catch (error) {
-      console.log('error==>', error);
+      // console.log('error==>', error);
       if (error.response.status === 401) {
         history.push('/signin');
       }
-      console.log('Error in authSign: ', error.response);
+      console.log(
+        'Error in authSign  in Signin component: ',
+        error.response.data.err
+      );
     }
   };
 
@@ -53,46 +90,60 @@ const Signin = () => {
         history.push('/signin');
       }
       console.log(
-        'Error in handleSubmit of Signin component: ',
+        'Error in handleSubmit in Signin component: ',
         error.response.data.err
       );
     }
   };
 
   return (
-    <PageLayout className='outer-wrapper'>
+    <PageLayout>
       <div>
-        <H1>Get interview insights while you manage</H1>
-        <H1>every step in your job search, from application to offer.</H1>
+        <Title center>Get interview insights while you manage</Title>
+        <Title center>
+          every step in your job search, from application to offer.
+        </Title>
       </div>
       <SigninWrapper>
         <form onSubmit={handleSubmit}>
+          <H1>Create an Account</H1>
+          <Div>
+            <H3 light>New to Interver Tracker?</H3>
+            <Link to="/signup">
+              <SignupButton secondary small>
+                Sign Up
+              </SignupButton>
+            </Link>
+          </Div>
           <>
-            <PLeft>Email</PLeft>
-            <Input
+            <SigninLabal light>Email</SigninLabal>
+            <SigninInput
               value={username}
-              type='email'
+              type="email"
               onChange={(e) => setUserName(e.target.value)}
               required
             />
           </>
           <>
-            <PLeft>Password</PLeft>
-            <Input
+            <SigninLabal light>Password</SigninLabal>
+            <SigninInput
               password={password}
-              type='password'
+              type="password"
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </>
-          <div className='signinButtonWrapper'>
-            <button className='signinButton'>Log in</button>
-            <PCenter>or</PCenter>
+          <>
+            <SigninButton>Log in</SigninButton>
+          </>
+          <>
+            <SigninLabal light center>
+              or
+            </SigninLabal>
+          </>
+          <>
             <OAuth />
-            <Link to='/signup'>
-              <button className='signupButton'>Sign up</button>
-            </Link>
-          </div>
+          </>
         </form>
       </SigninWrapper>
     </PageLayout>
