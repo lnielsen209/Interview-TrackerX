@@ -1,20 +1,30 @@
 const express = require('express');
 const { router } = require('../server');
-const oAuthRouter = express.Router({ mergeParams: true });
-
-oAuthRouter.get(`/signin`, (req, res) => {});
-
-oAuthRouter.get('/logout', (req, res) => {
-  //passport
-
-  res.send('logging out');
-});
+const authRouter = express.Router({ mergeParams: true });
+require('../config/passport-config');
+const passport = require('passport');
+const authController = require('../controllers/authController');
 
 //auth with google
-oAuthRouter.get('/google', (req, res) => {
-  //passport...
+authRouter.get(
+  '/google',
+  passport.authenticate('google', { scope: ['profile', 'email'] })
+);
 
-  res.send('logging in with google');
+authRouter.get(
+  '/google/redirect',
+  passport.authenticate('google'),
+  authController.createAuthToken,
+  (req, res) => {
+    res.redirect('http://localhost:8080/');
+  }
+);
+
+authRouter.get(`/signin`, authController.verifyAuthToken, (req, res) => {
+  res.status(200).json({
+    id: res.locals.id,
+    email: res.locals.email,
+  });
 });
 
-module.exports = oAuthRouter;
+module.exports = authRouter;

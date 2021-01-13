@@ -37,6 +37,9 @@ module.exports = {
       '/user': {
         target: 'http://localhost:3000',
       },
+      '/auth': {
+        target: 'http://localhost:3000',
+      },
     },
   },
 };

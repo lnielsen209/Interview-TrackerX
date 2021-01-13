@@ -9,15 +9,15 @@ const App = () => {
   return (
     <>
       <Switch>
-        <Route exact path="/signin">
+        <Route exact path='/signin'>
           <Signin />
         </Route>
 
-        <Route exact path="/signup">
+        <Route exact path='/signup'>
           <Signup />
         </Route>
 
-        <PrivateRoute exact path="/">
+        <PrivateRoute exact path='/'>
           <DashboardContainer />
         </PrivateRoute>
       </Switch>
