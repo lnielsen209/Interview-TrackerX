@@ -2,7 +2,7 @@ const express = require('express');
 const { router } = require('../server');
 const oAuthRouter = express.Router({ mergeParams: true });
 
-oAuthRouter.get(`/login`, (req, res) => {});
+oAuthRouter.get(`/signin`, (req, res) => {});
 
 oAuthRouter.get('/logout', (req, res) => {
   //passport
