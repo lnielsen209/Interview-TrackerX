@@ -27,10 +27,10 @@ authRouter.get(`/login`, authController.verifyAuthToken, (req, res) => {
   });
 });
 
-authRouter.get('/logout', (req, res) => {
-  //passport
+// authRouter.get('/logout', (req, res) => {
+//   //passport
 
-  res.send('logging out');
-});
+//   res.send('logging out');
+// });
 
 module.exports = authRouter;

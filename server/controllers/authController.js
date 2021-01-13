@@ -49,12 +49,12 @@ authController.verifyAuthToken = async (req, res, next) => {
       throw new Error('session expires, please log in again');
     }
 
-    //if token exists, verify the token and send back token, id, and email for frontend auth
+    //if token exists, verify the token and send back id and email for frontend auth
     const decodedToken = await jwt.verify(token, process.env.JWT_SECRET);
-    console.log('decodedFortuneToken--->', decodedToken);
+    //console.log('decodedFortuneToken--->', decodedToken);
 
     const userID = decodedToken.id;
-    console.log('decodedToken.id==>', decodedToken.id);
+    //console.log('decodedToken.id==>', decodedToken.id);
     const queryText = `SELECT * from applicants WHERE id = $1`;
 
     db.query(queryText, [userID], (err, data) => {
@@ -63,7 +63,7 @@ authController.verifyAuthToken = async (req, res, next) => {
         return next(err);
       }
       console.log('userdata===>', data.rows[0]);
-      //save userID, email, route and toekn on res.locals
+      //save userID, email on res.locals
       res.locals.email = data.rows[0].email;
       // res.locals.route = decodedToken.id.route;
       res.locals.id = userID;
