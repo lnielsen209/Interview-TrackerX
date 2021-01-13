@@ -5,7 +5,7 @@ export default function oAuth() {
     <div>
       <button>
         <a
-          target='_blank'
+          // target='_blank'
           href='/auth/google'
           style={{ textDecoration: 'none', color: 'white' }}
         >
@@ -14,7 +14,7 @@ export default function oAuth() {
       </button>
       <button>
         <a
-          target='_blank'
+          // target='_blank'
           href='/auth/github'
           style={{ textDecoration: 'none', color: 'white' }}
         >
