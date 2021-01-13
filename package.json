@@ -2,6 +2,10 @@
   "name": "interview-tracker",
   "version": "1.0.0",
   "description": "This app is for individual, users &amp; recruiters so they can keep track of each application throughout and process",
+  "engines": {
+    "npm": "6.14.11",
+    "node": "12.19.0"
+  },
   "main": "server/server.js",
   "scripts": {
     "start": "NODE_ENV=production nodemon server/server.js",
