@@ -2,7 +2,41 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../../routes/useAuth';
 import PageLayout from '../../common/PageLayout';
+import styled from 'styled-components';
+import {
+  StyledFormLabel,
+  StyledFormInput,
+  StyledButton,
+  StyledFormWrapper,
+  StyledH1,
+  StyledH3,
+} from '../../common';
 import axios from 'axios';
+
+const H1 = styled(StyledH1)`
+  margin-bottom: 8px;
+`;
+
+const H3 = styled(StyledH3)``;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const SignupWrapper = styled(StyledFormWrapper)``;
+
+const SignupLabal = styled(StyledFormLabel)``;
+
+const SignupInput = styled(StyledFormInput)`
+  height: 42px;
+  margin: 4px 0px 8px 0px;
+`;
+
+const SignupButton = styled(StyledButton)``;
+
+const SigninButton = styled(StyledButton)``;
 
 const Signup = () => {
   // react hooks
@@ -45,13 +79,21 @@ const Signup = () => {
   };
 
   return (
-    <PageLayout id="wrapper">
-      <div id="sign-up" className="signin-wrapper">
+    <PageLayout>
+      <SignupWrapper>
         <form onSubmit={handleSubmit} id="list">
-          <h1>Create an Account</h1>
+          <H1 center>Create an Account</H1>
+          <Div>
+            <H3 light>Already have an account?</H3>
+            <Link to="/signin">
+              <SigninButton secondary small>
+                Sign In
+              </SigninButton>
+            </Link>
+          </Div>
           <>
-            <p>First Name</p>
-            <input
+            <SignupLabal light>First Name</SignupLabal>
+            <SignupInput
               className="inputSignUp"
               type="text"
               value={first_name}
@@ -60,8 +102,8 @@ const Signup = () => {
             />
           </>
           <>
-            <p>Last Name</p>
-            <input
+            <SignupLabal light>Last Name</SignupLabal>
+            <SignupInput
               className="inputSignUp"
               type="text"
               value={last_name}
@@ -70,8 +112,8 @@ const Signup = () => {
             />
           </>
           <>
-            <p>Email Address</p>
-            <input
+            <SignupLabal light>Email Address</SignupLabal>
+            <SignupInput
               className="inputSignUp"
               type="email"
               value={email}
@@ -80,8 +122,8 @@ const Signup = () => {
             />
           </>
           <>
-            <p>Password</p>
-            <input
+            <SignupLabal light>Password</SignupLabal>
+            <SignupInput
               className="inputSignUp"
               type="password"
               value={password}
@@ -90,8 +132,8 @@ const Signup = () => {
             />
           </>
           <>
-            <p>Re-enter password</p>
-            <input
+            <SignupLabal light>Re-enter password</SignupLabal>
+            <SignupInput
               className="inputSignUp"
               type="password"
               value={password2}
@@ -99,12 +141,9 @@ const Signup = () => {
               required
             />
           </>
-          <button>Create Account</button>
-          <Link to="/">
-            <button>Back</button>
-          </Link>
+          <SignupButton>Sign Up</SignupButton>
         </form>
-      </div>
+      </SignupWrapper>
     </PageLayout>
   );
 };

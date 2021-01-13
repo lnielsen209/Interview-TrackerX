@@ -3,7 +3,7 @@ import App from './App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { render } from 'react-dom';
 import { ProvideAuth } from './routes/useAuth';
-import GlobalStyle from './style/global';
+import GlobalStyle from './style/GlobalStyle';
 
 import './style/style.css';
 

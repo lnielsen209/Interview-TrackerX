@@ -9,6 +9,7 @@ const Main = styled.main`
   align-items: center;
   max-width: 80vw;
   margin: 10vh auto 0 auto;
+  padding: 20;
 `;
 
 const PageLayout = ({ children }) => {
