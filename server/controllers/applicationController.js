@@ -18,7 +18,7 @@ applicationController.addApp = (req, res, next) => {
   } = req.body;
 
   const addApp =
-    'INSERT INTO applications (applicant_id, company, job_title, how_applied, url, date_applied, location, found_by, notes, app_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *';
+    'INSERT INTO applications (applicant_id, company, job_title, how_applied, url, date_applied, location, found_by, notes, app_status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) ';
 
   db.query(addApp, [
     UID,
@@ -47,7 +47,7 @@ applicationController.addApp = (req, res, next) => {
 };
 
 applicationController.deleteApp = (req, res, next) => {
-  const queryText = 'DELETE FROM applications WHERE id = $1 RETURNING *';
+  const queryText = 'DELETE FROM applications WHERE id = $1 ';
   const queryVal = [req.params.app_id];
 
   db.query(queryText, queryVal)
@@ -88,7 +88,7 @@ applicationController.editApp = (req, res, next) => {
                      notes = $8, 
                      app_status= $9
                      WHERE id = $10
-                     RETURNING *`;
+                     `;
   const queryVals = [
     company,
     job_title,

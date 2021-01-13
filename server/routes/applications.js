@@ -1,9 +1,7 @@
 const express = require('express');
 const applicationController = require('../controllers/applicationController');
 const sessionController = require('../controllers/sessionController');
-
 const applicationRouter = express.Router({ mergeParams: true });
-
 const stepRouter = require('../routes/steps');
 
 // get all applications for this user_id
