@@ -1,9 +1,15 @@
 import React from 'react';
 
 export default function oAuth() {
-  const handleClick = (e) => {
-    e.preventDefault();
-  };
-
-  return <button onClick={handleClick}>Sign in with Google</button>;
+  return (
+    <button>
+      <a
+        target='_blank'
+        href='/auth/google'
+        style={{ textDecoration: 'none', color: 'white' }}
+      >
+        login with Google
+      </a>
+    </button>
+  );
 }

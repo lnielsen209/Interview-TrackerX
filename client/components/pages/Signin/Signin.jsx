@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../../routes/useAuth';
 import PageLayout from '../../common/PageLayout';
@@ -21,6 +21,24 @@ const Signin = () => {
   // console.log('auth in Signin Component', auth)
   const history = useHistory();
 
+  useEffect(() => {
+    oauthLogin();
+  }, []);
+
+  const oauthLogin = async () => {
+    try {
+      const res = await axios.get(`/auth/login`);
+      console.log('res==>', res.data);
+
+      auth.login(res.data.id, res.data.email, () => history.push('/dashboard'));
+    } catch (error) {
+      if (error.response.status === 401) {
+        history.push('/');
+      }
+      console.log('Error in authLogin: ', error.response);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -41,7 +59,7 @@ const Signin = () => {
   };
 
   return (
-    <PageLayout className="outer-wrapper">
+    <PageLayout className='outer-wrapper'>
       <div>
         <H1>Get interview insights while you manage</H1>
         <H1>every step in your job search, from application to offer.</H1>
@@ -52,7 +70,7 @@ const Signin = () => {
             <PLeft>Email</PLeft>
             <Input
               value={username}
-              type="email"
+              type='email'
               onChange={(e) => setUserName(e.target.value)}
               required
             />
@@ -61,17 +79,17 @@ const Signin = () => {
             <PLeft>Password</PLeft>
             <Input
               password={password}
-              type="password"
+              type='password'
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </>
-          <div className="signinButtonWrapper">
-            <button className="signinButton">Log in</button>
+          <div className='signinButtonWrapper'>
+            <button className='signinButton'>Log in</button>
             <PCenter>or</PCenter>
             <OAuth />
-            <Link to="/signup">
-              <button className="signupButton">Sign up</button>
+            <Link to='/signup'>
+              <button className='signupButton'>Sign up</button>
             </Link>
           </div>
         </form>
