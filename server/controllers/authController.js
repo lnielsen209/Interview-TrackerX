@@ -12,7 +12,6 @@ const createToken = (id) => {
 };
 
 authController.createAuthToken = (req, res, next) => {
-  // const authID = { id: req.user.id, route: req.route.path };
   const authID = req.user.id;
 
   console.log('authID===>', req.user.id);
@@ -22,11 +21,10 @@ authController.createAuthToken = (req, res, next) => {
     const token = createToken(authID);
     console.log('oauthToken==>', token);
     res.cookie('token', token, {
-      httpOnly: false,
+      httpOnly: true,
       maxAge: maxAge * 1000,
     });
-    //res.locals.route = req.route.path;
-    //==>'/google/redirect'
+
     return next();
   } catch (err) {
     return next({
