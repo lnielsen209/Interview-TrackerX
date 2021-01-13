@@ -107,8 +107,8 @@ const Signin = () => {
         <form onSubmit={handleSubmit}>
           <H1 center>Welcome Back</H1>
           <Div>
-            <H3 light>New to Interver Tracker?</H3>
-            <Link to="/signup">
+            <H3 light>New to Interview Tracker?</H3>
+            <Link to='/signup'>
               <SignupButton secondary small>
                 Sign Up
               </SignupButton>
@@ -118,7 +118,7 @@ const Signin = () => {
             <SigninLabal light>Email</SigninLabal>
             <SigninInput
               value={username}
-              type="email"
+              type='email'
               onChange={(e) => setUserName(e.target.value)}
               required
             />
@@ -127,7 +127,7 @@ const Signin = () => {
             <SigninLabal light>Password</SigninLabal>
             <SigninInput
               password={password}
-              type="password"
+              type='password'
               onChange={(e) => setPassword(e.target.value)}
               required
             />
