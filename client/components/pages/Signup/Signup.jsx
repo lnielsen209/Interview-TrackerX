@@ -14,8 +14,7 @@ import {
 import axios from 'axios';
 
 const H1 = styled(StyledH1)`
-  margin-bottom: 16px;
-  text-align: center;
+  margin-bottom: 8px;
 `;
 
 const H3 = styled(StyledH3)``;
@@ -83,7 +82,7 @@ const Signup = () => {
     <PageLayout>
       <SignupWrapper>
         <form onSubmit={handleSubmit} id="list">
-          <H1>Create an Account</H1>
+          <H1 center>Create an Account</H1>
           <Div>
             <H3 light>Already have an account?</H3>
             <Link to="/signin">

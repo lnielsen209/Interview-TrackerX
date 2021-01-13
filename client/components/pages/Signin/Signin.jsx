@@ -24,8 +24,7 @@ const Title = styled(StyledH1)`
 `;
 
 const H1 = styled(StyledH1)`
-  margin-bottom: 16px;
-  text-align: center;
+  margin-bottom: 8px;
 `;
 
 const H3 = styled(StyledH3)``;
@@ -106,7 +105,7 @@ const Signin = () => {
       </div>
       <SigninWrapper>
         <form onSubmit={handleSubmit}>
-          <H1>Create an Account</H1>
+          <H1 center>Welcome Back</H1>
           <Div>
             <H3 light>New to Interver Tracker?</H3>
             <Link to="/signup">
@@ -134,7 +133,7 @@ const Signin = () => {
             />
           </>
           <>
-            <SigninButton>Log in</SigninButton>
+            <SigninButton>Sign In</SigninButton>
           </>
           <>
             <SigninLabal light center>
