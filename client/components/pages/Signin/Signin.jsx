@@ -22,20 +22,21 @@ const Signin = () => {
   const history = useHistory();
 
   useEffect(() => {
-    oauthLogin();
+    oauthSignin();
   }, []);
 
-  const oauthLogin = async () => {
+  const oauthSignin = async () => {
     try {
-      const res = await axios.get(`/auth/login`);
+      const res = await axios.get(`/auth/signin`);
       console.log('res==>', res.data);
 
-      auth.login(res.data.id, res.data.email, () => history.push('/dashboard'));
+      auth.signin(res.data.id, res.data.email, () => history.push('/'));
     } catch (error) {
+      console.log('error==>', error);
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/signin');
       }
-      console.log('Error in authLogin: ', error.response);
+      console.log('Error in authSign: ', error.response);
     }
   };
 

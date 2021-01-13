@@ -20,17 +20,11 @@ authRouter.get(
   }
 );
 
-authRouter.get(`/login`, authController.verifyAuthToken, (req, res) => {
+authRouter.get(`/signin`, authController.verifyAuthToken, (req, res) => {
   res.status(200).json({
     id: res.locals.id,
     email: res.locals.email,
   });
 });
-
-// authRouter.get('/logout', (req, res) => {
-//   //passport
-
-//   res.send('logging out');
-// });
 
 module.exports = authRouter;

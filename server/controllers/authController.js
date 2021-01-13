@@ -71,7 +71,7 @@ authController.verifyAuthToken = async (req, res, next) => {
       return next();
     });
   } catch (err) {
-    //redirect to login page in the frontend
+    //redirect to signin page in the frontend
     return next({
       log: `authController.verifyToken: Unable to verify auth token ERROR: ${err}`,
       status: 401,

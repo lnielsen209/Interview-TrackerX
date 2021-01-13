@@ -8,7 +8,7 @@ export default function oAuth() {
         href='/auth/google'
         style={{ textDecoration: 'none', color: 'white' }}
       >
-        login with Google
+        Signin with Google
       </a>
     </button>
   );
