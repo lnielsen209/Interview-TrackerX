@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useAuth } from '../routes/useAuth';
+import { useAuth } from '../../../../routes/useAuth';
 import axios from 'axios';
 
 const modalTitle = {
@@ -39,7 +39,7 @@ const ApplicationsModal = ({
     } catch (error) {
       // console.log('error.response.status ===> ', error.response.status);
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/signin');
       }
       console.log(
         'Error in addApplication of ApplicationsModel component: ',
@@ -60,7 +60,7 @@ const ApplicationsModal = ({
       setUpdateState(true); // add from Lee
     } catch (error) {
       if (error.response.status === 401) {
-        history.push('/');
+        history.push('/signin');
       }
       console.log(
         'Error in editApplication of ApplicationsModel component: ',

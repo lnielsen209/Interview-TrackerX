@@ -1,30 +1,27 @@
 import React from 'react';
-import DashboardContainer from './components/DashboardContainer';
-import Signup from '../client/components/Signup';
-import Login from '../client/components/Login';
+import DashboardContainer from './components/pages/Dashboard/DashboardContainer';
 import { Route, Switch } from 'react-router-dom';
-import { ProvideAuth } from './routes/useAuth';
 import PrivateRoute from './routes/PrivateRoute';
-import MainNav from './components/MainNav';
+import Signup from './components/pages/Signup/Signup';
+import Signin from './components/pages/Signin/Signin';
 
 const App = () => {
   return (
-    <ProvideAuth>
-      <MainNav />
+    <>
       <Switch>
-        <Route exact path="/">
-          <Login />
+        <Route exact path="/signin">
+          <Signin />
         </Route>
 
         <Route exact path="/signup">
           <Signup />
         </Route>
 
-        <PrivateRoute exact path="/dashboard">
+        <PrivateRoute exact path="/">
           <DashboardContainer />
         </PrivateRoute>
       </Switch>
-    </ProvideAuth>
+    </>
   );
 };
 
