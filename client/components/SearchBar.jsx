@@ -4,6 +4,7 @@ const SearchBar = ({ searchInput, updateSearchInput, updateCategoryInput }) => {
   return (
     <div className={'searchBar'}>
       <input
+        className={'searchInput'}
         key={`searchField`}
         value={searchInput}
         placeholder={`Search...`}

@@ -272,3 +272,22 @@ i:hover {
 .stepsTableBackground {
   background: #f2f2f2;
 }
+
+.searchDropDown {
+  height: 40px;
+  border-radius: 0%;
+}
+
+.searchDropDown:focus {
+  outline: none;
+}
+
+.searchInput {
+  height: 40px;
+  width: 400px;
+  border-radius: 0%;
+}
+
+.searchInput:focus {
+  outline: none;
+}
