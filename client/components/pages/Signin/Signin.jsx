@@ -8,6 +8,7 @@ import {
   StyledFormInput,
   StyledFormPWDInput,
   StyledButton,
+  Spinner,
   StyledFormWrapper,
   StyledH1,
   StyledH3,
@@ -47,9 +48,12 @@ const SigninButton = styled(StyledButton)``;
 const SignupButton = styled(StyledButton)``;
 
 const Signin = () => {
+  let timeoutID;
+
   // react hooks
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const auth = useAuth();
   // console.log('auth in Signin Component', auth)
@@ -62,7 +66,7 @@ const Signin = () => {
   const oauthSignin = async () => {
     try {
       const res = await axios.get(`/auth/signin`);
-      console.log('res.data ==>', res.data);
+      // console.log('res.data ==>', res.data);
 
       auth.signin(res.data.id, res.data.email, res.data.firstname, () =>
         history.push('/')
@@ -79,9 +83,7 @@ const Signin = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const signin = async () => {
     try {
       const res = await axios.post('/user/signin', { username, password });
 
@@ -100,6 +102,28 @@ const Signin = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    timeoutID = setTimeout(() => {
+      signin();
+      setLoading(false);
+    }, 2000);
+  };
+
+  useEffect(() => {
+    // this return function only runs when the component unmounts
+    return () => {
+      // Check if the timeout exists (means we are in loading state), then we want to clear the time out when unmounting
+      // So we are not stuck in this timeout and setting loading state after the component is unmounted
+      if (timeoutID) {
+        clearTimeout(timeoutID);
+      }
+    };
+    // put [] her so this useEffect function only runs when the component mounts;
+  }, []);
+
   return (
     <PageLayout>
       <div>
@@ -113,39 +137,47 @@ const Signin = () => {
           <H1 center>Welcome Back</H1>
           <Div>
             <H3 light>New to Interview Tracker?</H3>
-            <Link to='/signup'>
+            <Link to="/signup">
               <SignupButton secondary small>
                 Sign Up
               </SignupButton>
             </Link>
           </Div>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <>
+              <SigninLabal light>Email</SigninLabal>
+              <SigninInput
+                value={username}
+                type="email"
+                onChange={(e) => setUserName(e.target.value)}
+                required
+              />
+
+              <SigninLabal light>Password</SigninLabal>
+              <StyledFormPWDInput
+                password={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </>
+          )}
           <>
-            <SigninLabal light>Email</SigninLabal>
-            <SigninInput
-              value={username}
-              type='email'
-              onChange={(e) => setUserName(e.target.value)}
-              required
-            />
+            <SigninButton disabled={loading}>
+              {loading ? 'Loading...' : 'Sign In'}
+            </SigninButton>
           </>
           <>
-            <SigninLabal light>Password</SigninLabal>
-            <StyledFormPWDInput
-              password={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </>
-          <>
-            <SigninButton>Sign In</SigninButton>
-          </>
-          <>
-            <SigninLabal light center>
-              or
-            </SigninLabal>
-          </>
-          <>
-            <OAuth />
+            {!loading && (
+              <>
+                <SigninLabal light center>
+                  or
+                </SigninLabal>
+
+                <OAuth />
+              </>
+            )}
           </>
         </form>
       </SigninWrapper>

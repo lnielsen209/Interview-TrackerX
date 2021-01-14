@@ -1,6 +1,7 @@
 export * from './MainNav';
 export * from './PageLayout';
 export * from './StyledButton';
+export * from './Spinner';
 export * from './StyledFormInput';
 export * from './StyledFormLabel';
 export * from './StyledFormPWDInput';
