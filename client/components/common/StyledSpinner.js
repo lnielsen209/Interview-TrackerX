@@ -10,9 +10,9 @@ to{
 }
 `;
 
-const Spinner = styled.div`
-  height: 144px;
-  width: 144px;
+const StyledSpinner = styled.div`
+  height: 160px;
+  width: 160px;
   border: 1px solid ${Theme.primary};
   border-radius: 50%;
   border-top: none;
@@ -21,4 +21,4 @@ const Spinner = styled.div`
   animation: ${rotation} 1s linear infinite;
 `;
 
-export { Spinner };
+export { StyledSpinner };

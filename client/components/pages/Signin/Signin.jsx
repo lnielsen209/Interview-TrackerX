@@ -8,7 +8,7 @@ import {
   StyledFormInput,
   StyledFormPWDInput,
   StyledButton,
-  Spinner,
+  StyledSpinner,
   StyledFormWrapper,
   StyledH1,
   StyledH3,
@@ -48,7 +48,8 @@ const SigninButton = styled(StyledButton)``;
 const SignupButton = styled(StyledButton)``;
 
 const Signin = () => {
-  let timeoutID;
+  let timeoutID1;
+  let timeoutID2;
 
   // react hooks
   const [username, setUserName] = useState('');
@@ -83,7 +84,7 @@ const Signin = () => {
     }
   };
 
-  const signin = async () => {
+  const reqSignin = async () => {
     try {
       const res = await axios.post('/user/signin', { username, password });
 
@@ -106,22 +107,20 @@ const Signin = () => {
     e.preventDefault();
     setLoading(true);
 
-    timeoutID = setTimeout(() => {
-      signin();
-      setLoading(false);
+    timeoutID1 = setTimeout(() => {
+      reqSignin();
+      // Add a second timeout so we are not seeing the signin button appearing right before unmounting
+      timeoutID2 = setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }, 2000);
   };
 
   useEffect(() => {
-    // this return function only runs when the component unmounts
     return () => {
-      // Check if the timeout exists (means we are in loading state), then we want to clear the time out when unmounting
-      // So we are not stuck in this timeout and setting loading state after the component is unmounted
-      if (timeoutID) {
-        clearTimeout(timeoutID);
-      }
+      clearTimeout(timeoutID1);
+      clearTimeout(timeoutID2);
     };
-    // put [] her so this useEffect function only runs when the component mounts;
   }, []);
 
   return (
@@ -144,7 +143,7 @@ const Signin = () => {
             </Link>
           </Div>
           {loading ? (
-            <Spinner />
+            <StyledSpinner />
           ) : (
             <>
               <SigninLabal light>Email</SigninLabal>
