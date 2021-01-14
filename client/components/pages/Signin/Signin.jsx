@@ -61,9 +61,11 @@ const Signin = () => {
   const oauthSignin = async () => {
     try {
       const res = await axios.get(`/auth/signin`);
-      // console.log('res.data ==>', res.data);
+      console.log('res.data ==>', res.data);
 
-      auth.signin(res.data.id, res.data.email, () => history.push('/'));
+      auth.signin(res.data.id, res.data.email, res.data.firstname, () =>
+        history.push('/')
+      );
     } catch (error) {
       // console.log('error==>', error);
       if (error.response.status === 401) {
@@ -83,7 +85,9 @@ const Signin = () => {
       const res = await axios.post('/user/signin', { username, password });
 
       // console.log('res.data ===> ', res.data);
-      auth.signin(res.data.id, res.data.email, () => history.push('/'));
+      auth.signin(res.data.id, res.data.email, res.data.firstname, () =>
+        history.push('/')
+      );
     } catch (error) {
       if (error.response.status === 401) {
         history.push('/signin');
@@ -107,8 +111,8 @@ const Signin = () => {
         <form onSubmit={handleSubmit}>
           <H1 center>Welcome Back</H1>
           <Div>
-            <H3 light>New to Interver Tracker?</H3>
-            <Link to="/signup">
+            <H3 light>New to Interview Tracker?</H3>
+            <Link to='/signup'>
               <SignupButton secondary small>
                 Sign Up
               </SignupButton>
@@ -118,7 +122,7 @@ const Signin = () => {
             <SigninLabal light>Email</SigninLabal>
             <SigninInput
               value={username}
-              type="email"
+              type='email'
               onChange={(e) => setUserName(e.target.value)}
               required
             />
@@ -127,7 +131,7 @@ const Signin = () => {
             <SigninLabal light>Password</SigninLabal>
             <SigninInput
               password={password}
-              type="password"
+              type='password'
               onChange={(e) => setPassword(e.target.value)}
               required
             />
