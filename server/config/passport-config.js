@@ -25,6 +25,8 @@ passport.use(
     {
       clientID: keys.google.clientID,
       clientSecret: keys.google.clientSecret,
+      // clientID: process.env.googleclientID,
+      // clientSecret: process.env.googleclientSecret,
       callbackURL: 'http://localhost:3000/auth/google/redirect',
     },
 

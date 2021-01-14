@@ -25,6 +25,8 @@ passport.use(
     {
       clientID: keys.github.clientID,
       clientSecret: keys.github.clientSecret,
+      // clientID: process.env.githubclientID,
+      // clientSecret: process.env.githubclientSecret,
       callbackURL: 'http://localhost:3000/auth/github/redirect',
     },
 
