@@ -7,6 +7,7 @@ const useProvideAuth = () => {
   const [user, setUser] = useState({
     id: null,
     email: null,
+    firstname: null,
     isAuthenticated: false,
   });
   const signin = (id, email, firstname, cb) => {
@@ -35,12 +36,13 @@ const useProvideAuth = () => {
     setUser({
       id: null,
       email: null,
+      firstname: null,
       isAuthenticated: false,
     });
     cb();
   };
 
-  // console.log('user in useAuth ===> ', user);
+  console.log('user in useAuth ===> ', user);
   return { user, signin, signup, signout };
 };
 
@@ -49,23 +51,26 @@ const useProvideAuth = () => {
 //   const user = JSON.parse(localStorage.getItem('user')) || {
 //     id: null,
 //     email: null,
+//     firstname: null,
 //     isAuthenticated: false,
 //   };
 
-//   const signin = (id, email, cb) => {
+//   const signin = (id, email, firstname, cb) => {
 //     const user = {
 //       id,
 //       email,
+//       firstname,
 //       isAuthenticated: true,
 //     };
 //     localStorage.setItem('user', JSON.stringify(user));
 //     cb();
 //   };
 
-//   const signup = (id, email, cb) => {
+//   const signup = (id, email, firstname, cb) => {
 //     const user = {
 //       id,
 //       email,
+//       firstname,
 //       isAuthenticated: true,
 //     };
 //     localStorage.setItem('user', JSON.stringify(user));
