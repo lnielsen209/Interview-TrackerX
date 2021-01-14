@@ -128,7 +128,6 @@ const Signin = () => {
             <SigninLabal light>Password</SigninLabal>
             <StyledFormPWDInput
               password={password}
-              type="password"
               onChange={(e) => setPassword(e.target.value)}
               required
             />

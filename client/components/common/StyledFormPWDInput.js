@@ -19,6 +19,7 @@ const StyledPWDInput = styled(StyledFormInput)`
 const ToggleButton = styled.div`
   background: ${Theme.secondary};
   color: ${Theme.color};
+  opacity: 75%;
   font-size: 16px;
   line-height: 24px;
   text-align: center;
@@ -54,12 +55,11 @@ const StyledFormPWDInput = (props) => {
   return (
     <>
       <StyledPWDInputWrapper>
-        <StyledPWDInput {...props} />
+        <StyledPWDInput {...props} type={showPassword ? 'text' : 'password'} />
         <ToggleButton onClick={() => setShowPassword(!showPassword)}>
           {showPassword ? 'Hide' : 'Show'}
         </ToggleButton>
       </StyledPWDInputWrapper>
-      <div>{showPassword && props.password}</div>
     </>
   );
 };
