@@ -8,4 +8,5 @@ export * from './StyledFormWrapper';
 export * from './StyledH1';
 export * from './StyledH3';
 export * from './StyledSpinner';
+export * from './StyledIcon';
 

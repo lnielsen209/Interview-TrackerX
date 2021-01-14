@@ -90,7 +90,7 @@ const StepsModal = ({
   };
 
   return (
-    <div id="div3" className="modalWrapper">
+    <div className="modalWrapper">
       <div className="modalBackground">
         <h2>{modalTitle[action]}</h2>
         <form id="list" className="modalForm">

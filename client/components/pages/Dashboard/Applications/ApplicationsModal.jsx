@@ -2,11 +2,55 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from '../../../../routes/useAuth';
 import axios from 'axios';
+import styled from 'styled-components';
+import {
+  StyledFormLabel,
+  StyledFormInput,
+  StyledFormPWDInput,
+  StyledButton,
+  StyledFormWrapper,
+  StyledH1,
+  StyledH3,
+  StyledSpinner,
+} from '../../../common';
+import { Theme } from '../../../../style/Theme';
 
-const modalTitle = {
-  add: 'Add new application',
-  edit: 'Edit application',
-};
+const ModelOuterWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.9);
+  height: 100%;
+  z-index: 10;
+`;
+
+const ModelInnerWrapper = styled.div`
+  background: ${Theme.background};
+  width: 50%;
+  height: 90%;
+  padding: 30px;
+`;
+
+const ModelForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`;
+
+const ModelLabel = styled(StyledFormLabel)`
+  color: ${Theme.primary};
+  opacity: 80%;
+  line-height: 16px;
+`;
+
+const ModelInput = styled(StyledFormInput)`
+  height: 36px;
+  width: 100%;
+`;
 
 const ApplicationsModal = ({
   setShowModal,
@@ -14,6 +58,11 @@ const ApplicationsModal = ({
   currentApp,
   setUpdateState,
 }) => {
+  const modalTitle = {
+    add: 'Add new application',
+    edit: 'Edit application',
+  };
+
   const [job_title, setJobTitle] = useState(currentApp.job_title || '');
   const [company, setCompany] = useState(currentApp.company || '');
   const [how_applied, setHowApplied] = useState(currentApp.how_applied || '');
@@ -93,104 +142,96 @@ const ApplicationsModal = ({
 
   // console.log('currentapp ===> ', currentApp);
   return (
-    <div id="div3" className="modalWrapper">
-      <div className="modalBackground">
+    <ModelOuterWrapper>
+      <ModelInnerWrapper>
         <h2>{modalTitle[action]}</h2>
-        <form id="list" className="modalForm">
-          <label>
-            Company
-            <input
-              type="text"
-              value={company}
-              onChange={(e) => setCompany(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Position
-            <input
-              type="text"
-              value={job_title}
-              onChange={(e) => setJobTitle(e.target.value)}
-              required
-            />
-          </label>
+        <ModelForm>
+          <ModelLabel>Company</ModelLabel>
+          <ModelInput
+            type="text"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            required
+          />
+          <ModelLabel>Position</ModelLabel>
 
-          <label>
-            How I applied
-            <input
-              type="text"
-              placeholder="e.g. email, company website, Glassdoor,..."
-              value={how_applied}
-              onChange={(e) => setHowApplied(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Date applied
-            <input
-              type="date"
-              value={date_applied.slice(0, 10)}
-              onChange={(e) => setDateApplied(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Location
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            URL
-            <input
-              type="text"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Found by
-            <input
-              type="text"
-              placeholder="e.g. recruiter/agency, linkedIn, Google,..."
-              value={found_by}
-              onChange={(e) => setFoundBy(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Notes
-            <input
-              type="text"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            App Status
-            <select
-              value={app_status}
-              onChange={(e) => setAppStatus(e.target.value)}
-              required
-            >
-              <option value="Not Applied">Not Applied</option>
-              <option value="Applied">Applied</option>
-              <option value="Phone Screening">Phone Screening</option>
-              <option value="Technical Interview">Technical Interview</option>
-              <option value="Interviewing">Interviewing</option>
-              <option value="Offer Received">Offer Received</option>
-              <option value="Offer Accepted">Offer Accepted</option>
-              <option value="Offer Rejected">Offer Rejected</option>
-              <option value="Application Rejected">Application Rejected</option>
-              <option value="Not Interested">Not Interested</option>
-            </select>
-          </label>
+          <ModelInput
+            type="text"
+            value={job_title}
+            onChange={(e) => setJobTitle(e.target.value)}
+            required
+          />
+
+          <ModelLabel>How I applied </ModelLabel>
+
+          <ModelInput
+            type="text"
+            placeholder="e.g. email, company website, Glassdoor,..."
+            value={how_applied}
+            onChange={(e) => setHowApplied(e.target.value)}
+            required
+          />
+          <ModelLabel>Date applied </ModelLabel>
+
+          <ModelInput
+            type="date"
+            value={date_applied.slice(0, 10)}
+            onChange={(e) => setDateApplied(e.target.value)}
+            required
+          />
+          <ModelLabel>Location </ModelLabel>
+
+          <ModelInput
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+          />
+          <ModelLabel>URL </ModelLabel>
+
+          <ModelInput
+            type="text"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            required
+          />
+
+          <ModelLabel>Found by </ModelLabel>
+
+          <ModelInput
+            type="text"
+            placeholder="e.g. recruiter/agency, linkedIn, Google,..."
+            value={found_by}
+            onChange={(e) => setFoundBy(e.target.value)}
+            required
+          />
+
+          <ModelLabel>Notes </ModelLabel>
+
+          <ModelInput
+            type="text"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            required
+          />
+          <ModelLabel>App Status</ModelLabel>
+
+          <select
+            value={app_status}
+            onChange={(e) => setAppStatus(e.target.value)}
+            required
+          >
+            <option value="Not Applied">Not Applied</option>
+            <option value="Applied">Applied</option>
+            <option value="Phone Screening">Phone Screening</option>
+            <option value="Technical Interview">Technical Interview</option>
+            <option value="Interviewing">Interviewing</option>
+            <option value="Offer Received">Offer Received</option>
+            <option value="Offer Accepted">Offer Accepted</option>
+            <option value="Offer Rejected">Offer Rejected</option>
+            <option value="Application Rejected">Application Rejected</option>
+            <option value="Not Interested">Not Interested</option>
+          </select>
           <div className="modalButtonWrapper">
             <button
               className="modalButton"
@@ -207,9 +248,9 @@ const ApplicationsModal = ({
               Save
             </button>
           </div>
-        </form>
-      </div>
-    </div>
+        </ModelForm>
+      </ModelInnerWrapper>
+    </ModelOuterWrapper>
   );
 };
 

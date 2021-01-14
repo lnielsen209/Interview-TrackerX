@@ -2,6 +2,10 @@ import React from 'react';
 import ApplicationsModal from './ApplicationsModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import styled from 'styled-components';
+import { StyledIcon } from '../../../common';
+
+const I = styled(StyledIcon)``;
 
 const ApplicationsTableAddButton = ({
   appData,
@@ -19,12 +23,12 @@ const ApplicationsTableAddButton = ({
           currentApp={showModal.action === 'edit' ? appData[showModal.id] : {}}
         />
       ) : (
-        <i
+        <I
           className="addButtonApp"
           onClick={() => setShowModal({ action: 'add', id: null })}
         >
           <FontAwesomeIcon icon={faPlus} />
-        </i>
+        </I>
       )}
     </div>
   );
