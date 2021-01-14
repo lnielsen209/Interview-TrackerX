@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import {
   StyledFormLabel,
   StyledFormInput,
+  StyledFormPWDInput,
   StyledButton,
   StyledFormWrapper,
   StyledH1,
@@ -123,9 +124,8 @@ const Signup = () => {
           </>
           <>
             <SignupLabal light>Password</SignupLabal>
-            <SignupInput
+            <StyledFormPWDInput
               className="inputSignUp"
-              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -133,9 +133,8 @@ const Signup = () => {
           </>
           <>
             <SignupLabal light>Re-enter password</SignupLabal>
-            <SignupInput
+            <StyledFormPWDInput
               className="inputSignUp"
-              type="password"
               value={password2}
               onChange={(e) => setPassword2(e.target.value)}
               required
