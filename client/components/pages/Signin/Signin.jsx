@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import {
   StyledFormLabel,
   StyledFormInput,
+  StyledFormPWDInput,
   StyledButton,
   StyledFormWrapper,
   StyledH1,
@@ -125,7 +126,7 @@ const Signin = () => {
           </>
           <>
             <SigninLabal light>Password</SigninLabal>
-            <SigninInput
+            <StyledFormPWDInput
               password={password}
               type="password"
               onChange={(e) => setPassword(e.target.value)}
