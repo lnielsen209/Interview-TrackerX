@@ -16,13 +16,22 @@ const Nav = styled.nav`
 
 const MainNav = () => {
   const auth = useAuth();
+  //console.log('authmainNav==>', auth);
 
   return (
-    <Nav className="MainNav">
-      <Link className="title" to="/">
+    <Nav className='MainNav'>
+      <Link className='title' to='/'>
         Interview Tracker
       </Link>
       <div>{auth.user.id && <SignoutButton />}</div>
+      <div>
+        {auth.user.id && (
+          <p>
+            <span>Hi, </span> {auth.user.firstname}
+          </p>
+        )}
+      </div>
+      <div>{auth.user.email && <a href='#'>{auth.user.email} </a>}</div>
     </Nav>
   );
 };

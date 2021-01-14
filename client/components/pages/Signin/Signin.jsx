@@ -61,9 +61,11 @@ const Signin = () => {
   const oauthSignin = async () => {
     try {
       const res = await axios.get(`/auth/signin`);
-      // console.log('res.data ==>', res.data);
+      console.log('res.data ==>', res.data);
 
-      auth.signin(res.data.id, res.data.email, () => history.push('/'));
+      auth.signin(res.data.id, res.data.email, res.data.firstname, () =>
+        history.push('/')
+      );
     } catch (error) {
       // console.log('error==>', error);
       if (error.response.status === 401) {
@@ -83,7 +85,9 @@ const Signin = () => {
       const res = await axios.post('/user/signin', { username, password });
 
       // console.log('res.data ===> ', res.data);
-      auth.signin(res.data.id, res.data.email, () => history.push('/'));
+      auth.signin(res.data.id, res.data.email, res.data.firstname, () =>
+        history.push('/')
+      );
     } catch (error) {
       if (error.response.status === 401) {
         history.push('/signin');

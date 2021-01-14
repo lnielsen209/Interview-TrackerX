@@ -59,10 +59,12 @@ authController.verifyAuthToken = async (req, res, next) => {
         //console.log('dbERR===>', err);
         return next(err);
       }
-      //console.log('userdata===>', data.rows[0]);
+      console.log('userdata===>', data.rows[0]);
 
       res.locals.email = data.rows[0].email;
       res.locals.id = userID;
+      res.locals.firstname = data.rows[0].first_name;
+      console.log('verifyTokenfirstname==>', res.locals.firstname);
       return next();
     });
   } catch (err) {
