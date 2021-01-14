@@ -58,12 +58,11 @@ const StyledFormPWDInput = (props) => {
   const handleClick = () => {
     setType((type) => (type === 'password' ? 'text' : 'password'));
     setShowPassword(!showPassword);
-    // Setting focus here
     inputRef.current.focus();
   };
 
   useEffect(() => {
-    // Moving cursor to the end
+    // Stop cursor from jumping to the beginning of input. Moving cursor to the end of input after the input node focus in handle click
     inputRef.current.selectionStart = inputRef.current.value.length;
     inputRef.current.selectionEnd = inputRef.current.value.length;
   }, [type]);
