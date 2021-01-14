@@ -8,10 +8,10 @@ import {
   StyledFormInput,
   StyledFormPWDInput,
   StyledButton,
-  StyledSpinner,
   StyledFormWrapper,
   StyledH1,
   StyledH3,
+  StyledSpinner,
 } from '../../common';
 import { Theme } from '../../../style/Theme';
 import OAuth from './oAuth';
@@ -48,8 +48,7 @@ const SigninButton = styled(StyledButton)``;
 const SignupButton = styled(StyledButton)``;
 
 const Signin = () => {
-  let timeoutID1;
-  let timeoutID2;
+  let timeoutID;
 
   // react hooks
   const [username, setUserName] = useState('');
@@ -84,7 +83,7 @@ const Signin = () => {
     }
   };
 
-  const reqSignin = async () => {
+  const localSignin = async () => {
     try {
       const res = await axios.post('/user/signin', { username, password });
 
@@ -107,19 +106,14 @@ const Signin = () => {
     e.preventDefault();
     setLoading(true);
 
-    timeoutID1 = setTimeout(() => {
-      reqSignin();
-      // Add a second timeout so we are not seeing the signin button appearing right before unmounting
-      timeoutID2 = setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+    timeoutID = setTimeout(() => {
+      localSignin();
     }, 2000);
   };
 
   useEffect(() => {
     return () => {
-      clearTimeout(timeoutID1);
-      clearTimeout(timeoutID2);
+      clearTimeout(timeoutID);
     };
   }, []);
 
