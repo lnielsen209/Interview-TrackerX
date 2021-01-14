@@ -19,6 +19,8 @@ userController.createUser = async (req, res, next) => {
     const data = await db.query(createUserText, createUserVals);
     res.locals.id = data.rows[0].id;
     res.locals.email = data.rows[0].email;
+    res.locals.firstname = data.rows[0].first_name;
+    console.log('createfirstname==>', res.locals.firstname);
 
     return next();
   } catch (err) {
@@ -54,7 +56,9 @@ userController.verifyUser = async (req, res, next) => {
       throw new Error('Password is incorrect!'); //this will throw us to catch block and the error message will be sent via global error handler
     }
     res.locals.id = data.rows[0].id; //=>userid
-    res.locals.email = data.rows[0].email; //=>userid
+    res.locals.email = data.rows[0].email; //=>email
+    res.locals.firstname = data.rows[0].first_name;
+    console.log('verifyfirstname==>', res.locals.firstname);
     return next();
   } catch (err) {
     return next({

@@ -12,7 +12,11 @@ userRouter.post(
   userController.createUser,
   sessionController.startSession,
   (req, res) => {
-    res.status(200).json({ id: res.locals.id, email: res.locals.email });
+    res.status(200).json({
+      id: res.locals.id,
+      email: res.locals.email,
+      firstName: res.locals.firstName,
+    });
   }
 );
 
@@ -21,7 +25,11 @@ userRouter.post(
   userController.verifyUser,
   sessionController.startSession,
   (req, res) => {
-    res.status(200).json({ id: res.locals.id, email: res.locals.email });
+    res.status(200).json({
+      id: res.locals.id,
+      email: res.locals.email,
+      firstname: res.locals.firstname,
+    });
   }
 );
 

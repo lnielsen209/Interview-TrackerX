@@ -12,21 +12,18 @@ const createToken = (id) => {
 };
 
 authController.createAuthToken = (req, res, next) => {
-  // const authID = { id: req.user.id, route: req.route.path };
   const authID = req.user.id;
 
   console.log('authID===>', req.user.id);
-  //console.log('route===>', req.route.path);
 
   try {
     const token = createToken(authID);
     console.log('oauthToken==>', token);
     res.cookie('token', token, {
-      httpOnly: false,
+      httpOnly: true,
       maxAge: maxAge * 1000,
     });
-    //res.locals.route = req.route.path;
-    //==>'/google/redirect'
+
     return next();
   } catch (err) {
     return next({
@@ -59,15 +56,15 @@ authController.verifyAuthToken = async (req, res, next) => {
 
     db.query(queryText, [userID], (err, data) => {
       if (err) {
-        console.log('dbERR===>', err);
+        //console.log('dbERR===>', err);
         return next(err);
       }
       console.log('userdata===>', data.rows[0]);
-      //save userID, email on res.locals
+
       res.locals.email = data.rows[0].email;
-      // res.locals.route = decodedToken.id.route;
       res.locals.id = userID;
-      //res.locals.token = token;
+      res.locals.firstname = data.rows[0].first_name;
+      console.log('verifyTokenfirstname==>', res.locals.firstname);
       return next();
     });
   } catch (err) {
