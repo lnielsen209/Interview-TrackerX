@@ -8,6 +8,7 @@ const useProvideAuth = () => {
     id: null,
     email: null,
     firstname: null,
+    avatar: null,
     isAuthenticated: false,
   });
   const signin = (id, email, firstname, avatar, cb) => {
@@ -38,6 +39,7 @@ const useProvideAuth = () => {
       id: null,
       email: null,
       firstname: null,
+      avatar: null,
       isAuthenticated: false,
     });
     cb();
