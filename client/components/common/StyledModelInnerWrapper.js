@@ -3,8 +3,9 @@ import { Theme } from '../../style/Theme';
 
 const StyledModelInnerWrapper = styled.div`
   background: ${Theme.background};
-  width: 50%;
   height: 90%;
+  width: 50%;
+  border-radius: 6px;
   padding: 24px;
 `;
 

@@ -39,6 +39,7 @@ const ToggleButton = styled.div`
   transition-duration: 0.167s;
 
   &:hover {
+    background-color: ${Theme.background};
     box-shadow: rgb(200, 200, 200) 0px 0px 0px 1px inset;
   }
 
