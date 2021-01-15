@@ -122,6 +122,7 @@ const Signin = () => {
   useEffect(() => {
     return () => {
       clearTimeout(timeoutID);
+      setLoading(false);
     };
   }, []);
 

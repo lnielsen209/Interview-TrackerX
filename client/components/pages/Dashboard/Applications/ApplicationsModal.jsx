@@ -14,42 +14,44 @@ import {
 } from '../../../common';
 import { Theme } from '../../../../style/Theme';
 
-const ModelOuterWrapper = styled(StyledModelOuterWrapper)``;
+const AppModelOuterWrapper = styled(StyledModelOuterWrapper)``;
 
-const ModelInnerWrapper = styled(StyledModelInnerWrapper)``;
+const AppModelInnerWrapper = styled(StyledModelInnerWrapper)``;
 
-const ModelForm = styled(StyledModelForm)``;
+const AppModelForm = styled(StyledModelForm)``;
 
-const H1 = styled(StyledH1)`
-  margin-bottom: 8px;
+const AppH1 = styled(StyledH1)`
+  font-size: 24px;
 `;
 
-const ModelLabel = styled(StyledFormLabel)`
+const AppModelLabel = styled(StyledFormLabel)`
   color: ${Theme.primary};
   opacity: 80%;
+  font-size: 18px;
   line-height: 16px;
 `;
 
-const ModelInput = styled(StyledFormInput)`
-  height: 36px;
+const AppModelInput = styled(StyledFormInput)`
+  height: 32px;
   width: 100%;
+  margin: 6px 0px 12px 0px;
 `;
 
-const ModelSelect = styled(StyledFormInput)`
-  height: 36px;
+const AppModelSelect = styled(StyledFormInput)`
+  height: 30px;
   width: 100%;
+  margin: 6px 0px 12px 0px;
   padding: 0px 10px;
 `;
 
-const Div = styled.div`
+const AppDiv = styled.div`
   display: flex;
   justify-content: center;
-  padding: 10px;
 `;
 
-const ModelButton = styled(StyledButton)`
+const AppModelButton = styled(StyledButton)`
   background: ${Theme.background};
-  margin: 0px 10px;
+  margin: 0px 2px;
 `;
 
 const ApplicationsModal = ({
@@ -142,71 +144,71 @@ const ApplicationsModal = ({
 
   // console.log('currentapp ===> ', currentApp);
   return (
-    <ModelOuterWrapper>
-      <ModelInnerWrapper>
-        <H1 center>{modalTitle[action]}</H1>
-        <ModelForm>
-          <ModelLabel>Company</ModelLabel>
-          <ModelInput
+    <AppModelOuterWrapper>
+      <AppModelInnerWrapper>
+        <AppH1 center>{modalTitle[action]}</AppH1>
+        <AppModelForm>
+          <AppModelLabel>Company</AppModelLabel>
+          <AppModelInput
             type="text"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             required
           />
-          <ModelLabel>Position</ModelLabel>
-          <ModelInput
+          <AppModelLabel>Position</AppModelLabel>
+          <AppModelInput
             type="text"
             value={job_title}
             onChange={(e) => setJobTitle(e.target.value)}
             required
           />
-          <ModelLabel>How I applied </ModelLabel>
-          <ModelInput
+          <AppModelLabel>How I applied </AppModelLabel>
+          <AppModelInput
             type="text"
             placeholder="e.g. email, company website, Glassdoor,..."
             value={how_applied}
             onChange={(e) => setHowApplied(e.target.value)}
             required
           />
-          <ModelLabel>Date applied </ModelLabel>
-          <ModelInput
+          <AppModelLabel>Date applied </AppModelLabel>
+          <AppModelInput
             type="date"
             value={date_applied.slice(0, 10)}
             onChange={(e) => setDateApplied(e.target.value)}
             required
           />
-          <ModelLabel>Location </ModelLabel>
-          <ModelInput
+          <AppModelLabel>Location </AppModelLabel>
+          <AppModelInput
             type="text"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
           />
-          <ModelLabel>URL </ModelLabel>
-          <ModelInput
+          <AppModelLabel>URL </AppModelLabel>
+          <AppModelInput
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             required
           />
 
-          <ModelLabel>Found by </ModelLabel>
-          <ModelInput
+          <AppModelLabel>Found by </AppModelLabel>
+          <AppModelInput
             type="text"
             placeholder="e.g. recruiter/agency, linkedIn, Google,..."
             value={found_by}
             onChange={(e) => setFoundBy(e.target.value)}
             required
           />
-          <ModelLabel>Notes </ModelLabel>
-          <ModelInput
+          <AppModelLabel>Notes </AppModelLabel>
+          <AppModelInput
             type="text"
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             required
           />
-          <ModelLabel>App Status</ModelLabel>
-          <ModelSelect
+          <AppModelLabel>App Status</AppModelLabel>
+          <AppModelSelect
             as="select"
             value={app_status}
             onChange={(e) => setAppStatus(e.target.value)}
@@ -222,22 +224,27 @@ const ApplicationsModal = ({
             <option value="Offer Rejected">Offer Rejected</option>
             <option value="Application Rejected">Application Rejected</option>
             <option value="Not Interested">Not Interested</option>
-          </ModelSelect>
-          <Div>
-            <ModelButton
+          </AppModelSelect>
+          <AppDiv>
+            <AppModelButton
               secondary
               small
               onClick={() => setShowModal({ action: null, id: null })}
             >
               Cancel
-            </ModelButton>
-            <ModelButton secondary small type="submit" onClick={handleSubmit}>
+            </AppModelButton>
+            <AppModelButton
+              secondary
+              small
+              type="submit"
+              onClick={handleSubmit}
+            >
               Save
-            </ModelButton>
-          </Div>
-        </ModelForm>
-      </ModelInnerWrapper>
-    </ModelOuterWrapper>
+            </AppModelButton>
+          </AppDiv>
+        </AppModelForm>
+      </AppModelInnerWrapper>
+    </AppModelOuterWrapper>
   );
 };
 

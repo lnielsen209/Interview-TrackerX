@@ -5,7 +5,7 @@ const StyledModelInnerWrapper = styled.div`
   background: ${Theme.background};
   width: 50%;
   height: 90%;
-  padding: 30px;
+  padding: 24px;
 `;
 
 export { StyledModelInnerWrapper };
