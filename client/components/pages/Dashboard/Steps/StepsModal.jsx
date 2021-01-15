@@ -1,6 +1,57 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../../../routes/useAuth';
 import axios from 'axios';
+import styled from 'styled-components';
+import {
+  StyledFormLabel,
+  StyledFormInput,
+  StyledButton,
+  StyledH1,
+  StyledModelForm,
+  StyledModelInnerWrapper,
+  StyledModelOuterWrapper,
+} from '../../../common';
+import { Theme } from '../../../../style/Theme';
+
+const ModelOuterWrapper = styled(StyledModelOuterWrapper)``;
+
+const ModelInnerWrapper = styled(StyledModelInnerWrapper)`
+  height: 65%;
+`;
+
+const ModelForm = styled(StyledModelForm)``;
+
+const H1 = styled(StyledH1)`
+  margin-bottom: 8px;
+`;
+
+const ModelLabel = styled(StyledFormLabel)`
+  color: ${Theme.primary};
+  opacity: 80%;
+  line-height: 16px;
+`;
+
+const ModelInput = styled(StyledFormInput)`
+  height: 36px;
+  width: 100%;
+`;
+
+const ModelSelect = styled(StyledFormInput)`
+  height: 36px;
+  width: 100%;
+  padding: 0px 10px;
+`;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+`;
+
+const ModelButton = styled(StyledButton)`
+  background: ${Theme.background};
+  margin: 0px 10px;
+`;
 
 const StepsModal = ({
   setShowModalStep,
@@ -90,86 +141,71 @@ const StepsModal = ({
   };
 
   return (
-    <div className="modalWrapper">
-      <div className="modalBackground">
-        <h2>{modalTitle[action]}</h2>
-        <form id="list" className="modalForm">
-          <label>
-            Date
-            <input
-              type="date"
-              value={date.slice(0, 10)}
-              onChange={(e) => setDate(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Progess
-            <input
-              type="text"
-              placeholder="e.g. interview, screening, offer"
-              value={step_type}
-              onChange={(e) => setStepType(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Contact Name
-            <input
-              type="text"
-              value={contact_name}
-              onChange={(e) => setContactName(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Contact Role
-            <input
-              type="text"
-              placeholder="e.g. HR representative, manager"
-              value={contact_role}
-              onChange={(e) => setContractRole(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Contact
-            <input
-              type="text"
-              placeholder="e.g. phone number or email"
-              value={contact}
-              onChange={(e) => setContact(e.target.value)}
-              required
-            />
-          </label>
-          <label>
-            Notes
-            <input
-              type="text"
-              value={notes}
-              onChange={(e) => setNote(e.target.value)}
-              required
-            />
-          </label>
-          <div className="modalButtonWrapper">
-            <button
-              className="modalButton"
+    <ModelOuterWrapper>
+      <ModelInnerWrapper>
+        <H1 center>{modalTitle[action]}</H1>
+        <ModelForm>
+          <ModelLabel>Date </ModelLabel>
+          <ModelInput
+            type="date"
+            value={date.slice(0, 10)}
+            onChange={(e) => setDate(e.target.value)}
+            required
+          />
+          <ModelLabel>Progess </ModelLabel>
+          <ModelInput
+            type="text"
+            placeholder="e.g. interview, screening, offer"
+            value={step_type}
+            onChange={(e) => setStepType(e.target.value)}
+            required
+          />
+          <ModelLabel>Contact Name </ModelLabel>
+          <ModelInput
+            type="text"
+            value={contact_name}
+            onChange={(e) => setContactName(e.target.value)}
+            required
+          />
+          <ModelLabel>Contact Role </ModelLabel>
+          <ModelInput
+            type="text"
+            placeholder="e.g. HR representative, manager"
+            value={contact_role}
+            onChange={(e) => setContractRole(e.target.value)}
+            required
+          />
+          <ModelLabel>Contact </ModelLabel>
+          <ModelInput
+            type="text"
+            placeholder="e.g. phone number or email"
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+            required
+          />
+          <ModelLabel>Notes </ModelLabel>
+          <ModelInput
+            type="text"
+            value={notes}
+            onChange={(e) => setNote(e.target.value)}
+            required
+          />
+          <Div>
+            <ModelButton
+              secondary
+              small
               onClick={() => setShowModalStep({ action: null, id: null })}
             >
               Cancel
-            </button>
+            </ModelButton>
 
-            <button
-              type="submit"
-              className="modalButton"
-              onClick={handleSubmit}
-            >
+            <ModelButton secondary small type="submit" onClick={handleSubmit}>
               Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+            </ModelButton>
+          </Div>
+        </ModelForm>
+      </ModelInnerWrapper>
+    </ModelOuterWrapper>
   );
 };
 
