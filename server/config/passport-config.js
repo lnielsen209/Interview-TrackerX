@@ -25,7 +25,9 @@ passport.use(
     {
       clientID: keys.google.clientID,
       clientSecret: keys.google.clientSecret,
-      callbackURL: 'http://localhost:3000/auth/google/redirect',
+      // clientID: process.env.googleclientID,
+      // clientSecret: process.env.googleclientSecret,
+      callbackURL: '/auth/google/redirect',
     },
 
     function (accessToken, refreshToken, profile, done) {
@@ -36,9 +38,15 @@ passport.use(
 
       db.query(qText, email, (err, data) => {
         if (data.rows.length === 0) {
-          const { given_name, family_name, email, sub } = profile._json;
-          const queryText = `INSERT INTO applicants (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *`;
-          const value = [given_name, family_name, email, sub];
+          const {
+            given_name,
+            family_name,
+            email,
+            sub,
+            picture,
+          } = profile._json;
+          const queryText = `INSERT INTO applicants (first_name, last_name, email, password, avatar) VALUES ($1, $2, $3, $4,$5) RETURNING *`;
+          const value = [given_name, family_name, email, sub, picture];
           db.query(queryText, value, (err, data) => {
             if (err) {
               console.log('errCreatingUser==>', err);

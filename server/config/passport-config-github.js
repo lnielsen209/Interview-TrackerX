@@ -25,6 +25,8 @@ passport.use(
     {
       clientID: keys.github.clientID,
       clientSecret: keys.github.clientSecret,
+      // clientID: process.env.githubclientID,
+      // clientSecret: process.env.githubclientSecret,
       callbackURL: 'http://localhost:3000/auth/github/redirect',
     },
 
@@ -36,9 +38,9 @@ passport.use(
 
       db.query(qText, email, (err, data) => {
         if (data.rows.length === 0) {
-          const { login, email, node_id } = profile._json;
-          const queryText = `INSERT INTO applicants (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *`;
-          const value = [login, login, email, node_id];
+          const { login, email, node_id, avatar_url } = profile._json;
+          const queryText = `INSERT INTO applicants (first_name, last_name, email, password,avatar) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+          const value = [login, login, email, node_id, avatar_url];
           db.query(queryText, value, (err, data) => {
             if (err) {
               console.log('errCreatingUser==>', err);
