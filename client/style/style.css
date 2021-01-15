@@ -1,10 +1,4 @@
-
-
-.modalForm input {
-  margin: 5px;
-  padding: 3px;
-}
-
+/* 
 .modalWrapper {
   display: flex;
   justify-content: center;
@@ -24,41 +18,24 @@
   width: 50%;
   height: 90%;
   padding: 30px;
-}
+} */
 
-.modalForm {
+/* .modalForm {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  padding: 10px;
+  text-align: left;
 }
 
 .modalForm input {
   margin: 7px 0 15px 0;
+    padding: 3px;
   display: block;
   text-align: left;
   width: 100%;
-}
+} */
 
-.modalButtonWrapper {
-  padding: 15px;
-  display: flex;
-  justify-content: center;
-}
-
-.modalButton {
-  margin: 5px;
-  padding: 5px;
-}
-
-.inputSignUp {
-  width: 100%;
-  margin-bottom: 15px;
-}
-
-#list {
-  padding: 10px;
-  text-align: left;
-}
 
 @media (max-width: 900px) {
   .low-priority-col {
@@ -129,27 +106,7 @@ tr {
   max-width: 40px;
 }
 
-i {
-  color: hsl(0, 0%, 40%);
-  background-color: white;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  border: none;
-  border-radius: 50%;
-  box-sizing: border-box;
-  cursor: pointer;
-  font-weight: 600;
-  display: inline-flex;
-  justify-content: center;
-  overflow: hidden;
-  text-align: center;
-  vertical-align: middle;
-}
 
-i:hover {
-  background-color: #ebebeb;
-}
 
 .showSteps-enter {
   opacity: 0;
@@ -201,4 +158,3 @@ i:hover {
 .searchInput:focus {
   outline: none;
 }
-

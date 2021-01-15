@@ -13,7 +13,7 @@ const StyledButton = styled.button`
     secondary ? `${Theme.secondary}` : `${Theme.primary}`};
   font-weight: 600;
   border: ${({ secondary }) =>
-    secondary ? `none` : `2px solid ${Theme.secondary}`};
+    secondary ? `none` : `1px solid ${Theme.secondary}`};
   border-radius: 48px;
   height: ${({ small }) => (small ? '46px' : '56px')};
   width: ${({ small }) => (small ? '100px' : '350px')};
@@ -28,13 +28,18 @@ const StyledButton = styled.button`
     box-shadow: inset 0 0 0 1px
       ${({ secondary }) =>
         secondary ? `${Theme.primary}` : `${Theme.secondary}`};
-    border: 2px solid
+    border: 1px solid
       ${({ secondary }) =>
         secondary ? `${Theme.primary}` : `${Theme.secondary}`};
   }
 
   &:active {
     transform: scale(0.98);
+  }
+
+  &:disabled {
+    background: #eee;
+    color: #666;
   }
 `;
 

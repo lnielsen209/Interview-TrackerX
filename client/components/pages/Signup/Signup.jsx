@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../../../routes/useAuth';
 import PageLayout from '../../common/PageLayout';
@@ -11,6 +11,7 @@ import {
   StyledFormWrapper,
   StyledH1,
   StyledH3,
+  StyledSpinner,
 } from '../../common';
 import axios from 'axios';
 
@@ -40,19 +41,20 @@ const SignupButton = styled(StyledButton)``;
 const SigninButton = styled(StyledButton)``;
 
 const Signup = () => {
+  let timeoutID;
+
   // react hooks
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const auth = useAuth();
   const history = useHistory();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const localSignup = async () => {
     // check if passwords match before submit
     if (password !== password2) {
       alert('password does not match');
@@ -81,6 +83,21 @@ const Signup = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    timeoutID = setTimeout(() => {
+      localSignup();
+    }, 2000);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutID);
+    };
+  }, []);
+
   return (
     <PageLayout>
       <SignupWrapper>
@@ -94,55 +111,57 @@ const Signup = () => {
               </SigninButton>
             </Link>
           </Div>
-          <>
-            <SignupLabal light>First Name</SignupLabal>
-            <SignupInput
-              className='inputSignUp'
-              type='text'
-              value={first_name}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
-          </>
-          <>
-            <SignupLabal light>Last Name</SignupLabal>
-            <SignupInput
-              className='inputSignUp'
-              type='text'
-              value={last_name}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
-          </>
-          <>
-            <SignupLabal light>Email Address</SignupLabal>
-            <SignupInput
-              className='inputSignUp'
-              type='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </>
-          <>
-            <SignupLabal light>Password</SignupLabal>
-            <StyledFormPWDInput
-              className='inputSignUp'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </>
-          <>
-            <SignupLabal light>Re-enter password</SignupLabal>
-            <StyledFormPWDInput
-              className='inputSignUp'
-              value={password2}
-              onChange={(e) => setPassword2(e.target.value)}
-              required
-            />
-          </>
-          <SignupButton>Sign Up</SignupButton>
+          {loading ? (
+            <StyledSpinner />
+          ) : (
+            <>
+              <SignupLabal light>First Name</SignupLabal>
+              <SignupInput
+                className="inputSignUp"
+                type="text"
+                value={first_name}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+
+              <SignupLabal light>Last Name</SignupLabal>
+              <SignupInput
+                className="inputSignUp"
+                type="text"
+                value={last_name}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+
+              <SignupLabal light>Email Address</SignupLabal>
+              <SignupInput
+                className="inputSignUp"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+
+              <SignupLabal light>Password</SignupLabal>
+              <StyledFormPWDInput
+                className="inputSignUp"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              <SignupLabal light>Re-enter password</SignupLabal>
+              <StyledFormPWDInput
+                className="inputSignUp"
+                value={password2}
+                onChange={(e) => setPassword2(e.target.value)}
+                required
+              />
+            </>
+          )}
+          <SignupButton disabled={loading}>
+            {loading ? 'Loading...' : 'Sign Up'}
+          </SignupButton>
         </form>
       </SignupWrapper>
     </PageLayout>

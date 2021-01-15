@@ -4,6 +4,10 @@ import StepsTable from '../Steps/StepsTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition } from 'react-transition-group';
+import styled from 'styled-components';
+import { StyledIcon } from '../../../common';
+
+const I = styled(StyledIcon)``;
 
 const ApplicationsTableRow = ({
   idx,
@@ -49,12 +53,12 @@ const ApplicationsTableRow = ({
         </td>
         <td>{app_status}</td>
         <td>
-          <i onClick={() => setShowModal({ action: 'edit', id: idx })}>
+          <I onClick={() => setShowModal({ action: 'edit', id: idx })}>
             <FontAwesomeIcon icon={faPen} />
-          </i>
-          <i onClick={() => removeApplications(id)}>
+          </I>
+          <I onClick={() => removeApplications(id)}>
             <FontAwesomeIcon icon={faTrash} />
-          </i>
+          </I>
         </td>
       </tr>
       <CSSTransition

@@ -15,7 +15,7 @@ userRouter.post(
     res.status(200).json({
       id: res.locals.id,
       email: res.locals.email,
-      firstName: res.locals.firstName,
+      firstname: res.locals.firstname,
     });
   }
 );
