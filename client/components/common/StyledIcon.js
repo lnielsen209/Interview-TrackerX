@@ -17,10 +17,11 @@ const StyledIcon = styled.i`
   overflow: hidden;
   text-align: center;
   vertical-align: middle;
-  opacity: 70%;
+  opacity: 80%;
 
   &:hover {
-    background-color: ${Theme.secondary};
+    color: ${Theme.color};
+    background-color: ${Theme.background};
   }
 `;
 

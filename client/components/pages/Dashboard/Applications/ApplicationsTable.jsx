@@ -16,10 +16,15 @@ import {
   StyledH1,
   StyledH3,
   StyledSpinner,
+  StyledTable,
   StyledTableWrapper,
+  StyledTd,
+  StyledTh,
+  StyledTr,
 } from '../../../common';
 
 const AppTableWrapper = styled(StyledTableWrapper)``;
+const AppTable = styled(StyledTable)``;
 
 
 const ApplicationsTable = () => {
@@ -100,14 +105,14 @@ const ApplicationsTable = () => {
         updateCategoryInput={updateCategorySearchInput}
       />
       <AppTableWrapper>
-        <table id="tracker">
+        <AppTable>
           <ApplicationsTableHeader />
           <ApplicationsTableRows
             appData={appData}
             setShowModal={setShowModal}
             removeApplications={removeApplications}
           />
-        </table>
+        </AppTable>
         <ApplicationsTableAddButton
           appData={appData}
           showModal={showModal}

@@ -17,7 +17,7 @@ import {
 } from '../../common';
 
 const H1 = styled(StyledH1)`
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 `;
 
 const H3 = styled(StyledH3)``;

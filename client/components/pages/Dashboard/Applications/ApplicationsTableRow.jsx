@@ -5,9 +5,35 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
-import { StyledIcon } from '../../../common';
+import {
+  StyledFormLabel,
+  StyledFormInput,
+  StyledFormPWDInput,
+  StyledButton,
+  StyledFormWrapper,
+  StyledH1,
+  StyledH3,
+  StyledIcon,
+  StyledSpinner,
+  StyledTable,
+  StyledTableWrapper,
+  StyledTd,
+  StyledTh,
+  StyledTr,
+} from '../../../common';
 
 const I = styled(StyledIcon)``;
+const AppTd = styled(StyledTd)``;
+const AppTh = styled(StyledTh)``;
+const AppTr = styled(StyledTr)`
+  .hide-ID-col {
+    display: none;
+  }
+
+  #notes-column {
+    max-width: 300px;
+  }
+`;
 
 const ApplicationsTableRow = ({
   idx,
@@ -32,46 +58,46 @@ const ApplicationsTableRow = ({
 
   return (
     <>
-      <tr
+      <AppTr
         key={id}
         onClick={(e) =>
           e.target.tagName === 'TD' ? setShowSteps(!showSteps) : null
         }
       >
-        <td id='hide-ID-col'>{id}</td>
-        <td>{company}</td>
-        <td>{job_title}</td>
-        <td>{location}</td>
-        <td className='low-priority-col'>{found_by}</td>
-        <td className='low-priority-col'>{how_applied}</td>
-        <td className='low-priority-col' id='date-column'>
+        <AppTd className="hide-ID-col">{id}</AppTd>
+        <AppTd>{company}</AppTd>
+        <AppTd>{job_title}</AppTd>
+        <AppTd>{location}</AppTd>
+        <AppTd className="low-priority-col">{found_by}</AppTd>
+        <AppTd className="low-priority-col">{how_applied}</AppTd>
+        <AppTd className="low-priority-col">
           {new Date(date_applied).toLocaleDateString('en-US')}
-        </td>
-        <td>{url}</td>
-        <td className='low-priority-col' id='notes-column'>
+        </AppTd>
+        <AppTd>{url}</AppTd>
+        <AppTd className="low-priority-col" id="notes-column">
           {notes}
-        </td>
-        <td>{app_status}</td>
-        <td>
+        </AppTd>
+        <AppTd>{app_status}</AppTd>
+        <AppTd>
           <I onClick={() => setShowModal({ action: 'edit', id: idx })}>
             <FontAwesomeIcon icon={faPen} />
           </I>
           <I onClick={() => removeApplications(id)}>
             <FontAwesomeIcon icon={faTrash} />
           </I>
-        </td>
-      </tr>
+        </AppTd>
+      </AppTr>
       <CSSTransition
         in={showSteps}
         timeout={500}
-        classNames='showSteps'
+        classNames="showSteps"
         unmountOnExit
       >
-        <tr className='stepsTableBackground'>
-          <td colSpan={10}>
+        <AppTr>
+          <AppTd colSpan={10}>
             <StepsTable app={dashboardTableRow} />
-          </td>
-        </tr>
+          </AppTd>
+        </AppTr>
       </CSSTransition>
     </>
   );

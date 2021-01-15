@@ -1,4 +1,29 @@
 import React from 'react';
+import styled from 'styled-components';
+import {
+  StyledFormLabel,
+  StyledFormInput,
+  StyledFormPWDInput,
+  StyledButton,
+  StyledFormWrapper,
+  StyledH1,
+  StyledH3,
+  StyledIcon,
+  StyledSpinner,
+  StyledTable,
+  StyledTableWrapper,
+  StyledTd,
+  StyledTh,
+  StyledTr,
+} from '../../../common';
+
+const AppTd = styled(StyledTd)``;
+const AppTh = styled(StyledTh)``;
+const AppTr = styled(StyledTr)`
+  .hide-ID-col {
+    display: none;
+  }
+`;
 
 const ApplicationsTableHeader = () => {
   const headerElement = [
@@ -22,16 +47,16 @@ const ApplicationsTableHeader = () => {
       key === 'Notes'
     ) {
       return (
-        <th key={idx} className="low-priority-col">
+        <AppTh key={idx} className="low-priority-col">
           {key}
-        </th>
+        </AppTh>
       );
-    } else return <th key={idx}>{key}</th>;
+    } else return <AppTh key={idx}>{key}</AppTh>;
   });
 
   return (
     <thead>
-      <tr>{tableHeader}</tr>
+      <AppTr>{tableHeader}</AppTr>
     </thead>
   );
 };

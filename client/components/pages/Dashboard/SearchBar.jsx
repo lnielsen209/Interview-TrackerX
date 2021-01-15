@@ -29,6 +29,9 @@ const I = styled(StyledIcon)`
   border: 1px solid rgba(26, 26, 26, 0.3);
   margin: 8px 0px 16px 0px;
   border-right: 0;
+  &:hover {
+    background-color: ${Theme.secondary};
+  }
 `;
 
 const SearchInput = styled(StyledFormInput)`

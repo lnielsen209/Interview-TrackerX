@@ -75,7 +75,9 @@ const ApplicationsModal = ({
   const [url, setUrl] = useState(currentApp.url || '');
   const [found_by, setFoundBy] = useState(currentApp.found_by || '');
   const [notes, setNotes] = useState(currentApp.notes || '');
-  const [app_status, setAppStatus] = useState(currentApp.app_status || '');
+  const [app_status, setAppStatus] = useState(
+    currentApp.app_status || 'Not Applied'
+  );
 
   const auth = useAuth();
   const history = useHistory();

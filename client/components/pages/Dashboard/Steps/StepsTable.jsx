@@ -15,10 +15,17 @@ import {
   StyledH1,
   StyledH3,
   StyledSpinner,
+  StyledTable,
   StyledTableWrapper,
+  StyledTd,
+  StyledTh,
+  StyledTr,
 } from '../../../common';
 
 const StepsTableWrapper = styled(StyledTableWrapper)``;
+const StepTable = styled(StyledTable)`
+  margin: 0px;
+`;
 
 const StepsTable = ({ app }) => {
   // react hooks
@@ -78,14 +85,14 @@ const StepsTable = ({ app }) => {
 
   return (
     <StepsTableWrapper>
-      <table id="stepsTracker">
+      <StepTable>
         <StepsTableHeader />
         <StepsTableRows
           stepData={stepData}
           setShowModalStep={setShowModalStep}
           removeStep={removeStep}
         />
-      </table>
+      </StepTable>
       <StepsTableAddButton
         stepData={stepData}
         setUpdateState={setUpdateState}

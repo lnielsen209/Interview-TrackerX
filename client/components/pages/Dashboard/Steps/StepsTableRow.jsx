@@ -2,9 +2,31 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { StyledIcon } from '../../../common';
+import {
+  StyledFormLabel,
+  StyledFormInput,
+  StyledFormPWDInput,
+  StyledButton,
+  StyledFormWrapper,
+  StyledH1,
+  StyledH3,
+  StyledIcon,
+  StyledSpinner,
+  StyledTable,
+  StyledTableWrapper,
+  StyledTd,
+  StyledTh,
+  StyledTr,
+} from '../../../common';
 
 const I = styled(StyledIcon)``;
+const StepsTd = styled(StyledTd)`
+  opacity: 1;
+`;
+const StepsTh = styled(StyledTh)``;
+const StepsTr = styled(StyledTr)``;
+
+
 
 const StepsTableRow = ({
   idx,
@@ -24,12 +46,12 @@ const StepsTableRow = ({
   } = stepsTableRow;
 
   return (
-    <tr className="stepsTa">
-      <td>{new Date(date).toLocaleDateString('en-US')}</td>
-      <td>{step_type}</td>
-      <td>{contact_name}</td>
-      <td>{contact_role}</td>
-      <td>
+    <StepsTr>
+      <StepsTd>{new Date(date).toLocaleDateString('en-US')}</StepsTd>
+      <StepsTd>{step_type}</StepsTd>
+      <StepsTd>{contact_name}</StepsTd>
+      <StepsTd>{contact_role}</StepsTd>
+      <StepsTd>
         <a
           href={`mailto:${contact_info}`}
           data-toggle="tooltip"
@@ -38,17 +60,17 @@ const StepsTableRow = ({
         >
           {contact_info}
         </a>
-      </td>
-      <td>{notes}</td>
-      <td className="operation">
+      </StepsTd>
+      <StepsTd>{notes}</StepsTd>
+      <StepsTd>
         <I onClick={() => setShowModalStep({ action: 'edit', id: idx })}>
           <FontAwesomeIcon icon={faPen} />
         </I>
         <I onClick={() => removeStep(app_id, id)}>
           <FontAwesomeIcon icon={faTrash} />
         </I>
-      </td>
-    </tr>
+      </StepsTd>
+    </StepsTr>
   );
 };
 
