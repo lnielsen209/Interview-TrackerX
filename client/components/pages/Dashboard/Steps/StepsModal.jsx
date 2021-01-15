@@ -22,7 +22,7 @@ const StepsModelInnerWrapper = styled(StyledModelInnerWrapper)`
 const StepsModelForm = styled(StyledModelForm)``;
 
 const H1 = styled(StyledH1)`
-  font-size: 24px;
+  font-size: 26px;
 `;
 
 const StepsModelLabel = styled(StyledFormLabel)`

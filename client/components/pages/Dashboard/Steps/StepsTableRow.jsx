@@ -24,7 +24,7 @@ const StepsTableRow = ({
   } = stepsTableRow;
 
   return (
-    <tr className='stepsTa'>
+    <tr className="stepsTa">
       <td>{new Date(date).toLocaleDateString('en-US')}</td>
       <td>{step_type}</td>
       <td>{contact_name}</td>
@@ -32,8 +32,8 @@ const StepsTableRow = ({
       <td>
         <a
           href={`mailto:${contact_info}`}
-          data-toggle='tooltip'
-          title='Send me Email!'
+          data-toggle="tooltip"
+          title="Send me Email!"
           style={{ color: 'black' }}
         >
           {contact_info}
@@ -41,13 +41,10 @@ const StepsTableRow = ({
       </td>
       <td>{notes}</td>
       <td className="operation">
-        <I
-          className="deleteButton"
-          onClick={() => setShowModalStep({ action: 'edit', id: idx })}
-        >
+        <I onClick={() => setShowModalStep({ action: 'edit', id: idx })}>
           <FontAwesomeIcon icon={faPen} />
         </I>
-        <I className="button" onClick={() => removeStep(app_id, id)}>
+        <I onClick={() => removeStep(app_id, id)}>
           <FontAwesomeIcon icon={faTrash} />
         </I>
       </td>

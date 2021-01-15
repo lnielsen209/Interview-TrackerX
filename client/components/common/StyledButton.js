@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import { Theme } from '../../style/Theme';
 
 const StyledButton = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  vertical-align: middle;
   box-sizing: border-box;
   font-size: ${({ small }) => (small ? '16px' : '20px')};
   line-height: ${({ small }) => (small ? '40px' : '48px')};

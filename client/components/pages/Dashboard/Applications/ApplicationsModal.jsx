@@ -21,7 +21,7 @@ const AppModelInnerWrapper = styled(StyledModelInnerWrapper)``;
 const AppModelForm = styled(StyledModelForm)``;
 
 const H1 = styled(StyledH1)`
-  font-size: 24px;
+  font-size: 26px;
 `;
 
 const AppModelLabel = styled(StyledFormLabel)`
