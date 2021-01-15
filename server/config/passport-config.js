@@ -43,7 +43,7 @@ passport.use(
             sub,
             picture,
           } = profile._json;
-          const queryText = `INSERT INTO applicants (first_name, last_name, email, password) VALUES ($1, $2, $3, $4,$5) RETURNING *`;
+          const queryText = `INSERT INTO applicants (first_name, last_name, email, password, avatar) VALUES ($1, $2, $3, $4,$5) RETURNING *`;
           const value = [given_name, family_name, email, sub, picture];
           db.query(queryText, value, (err, data) => {
             if (err) {
