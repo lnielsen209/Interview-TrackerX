@@ -26,6 +26,7 @@ authRouter.get(`/signin`, authController.verifyAuthToken, (req, res) => {
     id: res.locals.id,
     email: res.locals.email,
     firstname: res.locals.firstname,
+    avatar: res.locals.avatar,
   });
 });
 
