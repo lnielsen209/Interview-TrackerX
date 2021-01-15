@@ -20,7 +20,7 @@ const AppModelInnerWrapper = styled(StyledModelInnerWrapper)``;
 
 const AppModelForm = styled(StyledModelForm)``;
 
-const AppH1 = styled(StyledH1)`
+const H1 = styled(StyledH1)`
   font-size: 24px;
 `;
 
@@ -44,7 +44,7 @@ const AppModelSelect = styled(StyledFormInput)`
   padding: 0px 10px;
 `;
 
-const AppDiv = styled.div`
+const Div = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -146,7 +146,7 @@ const ApplicationsModal = ({
   return (
     <AppModelOuterWrapper>
       <AppModelInnerWrapper>
-        <AppH1 center>{modalTitle[action]}</AppH1>
+        <H1 center>{modalTitle[action]}</H1>
         <AppModelForm>
           <AppModelLabel>Company</AppModelLabel>
           <AppModelInput
@@ -225,7 +225,7 @@ const ApplicationsModal = ({
             <option value="Application Rejected">Application Rejected</option>
             <option value="Not Interested">Not Interested</option>
           </AppModelSelect>
-          <AppDiv>
+          <Div>
             <AppModelButton
               secondary
               small
@@ -241,7 +241,7 @@ const ApplicationsModal = ({
             >
               Save
             </AppModelButton>
-          </AppDiv>
+          </Div>
         </AppModelForm>
       </AppModelInnerWrapper>
     </AppModelOuterWrapper>

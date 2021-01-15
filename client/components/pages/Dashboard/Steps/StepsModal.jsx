@@ -21,7 +21,7 @@ const StepsModelInnerWrapper = styled(StyledModelInnerWrapper)`
 
 const StepsModelForm = styled(StyledModelForm)``;
 
-const StepsH1 = styled(StyledH1)`
+const H1 = styled(StyledH1)`
   font-size: 24px;
 `;
 
@@ -38,7 +38,7 @@ const StepsModelInput = styled(StyledFormInput)`
   margin: 6px 0px 12px 0px;
 `;
 
-const StepsDiv = styled.div`
+const Div = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -138,7 +138,7 @@ const StepsModal = ({
   return (
     <StepsModelOuterWrapper>
       <StepsModelInnerWrapper>
-        <StepsH1 center>{modalTitle[action]}</StepsH1>
+        <H1 center>{modalTitle[action]}</H1>
         <StepsModelForm>
           <StepsModelLabel>Date </StepsModelLabel>
           <StepsModelInput
@@ -185,7 +185,7 @@ const StepsModal = ({
             onChange={(e) => setNote(e.target.value)}
             required
           />
-          <StepsDiv>
+          <Div>
             <StepsModelButton
               secondary
               small
@@ -202,7 +202,7 @@ const StepsModal = ({
             >
               Save
             </StepsModelButton>
-          </StepsDiv>
+          </Div>
         </StepsModelForm>
       </StepsModelInnerWrapper>
     </StepsModelOuterWrapper>
