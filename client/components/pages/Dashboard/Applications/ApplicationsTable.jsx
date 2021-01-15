@@ -6,6 +6,21 @@ import ApplicationsTableHeader from './ApplicationsTableHeader';
 import ApplicationsTableRows from './ApplicationsTableRows';
 import SearchBar from '../SearchBar';
 import axios from 'axios';
+import styled from 'styled-components';
+import {
+  StyledFormLabel,
+  StyledFormInput,
+  StyledFormPWDInput,
+  StyledButton,
+  StyledFormWrapper,
+  StyledH1,
+  StyledH3,
+  StyledSpinner,
+  StyledTableWrapper,
+} from '../../../common';
+
+const AppTableWrapper = styled(StyledTableWrapper)``;
+
 
 const ApplicationsTable = () => {
   const [appData, setAppData] = useState([]);
@@ -84,7 +99,7 @@ const ApplicationsTable = () => {
         updateSearchInput={updateSearchInput}
         updateCategoryInput={updateCategorySearchInput}
       />
-      <div className="applicationTable">
+      <AppTableWrapper>
         <table id="tracker">
           <ApplicationsTableHeader />
           <ApplicationsTableRows
@@ -99,7 +114,7 @@ const ApplicationsTable = () => {
           setShowModal={setShowModal}
           setUpdateState={setUpdateState}
         />
-      </div>
+      </AppTableWrapper>
     </div>
   );
 };

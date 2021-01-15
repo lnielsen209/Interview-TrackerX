@@ -5,7 +5,9 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { StyledIcon } from '../../../common';
 
-const I = styled(StyledIcon)``;
+const I = styled(StyledIcon)`
+  margin-top: 20px;
+`;
 
 const ApplicationsTableAddButton = ({
   appData,
@@ -24,7 +26,6 @@ const ApplicationsTableAddButton = ({
         />
       ) : (
         <I
-          className="addButtonApp"
           onClick={() => setShowModal({ action: 'add', id: null })}
         >
           <FontAwesomeIcon icon={faPlus} />

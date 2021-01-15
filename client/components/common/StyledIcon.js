@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import { Theme } from '../../style/Theme';
 
-
 const StyledIcon = styled.i`
   color: ${Theme.color_light};
   background-color: white;

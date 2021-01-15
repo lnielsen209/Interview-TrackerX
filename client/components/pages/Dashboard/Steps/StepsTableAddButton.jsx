@@ -28,7 +28,6 @@ const StepsTableAddButton = ({
         />
       ) : (
         <I
-          className="addButtonStep"
           onClick={() => setShowModalStep({ action: 'add', id: null })}
         >
           <FontAwesomeIcon icon={faPlus} />

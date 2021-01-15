@@ -13,8 +13,8 @@ import {
   StyledH1,
   StyledH3,
   StyledSpinner,
+  StyledTableWrapper,
 } from '../../common';
-import { Theme } from '../../../style';
 
 const H1 = styled(StyledH1)`
   margin-bottom: 8px;
@@ -28,17 +28,15 @@ const DashboardContainer = () => {
   return (
     <PageLayout>
       <H1 center>Applications Dashboard</H1>
-      <div className='tableContainer'>
+      <>
         {auth.user.id ? (
-          <>
-            <ApplicationsTable />
-          </>
+          <ApplicationsTable />
         ) : (
           <H3 light>
-            Sign in first <Link to='/signin'>here</Link>
+            Sign in first <Link to="/signin">here</Link>
           </H3>
         )}
-      </div>
+      </>
     </PageLayout>
   );
 };
