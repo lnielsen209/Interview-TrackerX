@@ -96,12 +96,7 @@ const Signin = () => {
         res.data.id,
         res.data.email,
         res.data.firstname,
-<<<<<<< HEAD
-        res.data,
-        avatar,
-=======
         res.data.avatar,
->>>>>>> main
         () => history.push('/')
       );
     } catch (error) {
@@ -143,7 +138,7 @@ const Signin = () => {
           <H1 center>Welcome Back</H1>
           <Div>
             <H3 light>New to Interview Tracker?</H3>
-            <Link to="/signup">
+            <Link to='/signup'>
               <SignupButton secondary small>
                 Sign Up
               </SignupButton>
@@ -156,7 +151,7 @@ const Signin = () => {
               <SigninLabal light>Email</SigninLabal>
               <SigninInput
                 value={username}
-                type="email"
+                type='email'
                 onChange={(e) => setUserName(e.target.value)}
                 required
               />
