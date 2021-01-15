@@ -7,6 +7,8 @@ export * from './StyledFormPWDInput';
 export * from './StyledFormWrapper';
 export * from './StyledH1';
 export * from './StyledH3';
-export * from './StyledSpinner';
 export * from './StyledIcon';
-
+export * from './StyledModelForm';
+export * from './StyledModelInnerWrapper';
+export * from './StyledModelOuterWrapper';
+export * from './StyledSpinner';

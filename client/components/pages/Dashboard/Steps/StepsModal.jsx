@@ -2,11 +2,6 @@ import React, { useState } from 'react';
 import { useAuth } from '../../../../routes/useAuth';
 import axios from 'axios';
 
-const modalTitle = {
-  add: 'Add new step',
-  edit: 'Edit step',
-};
-
 const StepsModal = ({
   setShowModalStep,
   action,
@@ -14,6 +9,11 @@ const StepsModal = ({
   appId,
   setUpdateState,
 }) => {
+  const modalTitle = {
+    add: 'Add new step',
+    edit: 'Edit step',
+  };
+
   const [date, setDate] = useState(currentStep.date || '');
   const [step_type, setStepType] = useState(currentStep.step_type || '');
   const [contact_name, setContactName] = useState(

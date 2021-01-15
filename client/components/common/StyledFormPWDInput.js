@@ -5,9 +5,6 @@ import { StyledFormInput } from './StyledFormInput';
 
 const StyledPWDInputWrapper = styled.div`
   display: flex;
-  ~ div {
-    margin-bottom: 8px;
-  }
 `;
 
 const StyledPWDInput = styled(StyledFormInput)`

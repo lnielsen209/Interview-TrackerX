@@ -6,39 +6,22 @@ import styled from 'styled-components';
 import {
   StyledFormLabel,
   StyledFormInput,
-  StyledFormPWDInput,
   StyledButton,
-  StyledFormWrapper,
   StyledH1,
-  StyledH3,
-  StyledSpinner,
+  StyledModelForm,
+  StyledModelInnerWrapper,
+  StyledModelOuterWrapper,
 } from '../../../common';
 import { Theme } from '../../../../style/Theme';
 
-const ModelOuterWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.9);
-  height: 100%;
-  z-index: 10;
-`;
+const ModelOuterWrapper = styled(StyledModelOuterWrapper)``;
 
-const ModelInnerWrapper = styled.div`
-  background: ${Theme.background};
-  width: 50%;
-  height: 90%;
-  padding: 30px;
-`;
+const ModelInnerWrapper = styled(StyledModelInnerWrapper)``;
 
-const ModelForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+const ModelForm = styled(StyledModelForm)``;
+
+const H1 = styled(StyledH1)`
+  margin-bottom: 8px;
 `;
 
 const ModelLabel = styled(StyledFormLabel)`
@@ -50,6 +33,23 @@ const ModelLabel = styled(StyledFormLabel)`
 const ModelInput = styled(StyledFormInput)`
   height: 36px;
   width: 100%;
+`;
+
+const ModelSelect = styled(StyledFormInput)`
+  height: 36px;
+  width: 100%;
+  padding: 0px 10px;
+`;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+`;
+
+const ModelButton = styled(StyledButton)`
+  background: ${Theme.background};
+  margin: 0px 10px;
 `;
 
 const ApplicationsModal = ({
@@ -144,7 +144,7 @@ const ApplicationsModal = ({
   return (
     <ModelOuterWrapper>
       <ModelInnerWrapper>
-        <h2>{modalTitle[action]}</h2>
+        <H1 center>{modalTitle[action]}</H1>
         <ModelForm>
           <ModelLabel>Company</ModelLabel>
           <ModelInput
@@ -154,16 +154,13 @@ const ApplicationsModal = ({
             required
           />
           <ModelLabel>Position</ModelLabel>
-
           <ModelInput
             type="text"
             value={job_title}
             onChange={(e) => setJobTitle(e.target.value)}
             required
           />
-
           <ModelLabel>How I applied </ModelLabel>
-
           <ModelInput
             type="text"
             placeholder="e.g. email, company website, Glassdoor,..."
@@ -172,7 +169,6 @@ const ApplicationsModal = ({
             required
           />
           <ModelLabel>Date applied </ModelLabel>
-
           <ModelInput
             type="date"
             value={date_applied.slice(0, 10)}
@@ -180,7 +176,6 @@ const ApplicationsModal = ({
             required
           />
           <ModelLabel>Location </ModelLabel>
-
           <ModelInput
             type="text"
             value={location}
@@ -188,7 +183,6 @@ const ApplicationsModal = ({
             required
           />
           <ModelLabel>URL </ModelLabel>
-
           <ModelInput
             type="text"
             value={url}
@@ -197,7 +191,6 @@ const ApplicationsModal = ({
           />
 
           <ModelLabel>Found by </ModelLabel>
-
           <ModelInput
             type="text"
             placeholder="e.g. recruiter/agency, linkedIn, Google,..."
@@ -205,9 +198,7 @@ const ApplicationsModal = ({
             onChange={(e) => setFoundBy(e.target.value)}
             required
           />
-
           <ModelLabel>Notes </ModelLabel>
-
           <ModelInput
             type="text"
             value={notes}
@@ -215,8 +206,8 @@ const ApplicationsModal = ({
             required
           />
           <ModelLabel>App Status</ModelLabel>
-
-          <select
+          <ModelSelect
+            as="select"
             value={app_status}
             onChange={(e) => setAppStatus(e.target.value)}
             required
@@ -231,23 +222,19 @@ const ApplicationsModal = ({
             <option value="Offer Rejected">Offer Rejected</option>
             <option value="Application Rejected">Application Rejected</option>
             <option value="Not Interested">Not Interested</option>
-          </select>
-          <div className="modalButtonWrapper">
-            <button
-              className="modalButton"
+          </ModelSelect>
+          <Div>
+            <ModelButton
+              secondary
+              small
               onClick={() => setShowModal({ action: null, id: null })}
             >
               Cancel
-            </button>
-
-            <button
-              type="submit"
-              className="modalButton"
-              onClick={handleSubmit}
-            >
+            </ModelButton>
+            <ModelButton secondary small type="submit" onClick={handleSubmit}>
               Save
-            </button>
-          </div>
+            </ModelButton>
+          </Div>
         </ModelForm>
       </ModelInnerWrapper>
     </ModelOuterWrapper>
