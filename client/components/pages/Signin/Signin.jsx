@@ -90,8 +90,13 @@ const Signin = () => {
       const res = await axios.post('/user/signin', { username, password });
 
       // console.log('res.data ===> ', res.data);
-      auth.signin(res.data.id, res.data.email, res.data.firstname, () =>
-        history.push('/')
+      auth.signin(
+        res.data.id,
+        res.data.email,
+        res.data.firstname,
+        res.data,
+        avatar,
+        () => history.push('/')
       );
     } catch (error) {
       if (error.response.status === 401) {
