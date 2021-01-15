@@ -9,7 +9,7 @@ const StyledFormInput = styled.input`
   vertical-align: middle;
   height: 48px;
   width: 350px;
-  border-radius: 4px;
+  border-radius: 6px;
   border: 1px solid rgba(26, 26, 26, 0.6);
   padding: 10px;
   margin: 8px 0px 16px 0px;

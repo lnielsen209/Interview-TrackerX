@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import { Theme } from '../../style/Theme';
 
 const StyledButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-sizing: border-box;
   font-size: ${({ small }) => (small ? '16px' : '20px')};
   line-height: ${({ small }) => (small ? '40px' : '48px')};
@@ -14,9 +17,9 @@ const StyledButton = styled.button`
   font-weight: 600;
   border: ${({ secondary }) =>
     secondary ? `none` : `1px solid ${Theme.secondary}`};
-  border-radius: 48px;
-  height: ${({ small }) => (small ? '46px' : '56px')};
-  width: ${({ small }) => (small ? '100px' : '350px')};
+  border-radius: 6px;
+  height: ${({ small }) => (small ? '40px' : '48px')};
+  width: ${({ small }) => (small ? '80px' : '350px')};
   margin: ${({ small }) => (small ? '12px 0px 12px 0px' : '20px 0px 20px 0px')};
   padding: auto;
   display: inline-block;

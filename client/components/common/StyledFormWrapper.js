@@ -7,7 +7,7 @@ const StyledFormWrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   background: ${Theme.secondary};
-  border-radius: 4px;
+  border-radius: 6px;
   width: 400px;
   margin: 36px;
   padding: 36px;
