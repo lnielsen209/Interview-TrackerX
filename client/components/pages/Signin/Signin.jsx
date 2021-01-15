@@ -64,8 +64,12 @@ const Signin = () => {
       const res = await axios.get(`/auth/signin`);
       console.log('res.data ==>', res.data);
 
-      auth.signin(res.data.id, res.data.email, res.data.firstname, () =>
-        history.push('/')
+      auth.signin(
+        res.data.id,
+        res.data.email,
+        res.data.firstname,
+        res.data.avatar,
+        () => history.push('/')
       );
     } catch (error) {
       // console.log('error==>', error);
@@ -73,7 +77,7 @@ const Signin = () => {
         history.push('/signin');
       }
       console.log(
-        'Error in authSign  in Signin component: ',
+        'Error in authSign in Signin component: ',
         error.response.data.err
       );
     }

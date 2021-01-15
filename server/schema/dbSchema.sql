@@ -7,7 +7,9 @@ CREATE TABLE applicants (
 	first_name varchar(255) NOT NULL,
 	last_name varchar(255) NOT NULL,
 	email varchar(255) NOT NULL UNIQUE,
-	password varchar(255) NOT NULL
+	password varchar(255) NOT NULL,
+	avatar VARCHAR(255) 
+
 );
 
 CREATE TABLE applications (

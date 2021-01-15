@@ -23,7 +23,18 @@ const MainNav = () => {
       <Link className='title' to='/'>
         Interview Tracker
       </Link>
+
       <div>{auth.user.id && <SignoutButton />}</div>
+      <div>
+        {auth.user.id && (
+          <img
+            src={auth.user.avatar}
+            alt='avatar'
+            style={{ heigh: '25px', width: '25px' }}
+          />
+        )}
+      </div>
+
       <div>
         {auth.user.id && (
           <p>
@@ -31,7 +42,18 @@ const MainNav = () => {
           </p>
         )}
       </div>
-      <div>{auth.user.email && <a href='#'>{auth.user.email} </a>}</div>
+      <div>
+        {auth.user.email && (
+          <a
+            href={`mailto:${auth.user.email}`}
+            data-toggle='tooltip'
+            title='Send an Email to yourself!'
+            style={{ color: 'black' }}
+          >
+            {auth.user.email}
+          </a>
+        )}
+      </div>
     </Nav>
   );
 };
