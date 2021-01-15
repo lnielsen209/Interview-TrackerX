@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Theme } from '../../style/Theme';
 import { StyledFormInput } from './StyledFormInput';
 
 const StyledPWDInputWrapper = styled.div`
   display: flex;
-  ~ div {
-    margin-bottom: 8px;
-  }
 `;
 
 const StyledPWDInput = styled(StyledFormInput)`
@@ -35,7 +32,7 @@ const ToggleButton = styled.div`
   border-left: 0;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   user-select: none;
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
@@ -51,12 +48,27 @@ const ToggleButton = styled.div`
 `;
 
 const StyledFormPWDInput = (props) => {
+  const [type, setType] = useState('password');
   const [showPassword, setShowPassword] = useState(false);
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    setType((type) => (type === 'password' ? 'text' : 'password'));
+    setShowPassword(!showPassword);
+    inputRef.current.focus();
+  };
+
+  useEffect(() => {
+    // Stop cursor from jumping to the beginning of input. Moving cursor to the end of input after the input node focus in handle click
+    inputRef.current.selectionStart = inputRef.current.value.length;
+    inputRef.current.selectionEnd = inputRef.current.value.length;
+  }, [type]);
+
   return (
     <>
       <StyledPWDInputWrapper>
-        <StyledPWDInput {...props} type={showPassword ? 'text' : 'password'} />
-        <ToggleButton onClick={() => setShowPassword(!showPassword)}>
+        <StyledPWDInput {...props} type={type} ref={inputRef} />
+        <ToggleButton onClick={handleClick}>
           {showPassword ? 'Hide' : 'Show'}
         </ToggleButton>
       </StyledPWDInputWrapper>

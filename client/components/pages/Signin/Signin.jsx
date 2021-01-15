@@ -11,6 +11,7 @@ import {
   StyledFormWrapper,
   StyledH1,
   StyledH3,
+  StyledSpinner,
 } from '../../common';
 import { Theme } from '../../../style/Theme';
 import OAuth from './oAuth';
@@ -47,9 +48,12 @@ const SigninButton = styled(StyledButton)``;
 const SignupButton = styled(StyledButton)``;
 
 const Signin = () => {
+  let timeoutID;
+
   // react hooks
   const [username, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const auth = useAuth();
   // console.log('auth in Signin Component', auth)
@@ -62,7 +66,7 @@ const Signin = () => {
   const oauthSignin = async () => {
     try {
       const res = await axios.get(`/auth/signin`);
-      console.log('res.data ==>', res.data);
+      // console.log('res.data ==>', res.data);
 
       auth.signin(
         res.data.id,
@@ -83,15 +87,17 @@ const Signin = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const localSignin = async () => {
     try {
       const res = await axios.post('/user/signin', { username, password });
 
       // console.log('res.data ===> ', res.data);
-      auth.signin(res.data.id, res.data.email, res.data.firstname, () =>
-        history.push('/')
+      auth.signin(
+        res.data.id,
+        res.data.email,
+        res.data.firstname,
+        res.data.avatar,
+        () => history.push('/')
       );
     } catch (error) {
       if (error.response.status === 401) {
@@ -103,6 +109,21 @@ const Signin = () => {
       );
     }
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    timeoutID = setTimeout(() => {
+      localSignin();
+    }, 2000);
+  };
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutID);
+    };
+  }, []);
 
   return (
     <PageLayout>
@@ -117,39 +138,47 @@ const Signin = () => {
           <H1 center>Welcome Back</H1>
           <Div>
             <H3 light>New to Interview Tracker?</H3>
-            <Link to='/signup'>
+            <Link to="/signup">
               <SignupButton secondary small>
                 Sign Up
               </SignupButton>
             </Link>
           </Div>
+          {loading ? (
+            <StyledSpinner />
+          ) : (
+            <>
+              <SigninLabal light>Email</SigninLabal>
+              <SigninInput
+                value={username}
+                type="email"
+                onChange={(e) => setUserName(e.target.value)}
+                required
+              />
+
+              <SigninLabal light>Password</SigninLabal>
+              <StyledFormPWDInput
+                password={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </>
+          )}
           <>
-            <SigninLabal light>Email</SigninLabal>
-            <SigninInput
-              value={username}
-              type='email'
-              onChange={(e) => setUserName(e.target.value)}
-              required
-            />
+            <SigninButton disabled={loading}>
+              {loading ? 'Loading...' : 'Sign In'}
+            </SigninButton>
           </>
           <>
-            <SigninLabal light>Password</SigninLabal>
-            <StyledFormPWDInput
-              password={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </>
-          <>
-            <SigninButton>Sign In</SigninButton>
-          </>
-          <>
-            <SigninLabal light center>
-              or
-            </SigninLabal>
-          </>
-          <>
-            <OAuth />
+            {!loading && (
+              <>
+                <SigninLabal light center>
+                  or
+                </SigninLabal>
+
+                <OAuth />
+              </>
+            )}
           </>
         </form>
       </SigninWrapper>
