@@ -89,6 +89,7 @@ const Signup = () => {
 
     timeoutID = setTimeout(() => {
       localSignup();
+      setLoading(false);
     }, 2000);
   };
 
@@ -101,11 +102,11 @@ const Signup = () => {
   return (
     <PageLayout>
       <SignupWrapper>
-        <form onSubmit={handleSubmit} id='list'>
+        <form onSubmit={handleSubmit} id="list">
           <H1 center>Create an Account</H1>
           <Div>
             <H3 light>Already have an account?</H3>
-            <Link to='/signin'>
+            <Link to="/signin">
               <SigninButton secondary small>
                 Sign In
               </SigninButton>

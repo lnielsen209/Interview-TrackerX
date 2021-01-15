@@ -13,44 +13,39 @@ import {
 } from '../../../common';
 import { Theme } from '../../../../style/Theme';
 
-const ModelOuterWrapper = styled(StyledModelOuterWrapper)``;
+const StepsModelOuterWrapper = styled(StyledModelOuterWrapper)``;
 
-const ModelInnerWrapper = styled(StyledModelInnerWrapper)`
-  height: 65%;
+const StepsModelInnerWrapper = styled(StyledModelInnerWrapper)`
+  height: 70%;
 `;
 
-const ModelForm = styled(StyledModelForm)``;
+const StepsModelForm = styled(StyledModelForm)``;
 
-const H1 = styled(StyledH1)`
-  margin-bottom: 8px;
+const StepsH1 = styled(StyledH1)`
+  font-size: 24px;
 `;
 
-const ModelLabel = styled(StyledFormLabel)`
+const StepsModelLabel = styled(StyledFormLabel)`
   color: ${Theme.primary};
   opacity: 80%;
+  font-size: 18px;
   line-height: 16px;
 `;
 
-const ModelInput = styled(StyledFormInput)`
-  height: 36px;
+const StepsModelInput = styled(StyledFormInput)`
+  height: 32px;
   width: 100%;
+  margin: 6px 0px 12px 0px;
 `;
 
-const ModelSelect = styled(StyledFormInput)`
-  height: 36px;
-  width: 100%;
-  padding: 0px 10px;
-`;
-
-const Div = styled.div`
+const StepsDiv = styled.div`
   display: flex;
   justify-content: center;
-  padding: 10px;
 `;
 
-const ModelButton = styled(StyledButton)`
+const StepsModelButton = styled(StyledButton)`
   background: ${Theme.background};
-  margin: 0px 10px;
+  margin: 0px 2px;
 `;
 
 const StepsModal = ({
@@ -141,71 +136,76 @@ const StepsModal = ({
   };
 
   return (
-    <ModelOuterWrapper>
-      <ModelInnerWrapper>
-        <H1 center>{modalTitle[action]}</H1>
-        <ModelForm>
-          <ModelLabel>Date </ModelLabel>
-          <ModelInput
+    <StepsModelOuterWrapper>
+      <StepsModelInnerWrapper>
+        <StepsH1 center>{modalTitle[action]}</StepsH1>
+        <StepsModelForm>
+          <StepsModelLabel>Date </StepsModelLabel>
+          <StepsModelInput
             type="date"
             value={date.slice(0, 10)}
             onChange={(e) => setDate(e.target.value)}
             required
           />
-          <ModelLabel>Progess </ModelLabel>
-          <ModelInput
+          <StepsModelLabel>Progess </StepsModelLabel>
+          <StepsModelInput
             type="text"
             placeholder="e.g. interview, screening, offer"
             value={step_type}
             onChange={(e) => setStepType(e.target.value)}
             required
           />
-          <ModelLabel>Contact Name </ModelLabel>
-          <ModelInput
+          <StepsModelLabel>Contact Name </StepsModelLabel>
+          <StepsModelInput
             type="text"
             value={contact_name}
             onChange={(e) => setContactName(e.target.value)}
             required
           />
-          <ModelLabel>Contact Role </ModelLabel>
-          <ModelInput
+          <StepsModelLabel>Contact Role </StepsModelLabel>
+          <StepsModelInput
             type="text"
             placeholder="e.g. HR representative, manager"
             value={contact_role}
             onChange={(e) => setContractRole(e.target.value)}
             required
           />
-          <ModelLabel>Contact </ModelLabel>
-          <ModelInput
+          <StepsModelLabel>Contact </StepsModelLabel>
+          <StepsModelInput
             type="text"
             placeholder="e.g. phone number or email"
             value={contact}
             onChange={(e) => setContact(e.target.value)}
             required
           />
-          <ModelLabel>Notes </ModelLabel>
-          <ModelInput
+          <StepsModelLabel>Notes </StepsModelLabel>
+          <StepsModelInput
             type="text"
             value={notes}
             onChange={(e) => setNote(e.target.value)}
             required
           />
-          <Div>
-            <ModelButton
+          <StepsDiv>
+            <StepsModelButton
               secondary
               small
               onClick={() => setShowModalStep({ action: null, id: null })}
             >
               Cancel
-            </ModelButton>
+            </StepsModelButton>
 
-            <ModelButton secondary small type="submit" onClick={handleSubmit}>
+            <StepsModelButton
+              secondary
+              small
+              type="submit"
+              onClick={handleSubmit}
+            >
               Save
-            </ModelButton>
-          </Div>
-        </ModelForm>
-      </ModelInnerWrapper>
-    </ModelOuterWrapper>
+            </StepsModelButton>
+          </StepsDiv>
+        </StepsModelForm>
+      </StepsModelInnerWrapper>
+    </StepsModelOuterWrapper>
   );
 };
 
