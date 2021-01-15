@@ -70,7 +70,7 @@ const Signup = () => {
         auth.signup(res.data.id, res.data.email, res.data.firstname, () =>
           history.push('/')
         );
-        // console.log('auth.user in Signup Component ===> ', auth.user);
+        console.log('auth.user in Signup Component ===> ', auth.user);
       } catch (error) {
         if (error.response.status === 401) {
           history.push('/signin');
@@ -101,11 +101,11 @@ const Signup = () => {
   return (
     <PageLayout>
       <SignupWrapper>
-        <form onSubmit={handleSubmit} id="list">
+        <form onSubmit={handleSubmit} id='list'>
           <H1 center>Create an Account</H1>
           <Div>
             <H3 light>Already have an account?</H3>
-            <Link to="/signin">
+            <Link to='/signin'>
               <SigninButton secondary small>
                 Sign In
               </SigninButton>

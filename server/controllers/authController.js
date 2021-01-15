@@ -13,6 +13,8 @@ const createToken = (id) => {
 
 authController.createAuthToken = (req, res, next) => {
   const authID = req.user.id;
+  const avatar = req;
+  console.log('avatar==>', avatar);
 
   console.log('authID===>', req.user.id);
 
@@ -64,7 +66,8 @@ authController.verifyAuthToken = async (req, res, next) => {
       res.locals.email = data.rows[0].email;
       res.locals.id = userID;
       res.locals.firstname = data.rows[0].first_name;
-      console.log('verifyTokenfirstname==>', res.locals.firstname);
+      res.locals.avatar = data.rows[0].avatar;
+      console.log('verifyTokenAvatar==>', res.locals.avatar);
       return next();
     });
   } catch (err) {
