@@ -9,12 +9,13 @@ const useProvideAuth = () => {
     email: null,
     isAuthenticated: false,
   });
-  const signin = (id, email, firstname, cb) => {
+  const signin = (id, email, firstname, avatar, cb) => {
     setUser({
       ...user,
       id,
       email,
       firstname,
+      avatar,
       isAuthenticated: true,
     });
     cb();

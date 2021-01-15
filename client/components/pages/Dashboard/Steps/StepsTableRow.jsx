@@ -29,7 +29,7 @@ const StepsTableRow = ({
         <a
           href={`mailto:${contact_info}`}
           data-toggle='tooltip'
-          title='Click me!'
+          title='Send me Email!'
           style={{ color: 'black' }}
         >
           {contact_info}
