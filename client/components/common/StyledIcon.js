@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { Theme } from '../../style/Theme';
 
-
 const StyledIcon = styled.i`
   color: ${Theme.color_light};
-  background-color: white;
+  background-color: ${Theme.secondary};
   width: 40px;
   height: 40px;
   align-items: center;
@@ -18,10 +17,11 @@ const StyledIcon = styled.i`
   overflow: hidden;
   text-align: center;
   vertical-align: middle;
-  opacity: 75%;
+  opacity: 80%;
 
   &:hover {
-    background-color: #ebebeb;
+    color: ${Theme.color};
+    background-color: ${Theme.background};
   }
 `;
 

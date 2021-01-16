@@ -13,44 +13,39 @@ import {
 } from '../../../common';
 import { Theme } from '../../../../style/Theme';
 
-const ModelOuterWrapper = styled(StyledModelOuterWrapper)``;
+const StepsModelOuterWrapper = styled(StyledModelOuterWrapper)``;
 
-const ModelInnerWrapper = styled(StyledModelInnerWrapper)`
-  height: 65%;
+const StepsModelInnerWrapper = styled(StyledModelInnerWrapper)`
+  height: 70%;
 `;
 
-const ModelForm = styled(StyledModelForm)``;
+const StepsModelForm = styled(StyledModelForm)``;
 
 const H1 = styled(StyledH1)`
-  margin-bottom: 8px;
+  font-size: 26px;
 `;
 
-const ModelLabel = styled(StyledFormLabel)`
+const StepsModelLabel = styled(StyledFormLabel)`
   color: ${Theme.primary};
   opacity: 80%;
+  font-size: 18px;
   line-height: 16px;
 `;
 
-const ModelInput = styled(StyledFormInput)`
-  height: 36px;
+const StepsModelInput = styled(StyledFormInput)`
+  height: 32px;
   width: 100%;
-`;
-
-const ModelSelect = styled(StyledFormInput)`
-  height: 36px;
-  width: 100%;
-  padding: 0px 10px;
+  margin: 6px 0px 12px 0px;
 `;
 
 const Div = styled.div`
   display: flex;
   justify-content: center;
-  padding: 10px;
 `;
 
-const ModelButton = styled(StyledButton)`
+const StepsModelButton = styled(StyledButton)`
   background: ${Theme.background};
-  margin: 0px 10px;
+  margin: 0px 2px;
 `;
 
 const StepsModal = ({
@@ -73,7 +68,7 @@ const StepsModal = ({
   const [contact_role, setContractRole] = useState(
     currentStep.contact_role || ''
   );
-  const [contact, setContact] = useState(currentStep.contact || '');
+  const [contact_info, setContact] = useState(currentStep.contact_info || '');
   const [notes, setNote] = useState(currentStep.notes || '');
 
   const auth = useAuth();
@@ -129,7 +124,7 @@ const StepsModal = ({
       step_type,
       contact_name,
       contact_role,
-      contact,
+      contact_info,
       notes,
     };
 
@@ -141,71 +136,76 @@ const StepsModal = ({
   };
 
   return (
-    <ModelOuterWrapper>
-      <ModelInnerWrapper>
+    <StepsModelOuterWrapper>
+      <StepsModelInnerWrapper>
         <H1 center>{modalTitle[action]}</H1>
-        <ModelForm>
-          <ModelLabel>Date </ModelLabel>
-          <ModelInput
-            type="date"
+        <StepsModelForm>
+          <StepsModelLabel>Date </StepsModelLabel>
+          <StepsModelInput
+            type='date'
             value={date.slice(0, 10)}
             onChange={(e) => setDate(e.target.value)}
             required
           />
-          <ModelLabel>Progess </ModelLabel>
-          <ModelInput
-            type="text"
-            placeholder="e.g. interview, screening, offer"
+          <StepsModelLabel>Progess</StepsModelLabel>
+          <StepsModelInput
+            type='text'
+            placeholder='e.g. interview, screening, offer'
             value={step_type}
             onChange={(e) => setStepType(e.target.value)}
             required
           />
-          <ModelLabel>Contact Name </ModelLabel>
-          <ModelInput
-            type="text"
+          <StepsModelLabel>Contact Name</StepsModelLabel>
+          <StepsModelInput
+            type='text'
             value={contact_name}
             onChange={(e) => setContactName(e.target.value)}
             required
           />
-          <ModelLabel>Contact Role </ModelLabel>
-          <ModelInput
-            type="text"
-            placeholder="e.g. HR representative, manager"
+          <StepsModelLabel>Contact Role</StepsModelLabel>
+          <StepsModelInput
+            type='text'
+            placeholder='e.g. HR representative, manager'
             value={contact_role}
             onChange={(e) => setContractRole(e.target.value)}
             required
           />
-          <ModelLabel>Contact </ModelLabel>
-          <ModelInput
-            type="text"
-            placeholder="e.g. phone number or email"
-            value={contact}
+          <StepsModelLabel>Email</StepsModelLabel>
+          <StepsModelInput
+            type='text'
+            placeholder='e.g. phone number or email'
+            value={contact_info}
             onChange={(e) => setContact(e.target.value)}
             required
           />
-          <ModelLabel>Notes </ModelLabel>
-          <ModelInput
-            type="text"
+          <StepsModelLabel>Notes</StepsModelLabel>
+          <StepsModelInput
+            type='text'
             value={notes}
             onChange={(e) => setNote(e.target.value)}
             required
           />
           <Div>
-            <ModelButton
+            <StepsModelButton
               secondary
               small
               onClick={() => setShowModalStep({ action: null, id: null })}
             >
               Cancel
-            </ModelButton>
+            </StepsModelButton>
 
-            <ModelButton secondary small type="submit" onClick={handleSubmit}>
+            <StepsModelButton
+              secondary
+              small
+              type='submit'
+              onClick={handleSubmit}
+            >
               Save
-            </ModelButton>
+            </StepsModelButton>
           </Div>
-        </ModelForm>
-      </ModelInnerWrapper>
-    </ModelOuterWrapper>
+        </StepsModelForm>
+      </StepsModelInnerWrapper>
+    </StepsModelOuterWrapper>
   );
 };
 

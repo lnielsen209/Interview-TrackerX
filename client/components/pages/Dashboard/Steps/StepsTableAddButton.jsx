@@ -5,7 +5,9 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import { StyledIcon } from '../../../common';
 
-const I = styled(StyledIcon)``;
+const I = styled(StyledIcon)`
+  opacity: 80%;
+`;
 
 const StepsTableAddButton = ({
   stepData,
@@ -28,7 +30,6 @@ const StepsTableAddButton = ({
         />
       ) : (
         <I
-          className="addButtonStep"
           onClick={() => setShowModalStep({ action: 'add', id: null })}
         >
           <FontAwesomeIcon icon={faPlus} />

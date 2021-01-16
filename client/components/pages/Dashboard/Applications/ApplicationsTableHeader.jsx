@@ -1,4 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
+import {
+  StyledTd,
+  StyledTh,
+  StyledTr,
+} from '../../../common';
+
+const AppTh = styled(StyledTh)``;
+const AppTr = styled(StyledTr)`
+  .hide-ID-col {
+    display: none;
+  }
+`;
 
 const ApplicationsTableHeader = () => {
   const headerElement = [
@@ -22,16 +35,16 @@ const ApplicationsTableHeader = () => {
       key === 'Notes'
     ) {
       return (
-        <th key={idx} className="low-priority-col">
+        <AppTh key={idx} className="low-priority-col">
           {key}
-        </th>
+        </AppTh>
       );
-    } else return <th key={idx}>{key}</th>;
+    } else return <AppTh key={idx}>{key}</AppTh>;
   });
 
   return (
     <thead>
-      <tr>{tableHeader}</tr>
+      <AppTr>{tableHeader}</AppTr>
     </thead>
   );
 };

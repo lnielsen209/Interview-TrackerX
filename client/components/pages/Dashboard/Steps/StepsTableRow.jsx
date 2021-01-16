@@ -2,9 +2,15 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
-import { StyledIcon } from '../../../common';
+import {
+  StyledIcon,
+  StyledTd,
+  StyledTr,
+} from '../../../common';
 
 const I = styled(StyledIcon)``;
+const StepsTd = styled(StyledTd)``;
+const StepsTr = styled(StyledTr)``;
 
 const StepsTableRow = ({
   idx,
@@ -24,34 +30,31 @@ const StepsTableRow = ({
   } = stepsTableRow;
 
   return (
-    <tr className='stepsTa'>
-      <td>{new Date(date).toLocaleDateString('en-US')}</td>
-      <td>{step_type}</td>
-      <td>{contact_name}</td>
-      <td>{contact_role}</td>
-      <td>
+    <StepsTr>
+      <StepsTd>{new Date(date).toLocaleDateString('en-US')}</StepsTd>
+      <StepsTd>{step_type}</StepsTd>
+      <StepsTd>{contact_name}</StepsTd>
+      <StepsTd>{contact_role}</StepsTd>
+      <StepsTd>
         <a
           href={`mailto:${contact_info}`}
-          data-toggle='tooltip'
-          title='Send me Email!'
+          data-toggle="tooltip"
+          title="Send me Email!"
           style={{ color: 'black' }}
         >
           {contact_info}
         </a>
-      </td>
-      <td>{notes}</td>
-      <td className="operation">
-        <I
-          className="deleteButton"
-          onClick={() => setShowModalStep({ action: 'edit', id: idx })}
-        >
+      </StepsTd>
+      <StepsTd>{notes}</StepsTd>
+      <StepsTd>
+        <I onClick={() => setShowModalStep({ action: 'edit', id: idx })}>
           <FontAwesomeIcon icon={faPen} />
         </I>
-        <I className="button" onClick={() => removeStep(app_id, id)}>
+        <I onClick={() => removeStep(app_id, id)}>
           <FontAwesomeIcon icon={faTrash} />
         </I>
-      </td>
-    </tr>
+      </StepsTd>
+    </StepsTr>
   );
 };
 

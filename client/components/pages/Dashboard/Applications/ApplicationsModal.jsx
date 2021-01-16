@@ -14,42 +14,44 @@ import {
 } from '../../../common';
 import { Theme } from '../../../../style/Theme';
 
-const ModelOuterWrapper = styled(StyledModelOuterWrapper)``;
+const AppModelOuterWrapper = styled(StyledModelOuterWrapper)``;
 
-const ModelInnerWrapper = styled(StyledModelInnerWrapper)``;
+const AppModelInnerWrapper = styled(StyledModelInnerWrapper)``;
 
-const ModelForm = styled(StyledModelForm)``;
+const AppModelForm = styled(StyledModelForm)``;
 
 const H1 = styled(StyledH1)`
-  margin-bottom: 8px;
+  font-size: 26px;
 `;
 
-const ModelLabel = styled(StyledFormLabel)`
+const AppModelLabel = styled(StyledFormLabel)`
   color: ${Theme.primary};
   opacity: 80%;
+  font-size: 18px;
   line-height: 16px;
 `;
 
-const ModelInput = styled(StyledFormInput)`
-  height: 36px;
+const AppModelInput = styled(StyledFormInput)`
+  height: 32px;
   width: 100%;
+  margin: 6px 0px 12px 0px;
 `;
 
-const ModelSelect = styled(StyledFormInput)`
-  height: 36px;
+const AppModelSelect = styled(StyledFormInput)`
+  height: 30px;
   width: 100%;
+  margin: 6px 0px 12px 0px;
   padding: 0px 10px;
 `;
 
 const Div = styled.div`
   display: flex;
   justify-content: center;
-  padding: 10px;
 `;
 
-const ModelButton = styled(StyledButton)`
+const AppModelButton = styled(StyledButton)`
   background: ${Theme.background};
-  margin: 0px 10px;
+  margin: 0px 2px;
 `;
 
 const ApplicationsModal = ({
@@ -73,7 +75,9 @@ const ApplicationsModal = ({
   const [url, setUrl] = useState(currentApp.url || '');
   const [found_by, setFoundBy] = useState(currentApp.found_by || '');
   const [notes, setNotes] = useState(currentApp.notes || '');
-  const [app_status, setAppStatus] = useState(currentApp.app_status || '');
+  const [app_status, setAppStatus] = useState(
+    currentApp.app_status || 'Not Applied'
+  );
 
   const auth = useAuth();
   const history = useHistory();
@@ -142,102 +146,107 @@ const ApplicationsModal = ({
 
   // console.log('currentapp ===> ', currentApp);
   return (
-    <ModelOuterWrapper>
-      <ModelInnerWrapper>
+    <AppModelOuterWrapper>
+      <AppModelInnerWrapper>
         <H1 center>{modalTitle[action]}</H1>
-        <ModelForm>
-          <ModelLabel>Company</ModelLabel>
-          <ModelInput
-            type="text"
+        <AppModelForm>
+          <AppModelLabel>Company</AppModelLabel>
+          <AppModelInput
+            type='text'
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             required
           />
-          <ModelLabel>Position</ModelLabel>
-          <ModelInput
-            type="text"
+          <AppModelLabel>Position</AppModelLabel>
+          <AppModelInput
+            type='text'
             value={job_title}
             onChange={(e) => setJobTitle(e.target.value)}
             required
           />
-          <ModelLabel>How I applied </ModelLabel>
-          <ModelInput
-            type="text"
-            placeholder="e.g. email, company website, Glassdoor,..."
+          <AppModelLabel>How I applied </AppModelLabel>
+          <AppModelInput
+            type='text'
+            placeholder='e.g. email, company website, Glassdoor,...'
             value={how_applied}
             onChange={(e) => setHowApplied(e.target.value)}
             required
           />
-          <ModelLabel>Date applied </ModelLabel>
-          <ModelInput
-            type="date"
+          <AppModelLabel>Date applied </AppModelLabel>
+          <AppModelInput
+            type='date'
             value={date_applied.slice(0, 10)}
             onChange={(e) => setDateApplied(e.target.value)}
             required
           />
-          <ModelLabel>Location </ModelLabel>
-          <ModelInput
-            type="text"
+          <AppModelLabel>Location </AppModelLabel>
+          <AppModelInput
+            type='text'
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
           />
-          <ModelLabel>URL </ModelLabel>
-          <ModelInput
-            type="text"
+          <AppModelLabel>URL </AppModelLabel>
+          <AppModelInput
+            type='text'
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             required
           />
 
-          <ModelLabel>Found by </ModelLabel>
-          <ModelInput
-            type="text"
-            placeholder="e.g. recruiter/agency, linkedIn, Google,..."
+          <AppModelLabel>Found by </AppModelLabel>
+          <AppModelInput
+            type='text'
+            placeholder='e.g. recruiter/agency, linkedIn, Google,...'
             value={found_by}
             onChange={(e) => setFoundBy(e.target.value)}
             required
           />
-          <ModelLabel>Notes </ModelLabel>
-          <ModelInput
-            type="text"
+          <AppModelLabel>Notes </AppModelLabel>
+          <AppModelInput
+            type='text'
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             required
           />
-          <ModelLabel>App Status</ModelLabel>
-          <ModelSelect
-            as="select"
+          <AppModelLabel>App Status</AppModelLabel>
+          <AppModelSelect
+            as='select'
             value={app_status}
             onChange={(e) => setAppStatus(e.target.value)}
             required
           >
-            <option value="Not Applied">Not Applied</option>
-            <option value="Applied">Applied</option>
-            <option value="Phone Screening">Phone Screening</option>
-            <option value="Technical Interview">Technical Interview</option>
-            <option value="Interviewing">Interviewing</option>
-            <option value="Offer Received">Offer Received</option>
-            <option value="Offer Accepted">Offer Accepted</option>
-            <option value="Offer Rejected">Offer Rejected</option>
-            <option value="Application Rejected">Application Rejected</option>
-            <option value="Not Interested">Not Interested</option>
-          </ModelSelect>
+            <option value='Not Applied'>Not Applied</option>
+            <option value='Applied'>Applied</option>
+            <option value='Phone Screening'>Phone Screening</option>
+            <option value='Technical Interview'>Technical Interview</option>
+            <option value='Interviewing'>Interviewing</option>
+            <option value='Offer Received'>Offer Received</option>
+            <option value='Offer Accepted'>Offer Accepted</option>
+            <option value='Offer Rejected'>Offer Rejected</option>
+            <option value='Application Rejected'>Application Rejected</option>
+            <option value='Not Interested'>Not Interested</option>
+          </AppModelSelect>
           <Div>
-            <ModelButton
+            <AppModelButton
               secondary
               small
               onClick={() => setShowModal({ action: null, id: null })}
             >
               Cancel
-            </ModelButton>
-            <ModelButton secondary small type="submit" onClick={handleSubmit}>
+            </AppModelButton>
+            <AppModelButton
+              secondary
+              small
+              type='submit'
+              onClick={handleSubmit}
+            >
               Save
-            </ModelButton>
+            </AppModelButton>
           </Div>
-        </ModelForm>
-      </ModelInnerWrapper>
-    </ModelOuterWrapper>
+        </AppModelForm>
+      </AppModelInnerWrapper>
+    </AppModelOuterWrapper>
   );
 };
 

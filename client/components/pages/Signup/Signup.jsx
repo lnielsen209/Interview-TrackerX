@@ -81,6 +81,7 @@ const Signup = () => {
       } catch (error) {
         if (error.response.status === 401) {
           history.push('/signin');
+          setLoading(false);
         }
         console.log(
           'Error in handleSubmit of Signup component:',
@@ -102,6 +103,7 @@ const Signup = () => {
   useEffect(() => {
     return () => {
       clearTimeout(timeoutID);
+      setLoading(false);
     };
   }, []);
 
@@ -124,11 +126,11 @@ const Signup = () => {
   return (
     <PageLayout>
       <SignupWrapper>
-        <form onSubmit={handleSubmit} id='list'>
+        <form onSubmit={handleSubmit} id="list">
           <H1 center>Create an Account</H1>
           <Div>
             <H3 light>Already have an account?</H3>
-            <Link to='/signin'>
+            <Link to="/signin">
               <SigninButton secondary small>
                 Sign In
               </SigninButton>
