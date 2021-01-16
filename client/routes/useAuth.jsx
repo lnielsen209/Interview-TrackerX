@@ -23,12 +23,13 @@ const useProvideAuth = () => {
     cb();
   };
 
-  const signup = (id, email, firstname, cb) => {
+  const signup = (id, email, firstname, avatar, cb) => {
     setUser({
       ...user,
       id,
       email,
       firstname,
+      avatar,
       isAuthenticated: true,
     });
     cb();

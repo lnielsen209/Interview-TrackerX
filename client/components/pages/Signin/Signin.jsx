@@ -140,7 +140,7 @@ const Signin = () => {
           <H1 center>Welcome Back!</H1>
           <Div>
             <H3 light>Don't have an account?</H3>
-            <Link to="/signup">
+            <Link to='/signup'>
               <SignupButton secondary small>
                 Sign Up
               </SignupButton>
@@ -153,7 +153,7 @@ const Signin = () => {
               <SigninLabal light>Email</SigninLabal>
               <SigninInput
                 value={username}
-                type="email"
+                type='email'
                 onChange={(e) => setUserName(e.target.value)}
                 required
               />

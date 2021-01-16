@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  StyledTh,
-  StyledTr,
-} from '../../../common';
+import { StyledTh, StyledTr } from '../../../common';
 
 const StepsTh = styled(StyledTh)``;
 const StepsTr = styled(StyledTr)``;
@@ -14,7 +11,7 @@ const StepsTableHeader = () => {
     'Progress',
     'Contact Name',
     'Contact Role',
-    'Contact Method',
+    'Email',
     'Notes',
     'Modify',
   ];

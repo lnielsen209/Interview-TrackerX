@@ -28,7 +28,11 @@ const MainNav = () => {
       <div>
         {auth.user.id && (
           <img
-            src={auth.user.avatar}
+            src={
+              auth.user.avatar.includes('http')
+                ? auth.user.avatar
+                : `/avatarImages/${auth.user.avatar}`
+            }
             alt='avatar'
             style={{ heigh: '25px', width: '25px' }}
           />

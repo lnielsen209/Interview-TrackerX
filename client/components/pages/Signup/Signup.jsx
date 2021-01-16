@@ -49,6 +49,7 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [selectedAvatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const auth = useAuth();
@@ -60,15 +61,21 @@ const Signup = () => {
       alert('password does not match');
     } else {
       try {
+        console.log('selectedAvatar==>', selectedAvatar);
         const res = await axios.post('/user/signup', {
           first_name,
           last_name,
           email,
           password,
+          selectedAvatar,
         });
         // console.log('res.data ===> ', res.data);
-        auth.signup(res.data.id, res.data.email, res.data.firstname, () =>
-          history.push('/')
+        auth.signup(
+          res.data.id,
+          res.data.email,
+          res.data.firstname,
+          res.data.avatar,
+          () => history.push('/')
         );
         console.log('auth.user in Signup Component ===> ', auth.user);
       } catch (error) {
@@ -100,6 +107,22 @@ const Signup = () => {
     };
   }, []);
 
+  const avatarChangeHandler = (e) => {
+    console.log('fileuploaded===>', e.target.files[0]);
+    setAvatar(e.target.files[0]);
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    console.log('formData==>', data);
+    data.append('file', selectedAvatar);
+    const res = await axios.post('/user/upload', data);
+
+    console.log('uploadimageres==>', res.data.filename);
+    setAvatar(res.data.filename);
+  };
+
   return (
     <PageLayout>
       <SignupWrapper>
@@ -119,8 +142,8 @@ const Signup = () => {
             <>
               <SignupLabal light>First Name</SignupLabal>
               <SignupInput
-                className="inputSignUp"
-                type="text"
+                className='inputSignUp'
+                type='text'
                 value={first_name}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -128,8 +151,8 @@ const Signup = () => {
 
               <SignupLabal light>Last Name</SignupLabal>
               <SignupInput
-                className="inputSignUp"
-                type="text"
+                className='inputSignUp'
+                type='text'
                 value={last_name}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -137,8 +160,8 @@ const Signup = () => {
 
               <SignupLabal light>Email Address</SignupLabal>
               <SignupInput
-                className="inputSignUp"
-                type="email"
+                className='inputSignUp'
+                type='email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -146,7 +169,7 @@ const Signup = () => {
 
               <SignupLabal light>Password</SignupLabal>
               <StyledFormPWDInput
-                className="inputSignUp"
+                className='inputSignUp'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -154,11 +177,20 @@ const Signup = () => {
 
               <SignupLabal light>Re-enter password</SignupLabal>
               <StyledFormPWDInput
-                className="inputSignUp"
+                className='inputSignUp'
                 value={password2}
                 onChange={(e) => setPassword2(e.target.value)}
                 required
               />
+              <SignupLabal light>Avatar</SignupLabal>
+              <SignupInput
+                className='inputSignUp'
+                type='file'
+                name='avatar'
+                onChange={avatarChangeHandler}
+                required
+              />
+              <button onClick={handleClick}>upload</button>
             </>
           )}
           <SignupButton disabled={loading}>
