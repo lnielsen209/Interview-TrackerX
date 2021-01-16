@@ -5,7 +5,8 @@ const userController = {};
 
 userController.createUser = async (req, res, next) => {
   try {
-    const { first_name, last_name, email, password } = req.body;
+    const { first_name, last_name, email, password, selectedAvatar } = req.body;
+    console.log('avatar==>', selectedAvatar);
 
     if (!first_name || !last_name || !email || !password)
       return res.sendStatus(401);
@@ -14,13 +15,21 @@ userController.createUser = async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const createUserText =
-      'INSERT INTO applicants (first_name, last_name, email, password) VALUES ($1, $2, $3, $4) RETURNING *';
-    const createUserVals = [first_name, last_name, email, hashedPassword];
+      'INSERT INTO applicants (first_name, last_name, email, password, avatar) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+    const createUserVals = [
+      first_name,
+      last_name,
+      email,
+      hashedPassword,
+      selectedAvatar,
+    ];
     const data = await db.query(createUserText, createUserVals);
+    console.log(data.rows[0]);
     res.locals.id = data.rows[0].id;
     res.locals.email = data.rows[0].email;
     res.locals.firstname = data.rows[0].first_name;
-    console.log('createfirstname==>', res.locals.firstname);
+    res.locals.avatar = data.rows[0].avatar;
+    console.log('avatarfilename==>', res.locals.avatar);
 
     return next();
   } catch (err) {

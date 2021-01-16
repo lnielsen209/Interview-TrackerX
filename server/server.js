@@ -4,6 +4,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const cookieSession = require('cookie-session');
 require('dotenv').config();
+const multer = require('multer');
 
 const app = express();
 const userRouter = require('./routes/users');
