@@ -2,16 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 import styled from 'styled-components';
-import {
-  StyledFormLabel,
-  StyledFormInput,
-  StyledButton,
-  StyledH1,
-  StyledIcon,
-  StyledModelForm,
-  StyledModelInnerWrapper,
-  StyledModelOuterWrapper,
-} from '../../common';
+import { StyledButton, StyledIcon } from '../../common';
 import { Theme } from '../../../style/Theme';
 
 const GoogleButton = styled(StyledButton)`
