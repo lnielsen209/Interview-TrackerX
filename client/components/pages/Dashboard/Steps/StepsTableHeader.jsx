@@ -1,4 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
+import {
+  StyledTh,
+  StyledTr,
+} from '../../../common';
+
+const StepsTh = styled(StyledTh)``;
+const StepsTr = styled(StyledTr)``;
 
 const StepsTableHeader = () => {
   const headerElement = [
@@ -11,11 +19,13 @@ const StepsTableHeader = () => {
     'Modify',
   ];
 
-  const tableHeader = headerElement.map((key, idx) => <th key={idx}>{key}</th>);
+  const tableHeader = headerElement.map((key, idx) => (
+    <StepsTh key={idx}>{key}</StepsTh>
+  ));
 
   return (
     <thead>
-      <tr>{tableHeader}</tr>
+      <StepsTr>{tableHeader}</StepsTr>
     </thead>
   );
 };

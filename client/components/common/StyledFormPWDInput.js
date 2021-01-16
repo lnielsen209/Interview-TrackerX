@@ -23,8 +23,8 @@ const ToggleButton = styled.div`
   vertical-align: middle;
   height: 48px;
   width: 350px;
-  border-radius: 4px;
-  border: 1px solid ${Theme.color};
+  border-radius: 6px;
+  border: 1px solid rgba(26, 26, 26, 0.3);
   padding: 10px;
   margin: 8px 0px 16px 0px;
   width: 20%;
@@ -39,6 +39,7 @@ const ToggleButton = styled.div`
   transition-duration: 0.167s;
 
   &:hover {
+    background-color: ${Theme.background};
     box-shadow: rgb(200, 200, 200) 0px 0px 0px 1px inset;
   }
 

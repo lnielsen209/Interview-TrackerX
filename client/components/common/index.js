@@ -12,3 +12,8 @@ export * from './StyledModelForm';
 export * from './StyledModelInnerWrapper';
 export * from './StyledModelOuterWrapper';
 export * from './StyledSpinner';
+export * from './StyledTable';
+export * from './StyledTableWrapper';
+export * from './StyledTd';
+export * from './StyledTh';
+export * from './StyledTr';

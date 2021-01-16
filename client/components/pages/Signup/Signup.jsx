@@ -74,6 +74,7 @@ const Signup = () => {
       } catch (error) {
         if (error.response.status === 401) {
           history.push('/signin');
+          setLoading(false);
         }
         console.log(
           'Error in handleSubmit of Signup component:',
@@ -89,13 +90,13 @@ const Signup = () => {
 
     timeoutID = setTimeout(() => {
       localSignup();
-      setLoading(false);
     }, 2000);
   };
 
   useEffect(() => {
     return () => {
       clearTimeout(timeoutID);
+      setLoading(false);
     };
   }, []);
 

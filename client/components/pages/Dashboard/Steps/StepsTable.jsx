@@ -5,6 +5,13 @@ import StepsTableAddButton from './StepsTableAddButton';
 import StepsTableHeader from './StepsTableHeader';
 import StepsTableRows from './StepsTableRows';
 import axios from 'axios';
+import styled from 'styled-components';
+import { StyledTable, StyledTableWrapper } from '../../../common';
+
+const StepsTableWrapper = styled(StyledTableWrapper)``;
+const StepTable = styled(StyledTable)`
+  margin: 0px;
+`;
 
 const StepsTable = ({ app }) => {
   // react hooks
@@ -63,15 +70,15 @@ const StepsTable = ({ app }) => {
   };
 
   return (
-    <div className="tableContainer">
-      <table id="stepsTracker">
+    <StepsTableWrapper>
+      <StepTable>
         <StepsTableHeader />
         <StepsTableRows
           stepData={stepData}
           setShowModalStep={setShowModalStep}
           removeStep={removeStep}
         />
-      </table>
+      </StepTable>
       <StepsTableAddButton
         stepData={stepData}
         setUpdateState={setUpdateState}
@@ -79,7 +86,7 @@ const StepsTable = ({ app }) => {
         setShowModalStep={setShowModalStep}
         app={app}
       />
-    </div>
+    </StepsTableWrapper>
   );
 };
 

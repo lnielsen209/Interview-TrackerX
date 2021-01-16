@@ -20,8 +20,8 @@ const AppModelInnerWrapper = styled(StyledModelInnerWrapper)``;
 
 const AppModelForm = styled(StyledModelForm)``;
 
-const AppH1 = styled(StyledH1)`
-  font-size: 24px;
+const H1 = styled(StyledH1)`
+  font-size: 26px;
 `;
 
 const AppModelLabel = styled(StyledFormLabel)`
@@ -44,7 +44,7 @@ const AppModelSelect = styled(StyledFormInput)`
   padding: 0px 10px;
 `;
 
-const AppDiv = styled.div`
+const Div = styled.div`
   display: flex;
   justify-content: center;
 `;
@@ -75,7 +75,9 @@ const ApplicationsModal = ({
   const [url, setUrl] = useState(currentApp.url || '');
   const [found_by, setFoundBy] = useState(currentApp.found_by || '');
   const [notes, setNotes] = useState(currentApp.notes || '');
-  const [app_status, setAppStatus] = useState(currentApp.app_status || '');
+  const [app_status, setAppStatus] = useState(
+    currentApp.app_status || 'Not Applied'
+  );
 
   const auth = useAuth();
   const history = useHistory();
@@ -146,7 +148,7 @@ const ApplicationsModal = ({
   return (
     <AppModelOuterWrapper>
       <AppModelInnerWrapper>
-        <AppH1 center>{modalTitle[action]}</AppH1>
+        <H1 center>{modalTitle[action]}</H1>
         <AppModelForm>
           <AppModelLabel>Company</AppModelLabel>
           <AppModelInput
@@ -225,7 +227,7 @@ const ApplicationsModal = ({
             <option value="Application Rejected">Application Rejected</option>
             <option value="Not Interested">Not Interested</option>
           </AppModelSelect>
-          <AppDiv>
+          <Div>
             <AppModelButton
               secondary
               small
@@ -241,7 +243,7 @@ const ApplicationsModal = ({
             >
               Save
             </AppModelButton>
-          </AppDiv>
+          </Div>
         </AppModelForm>
       </AppModelInnerWrapper>
     </AppModelOuterWrapper>
