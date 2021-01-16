@@ -26,15 +26,13 @@ const MainNav = () => {
 
       <div>{auth.user.id && <SignoutButton />}</div>
       <div>
-        {auth.user.id && auth.user.avatar.includes('http') ? (
+        {auth.user.id && (
           <img
-            src={auth.user.avatar}
-            alt='avatar'
-            style={{ heigh: '25px', width: '25px' }}
-          />
-        ) : (
-          <img
-            src={`/avatarImages/${auth.user.avatar}`}
+            src={
+              auth.user.avatar.includes('http')
+                ? auth.user.avatar
+                : `/avatarImages/${auth.user.avatar}`
+            }
             alt='avatar'
             style={{ heigh: '25px', width: '25px' }}
           />

@@ -67,7 +67,9 @@ userController.verifyUser = async (req, res, next) => {
     res.locals.id = data.rows[0].id; //=>userid
     res.locals.email = data.rows[0].email; //=>email
     res.locals.firstname = data.rows[0].first_name;
-    console.log('verifyfirstname==>', res.locals.firstname);
+    console.log('verifyuserAvatar==>', data.rows[0]);
+    res.locals.avatar = data.rows[0].avatar;
+
     return next();
   } catch (err) {
     return next({

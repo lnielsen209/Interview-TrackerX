@@ -61,6 +61,7 @@ userRouter.post(
       id: res.locals.id,
       email: res.locals.email,
       firstname: res.locals.firstname,
+      avatar: res.locals.avatar,
     });
   }
 );
