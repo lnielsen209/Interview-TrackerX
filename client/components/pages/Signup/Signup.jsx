@@ -47,9 +47,33 @@ const StyledAvatarInputWrapper = styled.div`
 `;
 
 const StyledAvatarInput = styled(StyledFormInput)`
+  color: #666666;
   width: 80%;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+
+  ::-webkit-file-upload-button {
+    background: ${Theme.secondary};
+    color: ${Theme.color};
+    opacity: 75%;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 6px;
+    border: 1px solid rgba(26, 26, 26, 0.3);
+
+    &:hover {
+      background-color: ${Theme.background};
+      box-shadow: rgb(200, 200, 200) 0px 0px 0px 1px inset;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
 `;
 
 const UploadButton = styled.div`
@@ -64,7 +88,7 @@ const UploadButton = styled.div`
   width: 350px;
   border-radius: 6px;
   border: 1px solid rgba(26, 26, 26, 0.3);
-  padding: 10px;
+  padding: 10px 5px;
   margin: 8px 0px 16px 0px;
   width: 20%;
   box-sizing: border-box;
@@ -189,7 +213,6 @@ const Signup = () => {
             <>
               <SignupLabal light>First Name</SignupLabal>
               <SignupInput
-                className="inputSignUp"
                 type="text"
                 value={first_name}
                 onChange={(e) => setFirstName(e.target.value)}
@@ -198,7 +221,6 @@ const Signup = () => {
 
               <SignupLabal light>Last Name</SignupLabal>
               <SignupInput
-                className="inputSignUp"
                 type="text"
                 value={last_name}
                 onChange={(e) => setLastName(e.target.value)}
@@ -207,7 +229,6 @@ const Signup = () => {
 
               <SignupLabal light>Email Address</SignupLabal>
               <SignupInput
-                className="inputSignUp"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -216,7 +237,6 @@ const Signup = () => {
 
               <SignupLabal light>Password</SignupLabal>
               <StyledFormPWDInput
-                className="inputSignUp"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -224,7 +244,6 @@ const Signup = () => {
 
               <SignupLabal light>Re-enter password</SignupLabal>
               <StyledFormPWDInput
-                className="inputSignUp"
                 value={password2}
                 onChange={(e) => setPassword2(e.target.value)}
                 required
@@ -232,7 +251,6 @@ const Signup = () => {
               <SignupLabal light>Avatar</SignupLabal>
               <StyledAvatarInputWrapper>
                 <StyledAvatarInput
-                  className="inputSignUp"
                   type="file"
                   name="avatar"
                   onChange={avatarChangeHandler}
