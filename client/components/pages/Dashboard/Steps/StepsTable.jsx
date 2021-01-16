@@ -6,21 +6,7 @@ import StepsTableHeader from './StepsTableHeader';
 import StepsTableRows from './StepsTableRows';
 import axios from 'axios';
 import styled from 'styled-components';
-import {
-  StyledFormLabel,
-  StyledFormInput,
-  StyledFormPWDInput,
-  StyledButton,
-  StyledFormWrapper,
-  StyledH1,
-  StyledH3,
-  StyledSpinner,
-  StyledTable,
-  StyledTableWrapper,
-  StyledTd,
-  StyledTh,
-  StyledTr,
-} from '../../../common';
+import { StyledTable, StyledTableWrapper } from '../../../common';
 
 const StepsTableWrapper = styled(StyledTableWrapper)``;
 const StepTable = styled(StyledTable)`

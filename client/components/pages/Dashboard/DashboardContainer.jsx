@@ -5,15 +5,8 @@ import ApplicationsTable from './Applications/ApplicationsTable';
 import PageLayout from '../../common/PageLayout';
 import styled from 'styled-components';
 import {
-  StyledFormLabel,
-  StyledFormInput,
-  StyledFormPWDInput,
-  StyledButton,
-  StyledFormWrapper,
   StyledH1,
   StyledH3,
-  StyledSpinner,
-  StyledTableWrapper,
 } from '../../common';
 
 const H1 = styled(StyledH1)`
@@ -30,7 +23,7 @@ const DashboardContainer = () => {
       <H1 center>Applications Dashboard</H1>
       <>
         {auth.user.id ? (
-          <ApplicationsTable />
+          <ApplicationsTable className="applicationTable"/>
         ) : (
           <H3 light>
             Sign in first <Link to="/signin">here</Link>

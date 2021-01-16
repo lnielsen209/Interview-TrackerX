@@ -1,26 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-  StyledFormLabel,
-  StyledFormInput,
-  StyledFormPWDInput,
-  StyledButton,
-  StyledFormWrapper,
-  StyledH1,
-  StyledH3,
-  StyledIcon,
-  StyledSpinner,
-  StyledTable,
-  StyledTableWrapper,
-  StyledTd,
   StyledTh,
   StyledTr,
 } from '../../../common';
 
-const StepsTd = styled(StyledTd)``;
-const StepsTh = styled(StyledTh)`
-  opacity: 1;
-`;
+const StepsTh = styled(StyledTh)``;
 const StepsTr = styled(StyledTr)``;
 
 const StepsTableHeader = () => {

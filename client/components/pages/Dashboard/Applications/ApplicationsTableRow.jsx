@@ -1,30 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import StepsTable from '../Steps/StepsTable';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
-import {
-  StyledFormLabel,
-  StyledFormInput,
-  StyledFormPWDInput,
-  StyledButton,
-  StyledFormWrapper,
-  StyledH1,
-  StyledH3,
-  StyledIcon,
-  StyledSpinner,
-  StyledTable,
-  StyledTableWrapper,
-  StyledTd,
-  StyledTh,
-  StyledTr,
-} from '../../../common';
+import { StyledIcon, StyledTd, StyledTr } from '../../../common';
 
 const I = styled(StyledIcon)``;
 const AppTd = styled(StyledTd)``;
-const AppTh = styled(StyledTh)``;
 const AppTr = styled(StyledTr)`
   .hide-ID-col {
     display: none;
@@ -32,6 +15,10 @@ const AppTr = styled(StyledTr)`
 
   #notes-column {
     max-width: 300px;
+  }
+
+  .stepsTableWrapper {
+    opacity: 1;
   }
 `;
 
@@ -94,7 +81,7 @@ const ApplicationsTableRow = ({
         unmountOnExit
       >
         <AppTr>
-          <AppTd colSpan={10}>
+          <AppTd className="stepsTableWrapper " colSpan={10}>
             <StepsTable app={dashboardTableRow} />
           </AppTd>
         </AppTr>

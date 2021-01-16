@@ -1,23 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-  StyledFormLabel,
-  StyledFormInput,
-  StyledFormPWDInput,
-  StyledButton,
-  StyledFormWrapper,
-  StyledH1,
-  StyledH3,
-  StyledIcon,
-  StyledSpinner,
-  StyledTable,
-  StyledTableWrapper,
   StyledTd,
   StyledTh,
   StyledTr,
 } from '../../../common';
 
-const AppTd = styled(StyledTd)``;
 const AppTh = styled(StyledTh)``;
 const AppTr = styled(StyledTr)`
   .hide-ID-col {

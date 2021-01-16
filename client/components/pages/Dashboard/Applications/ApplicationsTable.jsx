@@ -8,19 +8,8 @@ import SearchBar from '../SearchBar';
 import axios from 'axios';
 import styled from 'styled-components';
 import {
-  StyledFormLabel,
-  StyledFormInput,
-  StyledFormPWDInput,
-  StyledButton,
-  StyledFormWrapper,
-  StyledH1,
-  StyledH3,
-  StyledSpinner,
   StyledTable,
   StyledTableWrapper,
-  StyledTd,
-  StyledTh,
-  StyledTr,
 } from '../../../common';
 
 const AppTableWrapper = styled(StyledTableWrapper)``;

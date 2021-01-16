@@ -3,30 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import styled from 'styled-components';
 import {
-  StyledFormLabel,
-  StyledFormInput,
-  StyledFormPWDInput,
-  StyledButton,
-  StyledFormWrapper,
-  StyledH1,
-  StyledH3,
   StyledIcon,
-  StyledSpinner,
-  StyledTable,
-  StyledTableWrapper,
   StyledTd,
-  StyledTh,
   StyledTr,
 } from '../../../common';
 
 const I = styled(StyledIcon)``;
-const StepsTd = styled(StyledTd)`
-  opacity: 1;
-`;
-const StepsTh = styled(StyledTh)``;
+const StepsTd = styled(StyledTd)``;
 const StepsTr = styled(StyledTr)``;
-
-
 
 const StepsTableRow = ({
   idx,
