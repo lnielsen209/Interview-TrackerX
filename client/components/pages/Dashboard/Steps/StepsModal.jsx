@@ -68,7 +68,7 @@ const StepsModal = ({
   const [contact_role, setContractRole] = useState(
     currentStep.contact_role || ''
   );
-  const [contact_info, setContact] = useState(currentStep.contact_info || '');
+  const [contact, setContact] = useState(currentStep.contact_info || '');
   const [notes, setNote] = useState(currentStep.notes || '');
 
   const auth = useAuth();
@@ -124,7 +124,7 @@ const StepsModal = ({
       step_type,
       contact_name,
       contact_role,
-      contact_info,
+      contact,
       notes,
     };
 
@@ -174,7 +174,7 @@ const StepsModal = ({
           <StepsModelInput
             type='text'
             placeholder='e.g. phone number or email'
-            value={contact_info}
+            value={contact}
             onChange={(e) => setContact(e.target.value)}
             required
           />
