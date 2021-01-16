@@ -152,43 +152,43 @@ const ApplicationsModal = ({
         <AppModelForm>
           <AppModelLabel>Company</AppModelLabel>
           <AppModelInput
-            type="text"
+            type='text'
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             required
           />
           <AppModelLabel>Position</AppModelLabel>
           <AppModelInput
-            type="text"
+            type='text'
             value={job_title}
             onChange={(e) => setJobTitle(e.target.value)}
             required
           />
           <AppModelLabel>How I applied </AppModelLabel>
           <AppModelInput
-            type="text"
-            placeholder="e.g. email, company website, Glassdoor,..."
+            type='text'
+            placeholder='e.g. email, company website, Glassdoor,...'
             value={how_applied}
             onChange={(e) => setHowApplied(e.target.value)}
             required
           />
           <AppModelLabel>Date applied </AppModelLabel>
           <AppModelInput
-            type="date"
+            type='date'
             value={date_applied.slice(0, 10)}
             onChange={(e) => setDateApplied(e.target.value)}
             required
           />
           <AppModelLabel>Location </AppModelLabel>
           <AppModelInput
-            type="text"
+            type='text'
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
           />
           <AppModelLabel>URL </AppModelLabel>
           <AppModelInput
-            type="text"
+            type='text'
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             required
@@ -196,36 +196,36 @@ const ApplicationsModal = ({
 
           <AppModelLabel>Found by </AppModelLabel>
           <AppModelInput
-            type="text"
-            placeholder="e.g. recruiter/agency, linkedIn, Google,..."
+            type='text'
+            placeholder='e.g. recruiter/agency, linkedIn, Google,...'
             value={found_by}
             onChange={(e) => setFoundBy(e.target.value)}
             required
           />
           <AppModelLabel>Notes </AppModelLabel>
           <AppModelInput
-            type="text"
+            type='text'
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             required
           />
           <AppModelLabel>App Status</AppModelLabel>
           <AppModelSelect
-            as="select"
+            as='select'
             value={app_status}
             onChange={(e) => setAppStatus(e.target.value)}
             required
           >
-            <option value="Not Applied">Not Applied</option>
-            <option value="Applied">Applied</option>
-            <option value="Phone Screening">Phone Screening</option>
-            <option value="Technical Interview">Technical Interview</option>
-            <option value="Interviewing">Interviewing</option>
-            <option value="Offer Received">Offer Received</option>
-            <option value="Offer Accepted">Offer Accepted</option>
-            <option value="Offer Rejected">Offer Rejected</option>
-            <option value="Application Rejected">Application Rejected</option>
-            <option value="Not Interested">Not Interested</option>
+            <option value='Not Applied'>Not Applied</option>
+            <option value='Applied'>Applied</option>
+            <option value='Phone Screening'>Phone Screening</option>
+            <option value='Technical Interview'>Technical Interview</option>
+            <option value='Interviewing'>Interviewing</option>
+            <option value='Offer Received'>Offer Received</option>
+            <option value='Offer Accepted'>Offer Accepted</option>
+            <option value='Offer Rejected'>Offer Rejected</option>
+            <option value='Application Rejected'>Application Rejected</option>
+            <option value='Not Interested'>Not Interested</option>
           </AppModelSelect>
           <Div>
             <AppModelButton
@@ -238,7 +238,7 @@ const ApplicationsModal = ({
             <AppModelButton
               secondary
               small
-              type="submit"
+              type='submit'
               onClick={handleSubmit}
             >
               Save

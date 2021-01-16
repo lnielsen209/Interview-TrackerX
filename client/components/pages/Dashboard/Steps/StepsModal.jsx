@@ -68,7 +68,7 @@ const StepsModal = ({
   const [contact_role, setContractRole] = useState(
     currentStep.contact_role || ''
   );
-  const [contact, setContact] = useState(currentStep.contact || '');
+  const [contact_info, setContact] = useState(currentStep.contact_info || '');
   const [notes, setNote] = useState(currentStep.notes || '');
 
   const auth = useAuth();
@@ -124,7 +124,7 @@ const StepsModal = ({
       step_type,
       contact_name,
       contact_role,
-      contact,
+      contact_info,
       notes,
     };
 
@@ -142,45 +142,45 @@ const StepsModal = ({
         <StepsModelForm>
           <StepsModelLabel>Date </StepsModelLabel>
           <StepsModelInput
-            type="date"
+            type='date'
             value={date.slice(0, 10)}
             onChange={(e) => setDate(e.target.value)}
             required
           />
-          <StepsModelLabel>Progess </StepsModelLabel>
+          <StepsModelLabel>Progess</StepsModelLabel>
           <StepsModelInput
-            type="text"
-            placeholder="e.g. interview, screening, offer"
+            type='text'
+            placeholder='e.g. interview, screening, offer'
             value={step_type}
             onChange={(e) => setStepType(e.target.value)}
             required
           />
-          <StepsModelLabel>Contact Name </StepsModelLabel>
+          <StepsModelLabel>Contact Name</StepsModelLabel>
           <StepsModelInput
-            type="text"
+            type='text'
             value={contact_name}
             onChange={(e) => setContactName(e.target.value)}
             required
           />
-          <StepsModelLabel>Contact Role </StepsModelLabel>
+          <StepsModelLabel>Contact Role</StepsModelLabel>
           <StepsModelInput
-            type="text"
-            placeholder="e.g. HR representative, manager"
+            type='text'
+            placeholder='e.g. HR representative, manager'
             value={contact_role}
             onChange={(e) => setContractRole(e.target.value)}
             required
           />
-          <StepsModelLabel>Contact </StepsModelLabel>
+          <StepsModelLabel>Email</StepsModelLabel>
           <StepsModelInput
-            type="text"
-            placeholder="e.g. phone number or email"
-            value={contact}
+            type='text'
+            placeholder='e.g. phone number or email'
+            value={contact_info}
             onChange={(e) => setContact(e.target.value)}
             required
           />
-          <StepsModelLabel>Notes </StepsModelLabel>
+          <StepsModelLabel>Notes</StepsModelLabel>
           <StepsModelInput
-            type="text"
+            type='text'
             value={notes}
             onChange={(e) => setNote(e.target.value)}
             required
@@ -197,7 +197,7 @@ const StepsModal = ({
             <StepsModelButton
               secondary
               small
-              type="submit"
+              type='submit'
               onClick={handleSubmit}
             >
               Save
